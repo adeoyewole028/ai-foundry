@@ -202,7 +202,8 @@ export function LessonList({
               <Link
                 className="inline-flex min-h-11 min-w-32 items-center justify-center gap-2 rounded-full px-4 text-sm font-semibold transition"
                 href={pendingRedirect.href}
-                style={{ backgroundColor: "var(--color-ink)", color: "white" }}
+                style={{ backgroundColor: "var(--color-ink)", color: "var(--color-surface)" }}
+                onClick={() => setPendingRedirect(null)}
               >
                 <span>Continue</span>
                 <ArrowRight className="size-4" aria-hidden="true" />

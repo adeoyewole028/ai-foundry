@@ -55,18 +55,21 @@ export async function submitQuizAttemptAction({
   moduleSlug,
   lessonSlug,
   questions,
-  answers
+  answers,
+  quizMode
 }: {
   moduleSlug: string;
   lessonSlug: string;
   questions: QuizQuestion[];
   answers: Record<string, string>;
+  quizMode?: "multiple-choice" | "short-answer";
 }) {
   const result = await submitQuizAttemptForCurrentUser({
     moduleSlug,
     lessonSlug,
     questions,
-    answers
+    answers,
+    quizMode
   });
 
   if (result.ok) {

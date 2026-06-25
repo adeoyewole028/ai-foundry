@@ -223,8 +223,9 @@ export function ResourceIndexList({
                 href={pendingRedirect.href}
                 style={{
                   backgroundColor: "var(--color-ink)",
-                  color: "white"
+                  color: "var(--color-surface)"
                 }}
+                onClick={() => setPendingRedirect(null)}
               >
                 <span>Continue</span>
                 <ArrowRight className="size-4" aria-hidden="true" />

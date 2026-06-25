@@ -2,7 +2,7 @@ import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 import type { LessonProgressState } from "@/lib/lesson-progress-core.js";
 import type { QuizQuestion } from "@/lib/content";
-import { gradeQuizSubmission } from "@/lib/quiz-grading";
+import { gradeQuizSubmission, type QuizMode } from "@/lib/quiz-grading";
 
 type QuizAnswer = Record<string, string>;
 
@@ -244,12 +244,14 @@ export async function submitQuizAttemptForCurrentUser({
   moduleSlug,
   lessonSlug,
   questions,
-  answers
+  answers,
+  quizMode
 }: {
   moduleSlug: string;
   lessonSlug: string;
   questions: QuizQuestion[];
   answers: QuizAnswer;
+  quizMode?: QuizMode;
 }): Promise<
   ({ ok: true } & QuizAttemptFeedbackPayload) | { ok: false; error: string }
 > {
@@ -267,7 +269,8 @@ export async function submitQuizAttemptForCurrentUser({
 
   const { results: feedback, score, totalQuestions, matchedKeywordCount, passed } = gradeQuizSubmission(
     questions,
-    answers
+    answers,
+    quizMode
   );
 
   const { error: attemptError } = await supabase.from("quiz_attempts").insert({

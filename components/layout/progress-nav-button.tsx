@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 import { ArrowRight, Lock, X } from "lucide-react";
 import type { ModuleMeta } from "@/lib/content";
 import type { LessonProgressState } from "@/lib/lesson-progress-core.js";
@@ -35,6 +36,37 @@ export function ProgressNavButton({
 }: ProgressNavButtonProps) {
   const [pendingRedirect, setPendingRedirect] = useState<PendingRedirect | null>(null);
   const [progress, setProgress] = useState<LessonProgressState>(initialProgress);
+  const pathname = usePathname();
+  const activeCurriculumLesson = useMemo(() => {
+    if (!pathname) {
+      return null;
+    }
+
+    const match = pathname.match(/^\/curriculum\/([^/]+)\/([^/]+)/);
+
+    if (!match) {
+      return null;
+    }
+
+    const moduleSlug = decodeURIComponent(match[1]);
+    const lessonSlug = decodeURIComponent(match[2]);
+    const module = modules.find((candidate) => candidate.slug === moduleSlug);
+
+    if (!module) {
+      return null;
+    }
+
+    const lesson = module.lessons.find((candidate) => candidate.slug === lessonSlug);
+
+    if (!lesson) {
+      return null;
+    }
+
+    return {
+      module,
+      lesson
+    };
+  }, [modules, pathname]);
 
   useEffect(() => {
     const refresh = () => {
@@ -61,12 +93,24 @@ export function ProgressNavButton({
     [modules, progress]
   );
   const nextLesson = curriculumProgress.nextLesson;
+  const activeLessonRef = activeCurriculumLesson
+    ? {
+      moduleSlug: activeCurriculumLesson.module.slug,
+      lessonSlug: activeCurriculumLesson.lesson.slug,
+      lessonTitle: activeCurriculumLesson.lesson.title,
+      moduleTitle: activeCurriculumLesson.module.title
+    }
+    : null;
+  const targetLesson = activeCurriculumLesson ? activeLessonRef : nextLesson;
   const shouldGate =
-    isProtectedResourcePath(href) && Boolean(nextLesson);
+    isProtectedResourcePath(href) && Boolean(targetLesson);
 
-  const continueHref = nextLesson
-    ? `/curriculum/${nextLesson.moduleSlug}/${nextLesson.lessonSlug}`
+  const continueHref = targetLesson
+    ? `/curriculum/${targetLesson.moduleSlug}/${targetLesson.lessonSlug}`
     : href;
+  const lockedCopy = targetLesson
+    ? `Continue with "${targetLesson.lessonTitle ?? "your current lesson"}" in ${targetLesson.moduleTitle ?? "the curriculum"} first.`
+    : "Finish your current lesson first before moving forward.";
 
   if (!shouldGate) {
     return (
@@ -76,19 +120,17 @@ export function ProgressNavButton({
     );
   }
 
-  const lockedCopy = `Continue with "${nextLesson?.lessonTitle ?? "your current lesson"}" in ${nextLesson?.moduleTitle ?? "the curriculum"} first.`;
-
   return (
     <>
       <button
         className={className}
         onClick={() =>
           setPendingRedirect(
-            nextLesson
+            targetLesson
               ? {
                   continueHref,
-                  lessonTitle: nextLesson.lessonTitle,
-                  moduleTitle: nextLesson.moduleTitle
+                  lessonTitle: targetLesson.lessonTitle,
+                  moduleTitle: targetLesson.moduleTitle
                 }
               : null
           )
@@ -137,11 +179,13 @@ export function ProgressNavButton({
                 Cancel
               </button>
               <Link
-                className="inline-flex min-h-11 min-w-32 items-center justify-center gap-2 rounded-full px-4 text-sm font-semibold text-surface transition"
+                className="inline-flex min-h-11 min-w-32 items-center justify-center gap-2 rounded-full px-4 text-sm font-semibold transition"
                 href={pendingRedirect.continueHref}
                 style={{
-                  backgroundColor: "var(--color-ink)"
+                  backgroundColor: "var(--color-ink)",
+                  color: "var(--color-surface)"
                 }}
+                onClick={() => setPendingRedirect(null)}
               >
                 Continue
                 <ArrowRight className="size-4" aria-hidden="true" />

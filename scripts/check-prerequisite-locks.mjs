@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getModuleLessonProgress } from "../lib/lesson-progress-core.js";
+import { getLessonAccessState, getModuleLessonProgress } from "../lib/lesson-progress-core.js";
 
 function getOrderedModules(modules) {
   return [...modules].sort((a, b) => a.order - b.order);
@@ -30,6 +30,18 @@ function isModuleLocked(modules, targetSlug, progress) {
 
 function isModuleUnlocked(modules, targetSlug, progress) {
   return !isModuleLocked(modules, targetSlug, progress).arePrerequisitesLocked;
+}
+
+function isLessonUnlocked(modules, moduleSlug, lessonSlug, progress) {
+  const module = modules.find((candidate) => candidate.slug === moduleSlug);
+
+  if (!module) {
+    throw new Error(`Unknown module for access check: ${moduleSlug}`);
+  }
+
+  const result = getLessonAccessState(module, lessonSlug, progress);
+
+  return result?.isUnlocked ?? false;
 }
 
 const modules = [
@@ -103,4 +115,36 @@ test("module-02 stays locked if module-01 is missing completion", () => {
     arePrerequisitesLocked: true,
     lockedPrerequisiteOrder: 1
   });
+});
+
+test("lesson unlocks by in-module progression and module-level prerequisite lock", () => {
+  const module01UnlockedEvenBeforeCompletion = {
+    "module-00::intro": true,
+    "module-00::basics": true,
+    "module-01::next-steps": false
+  };
+
+  assert.equal(isLessonUnlocked(modules, "module-01", "next-steps", module01UnlockedEvenBeforeCompletion), true);
+
+  const module00Incomplete = {
+    "module-00::intro": false,
+    "module-00::basics": false
+  };
+
+  assert.equal(isLessonUnlocked(modules, "module-00", "basics", module00Incomplete), false);
+  assert.equal(isLessonUnlocked(modules, "module-00", "intro", module00Incomplete), true);
+
+  const module01LockedByPrereq = {
+    "module-00::intro": true,
+    "module-00::basics": false
+  };
+
+  const module01Access = getLessonAccessState(
+    modules.find((candidate) => candidate.slug === "module-01"),
+    "next-steps",
+    module01LockedByPrereq
+  );
+
+  assert.equal(isModuleUnlocked(modules, "module-01", module01LockedByPrereq), false);
+  assert.equal(module01Access?.isUnlocked ?? false, true);
 });

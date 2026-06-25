@@ -19,6 +19,40 @@ const requiredLessonHeadings = [
   "## Completion Checklist"
 ];
 const requiredModuleDocs = ["overview.mdx", "exercises.mdx", "README.md"];
+const MIN_SHORT_ANSWER_KEYWORDS = 2;
+const REQUIRED_SECTION_PLAIN_TEXT_HEADINGS = [
+  "## Objective",
+  "## Prerequisites",
+  "## Plain-English Explanation",
+  "## Key Terms",
+  "## Mental Model",
+  "## Example",
+  "## Code Walkthrough",
+  "## Common Mistakes",
+  "## Exercise",
+  "## Reflection",
+  "## Further Reading"
+];
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function getSectionText(source, heading) {
+  const escaped = escapeRegExp(heading);
+  const regex = new RegExp(`${escaped}[\\s\\S]*?(?=\\n## |$)`);
+  const match = source.match(regex);
+
+  if (!match) {
+    return "";
+  }
+
+  return match[0].replace(heading, "").trim();
+}
+
+function isEmptySectionText(text) {
+  return text.replace(/\s+/g, "").length === 0;
+}
 
 function listModules() {
   return fs
@@ -45,6 +79,23 @@ function hasReferenceLinks(source) {
     /\[[^\]]+\]\(mailto:[^)]+\)/.test(source) ||
     /\[[^\]]+\]\(\/\/[^)]+\)/.test(source)
   );
+}
+
+function isShortAnswerQuestion(question) {
+  const hasOptions = Array.isArray(question.options) && question.options.length > 0;
+  return question.quizMode === "short-answer" || !hasOptions;
+}
+
+function isQuestionModeCompatible(question, hasOptions) {
+  if (question.quizMode === "short-answer") {
+    return !hasOptions;
+  }
+
+  if (question.quizMode === "multiple-choice") {
+    return hasOptions;
+  }
+
+  return true;
 }
 
 function withName(value) {
@@ -119,6 +170,60 @@ test("all module lesson markdown follows template and includes reference links",
         hasReferenceLinks(source),
         `${slug}/${lesson.file} needs at least one reference link`
       );
+
+      for (const heading of REQUIRED_SECTION_PLAIN_TEXT_HEADINGS) {
+        const sectionText = getSectionText(source, heading);
+        assert.ok(
+          !isEmptySectionText(sectionText),
+          `${slug}/${lesson.file} section ${heading} should contain content`
+        );
+      }
+
+      const checklistSectionText = getSectionText(source, "## Completion Checklist");
+      assert.ok(
+        /\[[\sxX]\]/.test(checklistSectionText),
+        `${slug}/${lesson.file} completion checklist should use checkbox items (for example '- [ ] ...')`
+      );
+
+      if (lesson.type === "quiz") {
+        const questions = Array.isArray(lesson.quizQuestions) ? lesson.quizQuestions : [];
+
+        assert.ok(questions.length > 0, `${slug}/${lesson.file} quiz should include quiz questions`);
+
+        for (const question of questions) {
+          const hasOptions = Array.isArray(question.options) && question.options.length > 0;
+          const shortAnswerMode = isShortAnswerQuestion(question);
+
+          assert.ok(
+            isQuestionModeCompatible(question, hasOptions),
+            `${slug}/${lesson.file} question ${question.id || "unknown"} has quizMode/mode mismatch`
+          );
+
+          if (shortAnswerMode) {
+            const rubric = Array.isArray(question.rubric) ? question.rubric : [];
+            const keywords = Array.isArray(question.keywords) ? question.keywords : [];
+
+            assert.ok(
+              rubric.length > 0 || keywords.length >= MIN_SHORT_ANSWER_KEYWORDS,
+              `${slug}/${lesson.file} question ${question.id || "unknown"} should include rubric or at least ${MIN_SHORT_ANSWER_KEYWORDS} keywords`
+            );
+          } else {
+            assert.ok(
+              typeof question.correctOptionId === "string" && question.correctOptionId.length > 0,
+              `${slug}/${lesson.file} question ${question.id || "unknown"} missing correctOptionId`
+            );
+            assert.ok(
+              question.options.length >= 2,
+              `${slug}/${lesson.file} question ${question.id || "unknown"} needs at least 2 options`
+            );
+          }
+
+          assert.ok(
+            typeof question.correctAnswer === "string" && question.correctAnswer.trim().length > 0,
+            `${slug}/${lesson.file} question ${question.id || "unknown"} missing correctAnswer`
+          );
+        }
+      }
     }
   }
 });

@@ -212,7 +212,7 @@ function getCorrectOptionId(question: QuizQuestion) {
     return resolvedCorrectOptionId;
   }
 
-  return question.options.length > 0 ? question.options[0]?.id ?? "correct" : "correct";
+  return null;
 }
 
 function getSelectedOption(
@@ -234,12 +234,22 @@ export function QuizAssessment({
   const lessonKey = lessonProgressKey({ moduleSlug, lessonSlug });
   const [state, setState] = useState<QuizAnswerState>({ answers: {}, submitted: false });
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [questionSubmitted, setQuestionSubmitted] = useState<Record<string, boolean>>({});
   const [isCompleted, setIsCompleted] = useState(initialCompleted);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverMessage, setServerMessage] = useState<string | null>(null);
 
   useEffect(() => {
     setState(readQuizActivity(lessonKey, initialAnswers, initialSubmitted));
+    setQuestionSubmitted(
+      initialSubmitted
+        ? questions.reduce<Record<string, boolean>>((acc, question) => {
+          acc[question.id] = true;
+
+          return acc;
+        }, {})
+        : {}
+    );
     const localCompletion = isLessonCompleted(readLessonProgress(), {
       moduleSlug,
       lessonSlug
@@ -279,13 +289,16 @@ export function QuizAssessment({
     ? quizMode === "short-answer" || currentQuestion.options.length === 0
     : false;
   const currentResult = currentQuestion
-    ? gradeQuizAnswer(currentQuestion, currentAnswer)
+    ? gradeQuizAnswer(currentQuestion, currentAnswer, quizMode)
     : null;
+  const isCurrentQuestionSubmitted = currentQuestion
+    ? questionSubmitted[currentQuestion.id] ?? false
+    : false;
   const selectedOption = currentQuestion
     ? getSelectedOption(currentQuestion.options, selectedOptionId)
     : null;
   const correctOption = currentQuestion
-    ? getSelectedOption(currentQuestion.options, currentQuestion.correctOptionId)
+    ? getSelectedOption(currentQuestion.options, currentQuestion.correctOptionId ?? undefined)
     : null;
   const answeredCount = displayQuestions.filter((question) => {
     const answer = state.answers[question.id] ?? "";
@@ -293,7 +306,7 @@ export function QuizAssessment({
     return quizMode === "short-answer" || question.options.length === 0 ? answer.trim().length >= 6 : !!answer;
   }).length;
   const passedCount = displayQuestions.filter((question) => {
-    return gradeQuizAnswer(question, state.answers[question.id] ?? "").passed;
+    return gradeQuizAnswer(question, state.answers[question.id] ?? "", quizMode).passed;
   }).length;
   const isPassing = displayQuestions.length > 0 && passedCount === displayQuestions.length;
   const hasAnsweredCurrent = hasShortAnswerMode ? currentAnswer.trim().length >= 6 : !!selectedOptionId;
@@ -312,6 +325,10 @@ export function QuizAssessment({
     };
 
     setState(next);
+    setQuestionSubmitted((previous) => ({
+      ...previous,
+      [questionId]: false
+    }));
     writeQuizActivity(lessonKey, next);
     setServerMessage(null);
   };
@@ -325,12 +342,21 @@ export function QuizAssessment({
 
     let result: { ok: false; error: string } | ({ ok: true } & { [key: string]: unknown }) | null = null;
 
+    setQuestionSubmitted((previous) =>
+      questions.reduce<Record<string, boolean>>((acc, question) => {
+        acc[question.id] = previous[question.id] ?? true;
+
+        return acc;
+      }, { ...previous })
+    );
+
     try {
       result = await submitQuizAttemptAction({
         moduleSlug,
         lessonSlug,
         questions: displayQuestions,
-        answers: next.answers
+        answers: next.answers,
+        quizMode
       });
     } finally {
       setIsSubmitting(false);
@@ -371,6 +397,11 @@ export function QuizAssessment({
     if (!hasAnsweredCurrent) {
       return;
     }
+
+    setQuestionSubmitted((previous) => ({
+      ...previous,
+      [currentQuestion.id]: true
+    }));
 
     if (isLastQuestion) {
       void submitQuiz();
@@ -417,15 +448,19 @@ export function QuizAssessment({
           <p className="text-sm font-semibold text-ink-soft">
             {currentIndex + 1} / {displayQuestions.length}
           </p>
-          <details className="group relative">
-            <summary className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-rule bg-surface px-3 py-2 text-xs font-semibold text-ink transition hover:border-accent/50">
-              <Eye className="size-3.5" aria-hidden="true" />
-              View answer source
-            </summary>
-            <div className="absolute right-0 z-10 mt-2 w-80 rounded-lg border border-rule bg-surface p-4 text-sm leading-6 text-ink-soft shadow-[var(--shadow-soft)]">
-              {currentQuestion.correctAnswer}
-            </div>
-          </details>
+          {isCurrentQuestionSubmitted ? (
+            <details className="group relative">
+              <summary className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-rule bg-surface px-3 py-2 text-xs font-semibold text-ink transition hover:border-accent/50">
+                <Eye className="size-3.5" aria-hidden="true" />
+                View answer source
+              </summary>
+              <div className="absolute right-0 z-10 mt-2 w-80 rounded-lg border border-rule bg-surface p-4 text-sm leading-6 text-ink-soft shadow-[var(--shadow-soft)]">
+                {currentQuestion.correctAnswer}
+              </div>
+            </details>
+          ) : (
+            <span className="text-xs text-ink-soft">Answer this question to unlock reference.</span>
+          )}
         </div>
 
         <h3 className="mt-8 text-2xl font-bold leading-10 text-ink">
@@ -451,7 +486,7 @@ export function QuizAssessment({
             {currentQuestion.options.map((option, index) => {
               const isSelected = selectedOptionId === option.id;
               const isCorrect = option.id === currentQuestion.correctOptionId;
-              const showFeedback = hasAnsweredCurrent;
+              const showFeedback = isCurrentQuestionSubmitted;
               const isIncorrectSelection = showFeedback && isSelected && !isCorrect;
               const optionStateClass =
                 showFeedback && isCorrect
@@ -501,14 +536,14 @@ export function QuizAssessment({
           </div>
         )}
 
-        {hasAnsweredCurrent && currentResult ? (
-          <div
-            className={`mt-5 rounded-lg border p-4 text-sm leading-6 ${
-              currentResult.passed
-                ? "border-accent/40 bg-accent-soft text-ink"
-                : "border-rule bg-surface text-ink-soft"
-            }`}
-          >
+          {isCurrentQuestionSubmitted && currentResult ? (
+            <div
+              className={`mt-5 rounded-lg border p-4 text-sm leading-6 ${
+                currentResult.passed
+                  ? "border-accent/40 bg-accent-soft text-ink"
+                  : "border-rule bg-surface text-ink-soft"
+              }`}
+            >
             <p className="flex items-center gap-2 font-semibold text-ink">
               {currentResult.passed ? (
                 <CheckCircle2 className="size-4 text-accent" aria-hidden="true" />
@@ -520,6 +555,8 @@ export function QuizAssessment({
             <p className="mt-2">
               {hasShortAnswerMode
                 ? "Use your own words, and make sure you address the rubric points shown above."
+                : currentResult.correctOptionId === null
+                  ? "This question needs review in content because no explicit correct option is configured."
                 : currentResult.passed
                   ? correctOption?.explanation || currentQuestion.correctAnswer
                   : selectedOption?.explanation || "Compare your choice with the highlighted correct answer."}
@@ -548,7 +585,7 @@ export function QuizAssessment({
                 <PenLine className="size-4 text-accent" aria-hidden="true" />
                 <span>Answer in your own words, then move on for feedback.</span>
               </>
-            ) : (
+        ) : (
               "Pick an answer to reveal feedback."
             )}
           </div>

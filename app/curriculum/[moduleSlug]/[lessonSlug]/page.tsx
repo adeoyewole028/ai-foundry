@@ -121,17 +121,7 @@ export default async function LessonPage({
       id="main-content"
       className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[300px_1fr]"
     >
-      <aside className="lg:sticky lg:top-28 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto">
-        <ModuleProgressPanel module={lesson.module} initialProgress={progress} />
-        <p className="mb-3 font-mono text-sm font-semibold text-accent">{lesson.module.title}</p>
-        <LessonList
-          activeLessonSlug={lesson.slug}
-          module={lesson.module}
-          initialProgress={progress}
-          projectSubmissions={projectSubmissions}
-        />
-      </aside>
-      <article className="min-w-0 rounded-xl border border-rule bg-surface px-5 py-8 shadow-sm sm:px-8">
+      <article className="order-1 min-w-0 rounded-xl border border-rule bg-surface px-5 py-8 shadow-sm sm:px-8 lg:order-2 lg:col-start-2 lg:row-start-1">
         <div className="mb-8 flex flex-wrap gap-2 text-xs font-semibold text-ink-soft">
           <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">{lesson.type}</span>
           <span className="rounded-full bg-muted px-2.5 py-1 text-ink-soft">
@@ -190,6 +180,32 @@ export default async function LessonPage({
           initialProgress={progress}
         />
       </article>
+      <aside className="order-2 lg:order-1 lg:sticky lg:top-28 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto lg:col-start-1 lg:row-start-1">
+        <ModuleProgressPanel module={lesson.module} initialProgress={progress} />
+        <p className="mb-3 font-mono text-sm font-semibold text-accent">{lesson.module.title}</p>
+        <details className="lg:hidden">
+          <summary className="inline-flex cursor-pointer items-center justify-between rounded-md border border-rule bg-surface px-3 py-2 text-sm font-semibold text-ink transition hover:border-accent/40 hover:text-accent">
+            <span>Lesson list</span>
+            <span aria-hidden="true">▾</span>
+          </summary>
+          <div className="mt-3">
+            <LessonList
+              activeLessonSlug={lesson.slug}
+              module={lesson.module}
+              initialProgress={progress}
+              projectSubmissions={projectSubmissions}
+            />
+          </div>
+        </details>
+        <div className="hidden lg:block">
+          <LessonList
+            activeLessonSlug={lesson.slug}
+            module={lesson.module}
+            initialProgress={progress}
+            projectSubmissions={projectSubmissions}
+          />
+        </div>
+      </aside>
     </main>
   );
 
@@ -205,12 +221,8 @@ export default async function LessonPage({
   );
 
   return (
-    isAuthenticated ? (
-      <ModuleAccessGate moduleSlug={lesson.module.slug} modules={orderedModules} initialProgress={progress}>
-        {gatedLessonContent}
-      </ModuleAccessGate>
-    ) : (
-      gatedLessonContent
-    )
+    <ModuleAccessGate moduleSlug={lesson.module.slug} modules={orderedModules} initialProgress={progress}>
+      {gatedLessonContent}
+    </ModuleAccessGate>
   );
 }

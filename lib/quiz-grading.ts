@@ -3,6 +3,7 @@ export type QuizQuestionLike = {
   prompt: string;
   correctAnswer: string;
   keywords: string[];
+  quizMode?: "multiple-choice" | "short-answer";
   options?: Array<{
     id: string;
     label: string;
@@ -36,6 +37,74 @@ export type QuizGradingResult = {
   correctOptionId?: string | null;
   selectedOptionId?: string | null;
 };
+
+export type QuizMode = "multiple-choice" | "short-answer";
+
+function resolveQuizMode(
+  question: QuizQuestionLike,
+  quizMode?: QuizMode
+): QuizMode {
+  if (quizMode === "short-answer" || quizMode === "multiple-choice") {
+    return quizMode;
+  }
+
+  if (question.quizMode === "short-answer" || question.quizMode === "multiple-choice") {
+    return question.quizMode;
+  }
+
+  return question.options && question.options.length > 0 ? "multiple-choice" : "short-answer";
+}
+
+function gradeOpenEndedQuestion(
+  question: QuizQuestionLike,
+  answer: string
+): QuizGradingResult {
+  const rubricResult = question.rubric
+    ? gradeRubricCriteria(answer, question.rubric, question.passingScore)
+    : null;
+  const keywordResult = rubricResult
+    ? {
+        passed: rubricResult.passed,
+        matchedKeywords: rubricResult.criterionResults.flatMap((item) => item.matchedTerms),
+        expectedMinimum: rubricResult.maxScore
+      }
+    : evaluateKeywordMatch(answer, question.keywords);
+  const expectedMinimum = rubricResult ? rubricResult.maxScore : keywordResult.expectedMinimum;
+  const criterionResults =
+    rubricResult?.criterionResults.map((criterion) => ({
+      criterionId: criterion.criterionId,
+      label: criterion.label,
+      passed: criterion.passed,
+      matchedTerms: criterion.matchedTerms,
+      requiredTerms: criterion.requiredTerms
+    })) ?? [];
+
+  if (rubricResult) {
+    return {
+      questionId: question.id,
+      prompt: question.prompt,
+      passed: rubricResult.passed,
+      criterionResults,
+      matchedKeywords: keywordResult.matchedKeywords,
+      expectedMinimum,
+      answerLength: normalize(answer).length,
+      correctOptionId: question.correctOptionId ?? null,
+      selectedOptionId: undefined
+    };
+  }
+
+  return {
+    questionId: question.id,
+    prompt: question.prompt,
+    passed: keywordResult.passed,
+    criterionResults: [],
+    matchedKeywords: keywordResult.matchedKeywords,
+    expectedMinimum,
+    answerLength: normalize(answer).length,
+    correctOptionId: question.correctOptionId ?? null,
+    selectedOptionId: undefined
+  };
+}
 
 function normalize(value: string): string {
   return value.toLowerCase().replace(/\s+/g, " ").trim();
@@ -127,38 +196,6 @@ function gradeRubricCriteria(
   };
 }
 
-function optionMatchScore(
-  optionLabel: string,
-  correctAnswer: string,
-  keywords: string[]
-): number {
-  const normalizedLabel = normalizeOption(optionLabel);
-  const normalizedCorrectAnswer = normalizeOption(correctAnswer);
-  const normalizedKeywords = keywords.map((keyword) => normalizeOption(keyword)).filter(Boolean);
-
-  if (!normalizedLabel) {
-    return 0;
-  }
-
-  let score = 0;
-
-  if (normalizedCorrectAnswer && normalizedCorrectAnswer.includes(normalizedLabel)) {
-    score += 4;
-  }
-
-  if (normalizedLabel.includes(normalizedCorrectAnswer)) {
-    score += 4;
-  }
-
-  for (const keyword of normalizedKeywords) {
-    if (keyword.length > 0 && normalizedLabel.includes(keyword)) {
-      score += 1;
-    }
-  }
-
-  return score;
-}
-
 function pickAnswerText(answer: unknown): string {
   return typeof answer === "string" ? answer : "";
 }
@@ -207,53 +244,13 @@ export function resolveQuizCorrectOptionId(
     }
   }
 
-  const normalizedCorrectAnswer = normalizeOption(question.correctAnswer);
-
   if (question.options && question.options.length > 0) {
     const exactMatch = question.options.find((option) => {
-      return normalizeOption(option.label) === normalizedCorrectAnswer;
+      return normalizeOption(option.label) === normalizeOption(question.correctAnswer);
     });
 
     if (exactMatch) {
       return exactMatch.id;
-    }
-
-    const keywordMatch = question.options.find((option) => {
-      const normalizedLabel = normalizeOption(option.label);
-      return question.keywords.some(
-        (keyword) =>
-          normalizedLabel.length > 0 &&
-          normalizeOption(keyword).length > 0 &&
-          normalizedLabel.includes(normalizeOption(keyword))
-      );
-    });
-
-    if (keywordMatch) {
-      return keywordMatch.id;
-    }
-
-    const bestMatch = question.options.reduce<{
-      option: { id: string; label: string } | null;
-      score: number;
-    }>(
-      (acc, option) => {
-        const score = optionMatchScore(
-          option.label,
-          question.correctAnswer,
-          question.keywords
-        );
-
-        if (score > acc.score) {
-          return { option, score };
-        }
-
-        return acc;
-      },
-      { option: null, score: -1 }
-    );
-
-    if (bestMatch.option && bestMatch.score > 0) {
-      return bestMatch.option.id;
     }
   }
 
@@ -262,20 +259,38 @@ export function resolveQuizCorrectOptionId(
 
 export function gradeQuizAnswer(
   question: QuizQuestionLike,
-  answer: string
+  answer: string,
+  quizMode?: QuizMode
 ): QuizGradingResult {
+  const mode = resolveQuizMode(question, quizMode);
+
+  if (mode === "short-answer") {
+    return gradeOpenEndedQuestion(question, answer);
+  }
+
   if (question.options && question.options.length > 0) {
     const selectedOptionId = answer.trim();
     const resolvedCorrectOptionId = resolveQuizCorrectOptionId(question);
-    const hasResolvedCorrectOptionId = typeof resolvedCorrectOptionId === "string";
+    if (typeof resolvedCorrectOptionId !== "string") {
+      return {
+        questionId: question.id,
+        prompt: question.prompt,
+        passed: false,
+        criterionResults: [],
+        matchedKeywords: [],
+        expectedMinimum: 0,
+        answerLength: answer.trim().length,
+        correctOptionId: null,
+        selectedOptionId
+      };
+    }
+
     const selectedOption = question.options.find((option) => option.id === selectedOptionId);
     const selectedText = selectedOption?.label ?? "";
     const keywordResult = evaluateKeywordMatch(selectedText, question.keywords, false);
     const matchedKeywords = keywordResult.matchedKeywords;
     const expectedMinimum = keywordResult.expectedMinimum;
-    const passed = hasResolvedCorrectOptionId
-      ? selectedOptionId === resolvedCorrectOptionId
-      : keywordResult.passed;
+    const passed = selectedOptionId === resolvedCorrectOptionId;
 
     return {
       questionId: question.id,
@@ -290,56 +305,13 @@ export function gradeQuizAnswer(
     };
   }
 
-  const rubricResult = question.rubric
-    ? gradeRubricCriteria(answer, question.rubric, question.passingScore)
-    : null;
-  const keywordResult = rubricResult
-    ? {
-        passed: rubricResult.passed,
-        matchedKeywords: rubricResult.criterionResults.flatMap((item) => item.matchedTerms),
-        expectedMinimum: rubricResult.maxScore
-      }
-    : evaluateKeywordMatch(answer, question.keywords);
-  const expectedMinimum = rubricResult ? rubricResult.maxScore : keywordResult.expectedMinimum;
-  const criterionResults =
-    rubricResult?.criterionResults.map((criterion) => ({
-      criterionId: criterion.criterionId,
-      label: criterion.label,
-      passed: criterion.passed,
-      matchedTerms: criterion.matchedTerms,
-      requiredTerms: criterion.requiredTerms
-    })) ?? [];
-
-  if (rubricResult) {
-    return {
-      questionId: question.id,
-      prompt: question.prompt,
-      passed: rubricResult.passed,
-      criterionResults,
-      matchedKeywords: keywordResult.matchedKeywords,
-      expectedMinimum,
-      answerLength: normalize(answer).length,
-      correctOptionId: question.correctOptionId ?? null,
-      selectedOptionId: undefined
-    };
-  }
-
-  return {
-    questionId: question.id,
-    prompt: question.prompt,
-    passed: keywordResult.passed,
-    criterionResults: [],
-    matchedKeywords: keywordResult.matchedKeywords,
-    expectedMinimum,
-    answerLength: normalize(answer).length,
-    correctOptionId: question.correctOptionId ?? null,
-    selectedOptionId: undefined
-  };
+  return gradeOpenEndedQuestion(question, answer);
 }
 
 export function gradeQuizSubmission(
   questions: QuizQuestionLike[],
-  answers: Record<string, string>
+  answers: Record<string, string>,
+  quizMode?: QuizMode
 ): {
   results: QuizGradingResult[];
   score: number;
@@ -347,7 +319,9 @@ export function gradeQuizSubmission(
   matchedKeywordCount: number;
   passed: boolean;
 } {
-  const results = questions.map((question) => gradeQuizAnswer(question, pickAnswerText(answers[question.id])));
+  const results = questions.map((question) =>
+    gradeQuizAnswer(question, pickAnswerText(answers[question.id]), quizMode)
+  );
   const score = results.filter((item) => item.passed).length;
   const totalQuestions = questions.length;
   const matchedKeywordCount = results.reduce((total, item) => total + item.matchedKeywords.length, 0);
