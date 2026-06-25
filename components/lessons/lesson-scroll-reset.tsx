@@ -9,7 +9,10 @@ type LessonScrollResetProps = {
 
 export function LessonScrollReset({ lessonSlug, moduleSlug }: LessonScrollResetProps) {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
+    const mainContent = document.getElementById("main-content");
+    mainContent?.scrollIntoView({ block: "start", behavior: "auto" });
   }, [moduleSlug, lessonSlug]);
 
   return null;
