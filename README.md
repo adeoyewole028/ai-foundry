@@ -1,35 +1,69 @@
-# AI Foundry Codex Pack
+# AI Foundry
 
-This pack contains the first implementation documents for building AI Foundry, an Odin-style AI engineering learning platform.
+AI Foundry is an Odin-style curriculum app for AI engineering with lesson content, quizzes, projects, and progress tracking.
 
-## Files
+## Quick start
 
-- `PRD.md` — product requirements and MVP scope
-- `SYSTEM_ARCHITECTURE.md` — recommended technical architecture
-- `CURRICULUM_STRUCTURE.md` — lesson/module design system
-- `AGENT.md` — Codex instructions for implementation
-
-## How to Use With Codex
-
-1. Create a new repository called `ai-foundry`.
-2. Add these files into a `/docs` folder.
-3. Copy `AGENT.md` into the project root if your coding agent reads root-level instruction files.
-4. Ask Codex to implement the project in milestones.
-
-Suggested first prompt:
-
-```text
-Read docs/PRD.md, docs/SYSTEM_ARCHITECTURE.md, docs/CURRICULUM_STRUCTURE.md, and AGENT.md.
-
-Implement Milestone 1 only:
-- Next.js + TypeScript + Tailwind foundation
-- Landing page
-- Curriculum page
-- Module page
-- Lesson page
-- Markdown/MDX content loader
-- One complete AI Foundations module with at least 3 lessons
-
-Do not add Supabase or auth yet.
-Keep the implementation simple, typed, responsive, and production-quality.
+```bash
+npm install
+npm run dev
 ```
+
+### Environment variables
+
+Copy `.env.example` (if available) to `.env.local` and set:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+
+If either variable is missing, the app still renders public lesson content and keeps local progress in the browser.
+
+## Supabase setup (required for sign-in + synced progress)
+
+For authenticated features (dashboard, quiz sync, project submissions), create the following tables and policies in Supabase SQL Editor:
+
+1. Open SQL Editor in your Supabase project.
+2. Run the migration in `supabase/schema.sql`.
+3. Enable Email auth in the Supabase Auth settings.
+4. Keep your app URL in Authentication redirect settings.
+
+`supabase/schema.sql` includes:
+
+- `public.profiles`
+- `public.lesson_progress`
+- `public.quiz_attempts`
+- `public.project_submissions`
+- RLS policies for owner-only access
+- Helpful indexes for query performance
+
+### Notes
+
+- `quiz_attempts` stores rubric-level scoring metadata for short-answer and multiple-choice assessments.
+- `project_submissions` supports portfolio links and status tracking (`submitted`, `reviewed`, `needs_work`).
+- Lesson completion is written to `lesson_progress` once a quiz is passed or a project is submitted.
+
+## Commands
+
+```bash
+npm run test:smoke
+```
+
+Validates:
+
+- curriculum content shape
+- lesson/progress utilities
+- MDX links
+- prerequisite locking behavior
+
+```bash
+npm run typecheck
+```
+
+Type-checks the app and content models.
+
+## Documentation
+
+- [PRD.md](./PRD.md)
+- [SYSTEM_ARCHITECTURE.md](./SYSTEM_ARCHITECTURE.md)
+- [CURRICULUM_STRUCTURE.md](./CURRICULUM_STRUCTURE.md)
+- [AGENT.md](./AGENT.md)

@@ -2,9 +2,14 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import type { Lesson } from "@/lib/content";
 import type { LessonProgressState } from "@/lib/lesson-progress-core.js";
+import { getLesson, type QuizQuestion } from "@/lib/content";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { syncLessonProgressForCurrentUser } from "@/lib/supabase/progress";
+import {
+  syncLessonProgressForCurrentUser,
+  submitQuizAttemptForCurrentUser
+} from "@/lib/supabase/progress";
 import { createClient } from "@/lib/supabase/server";
 
 function getString(formData: FormData, key: string) {
@@ -40,6 +45,151 @@ function parseLocalProgressFromForm(formData: FormData): LessonProgressState {
     }, {});
   } catch {
     return {};
+  }
+}
+
+type LocalQuizRecord = {
+  quizAnswers?: unknown;
+  quizSubmitted?: unknown;
+};
+
+type LocalQuizProgressState = Record<string, LocalQuizRecord>;
+
+type PendingQuizAttempt = {
+  moduleSlug: string;
+  lessonSlug: string;
+  answers: QuizAnswer;
+  submitted: boolean;
+};
+
+type QuizAnswer = Record<string, string>;
+
+function normalizeQuizAnswerRecord(raw: unknown): QuizAnswer | null {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    return null;
+  }
+
+  const answers = Object.entries(raw).reduce<QuizAnswer>((acc, [questionId, answer]) => {
+    if (typeof questionId === "string" && typeof answer === "string") {
+      acc[questionId] = answer;
+    }
+
+    return acc;
+  }, {});
+
+  if (Object.keys(answers).length === 0) {
+    return null;
+  }
+
+  return answers;
+}
+
+function parseLocalQuizProgressFromForm(formData: FormData): LocalQuizProgressState {
+  const raw = formData.get("localQuizProgress");
+
+  if (typeof raw !== "string") {
+    return {};
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+
+    if (typeof parsed !== "object" || parsed === null) {
+      return {};
+    }
+
+    return Object.entries(parsed).reduce<LocalQuizProgressState>((acc, [key, value]) => {
+      if (typeof key !== "string" || typeof value !== "object" || value === null || Array.isArray(value)) {
+        return acc;
+      }
+
+      const candidate = value as LocalQuizRecord;
+      const answers = normalizeQuizAnswerRecord(candidate.quizAnswers);
+      const submitted = candidate.quizSubmitted === true;
+
+      if (answers) {
+        acc[key] = {
+          quizAnswers: answers,
+          quizSubmitted: submitted
+        };
+      }
+
+      return acc;
+    }, {});
+  } catch {
+    return {};
+  }
+}
+
+function collectPendingQuizAttempts(localState: LocalQuizProgressState): PendingQuizAttempt[] {
+  return Object.entries(localState).flatMap(([key, value]) => {
+    if (!value.quizAnswers || value.quizSubmitted !== true) {
+      return [];
+    }
+
+    const separatorIndex = key.indexOf("::");
+
+    if (separatorIndex <= 0) {
+      return [];
+    }
+
+    const moduleSlug = key.slice(0, separatorIndex);
+    const lessonSlug = key.slice(separatorIndex + 2);
+
+    return [{
+      moduleSlug,
+      lessonSlug,
+      answers: value.quizAnswers as QuizAnswer,
+      submitted: true
+    }];
+  });
+}
+
+function getQuizMetadataFromLesson(lesson: Lesson | null): {
+  questions: QuizQuestion[];
+  quizMode?: "multiple-choice" | "short-answer";
+} | null {
+  if (!lesson || lesson.type !== "quiz") {
+    return null;
+  }
+
+  return {
+    questions: lesson.quizQuestions,
+    quizMode: lesson.quizMode
+  };
+}
+
+async function syncPendingQuizProgress(formData: FormData) {
+  const localQuizProgress = parseLocalQuizProgressFromForm(formData);
+  const pendingAttempts = collectPendingQuizAttempts(localQuizProgress);
+
+  if (pendingAttempts.length === 0) {
+    return;
+  }
+
+  for (const attempt of pendingAttempts) {
+    if (!attempt.submitted) {
+      continue;
+    }
+
+    const lesson = await getLesson(attempt.moduleSlug, attempt.lessonSlug);
+    const metadata = getQuizMetadataFromLesson(lesson);
+
+    if (!metadata || metadata.questions.length === 0) {
+      continue;
+    }
+
+    const result = await submitQuizAttemptForCurrentUser({
+      moduleSlug: attempt.moduleSlug,
+      lessonSlug: attempt.lessonSlug,
+      questions: metadata.questions,
+      answers: attempt.answers,
+      quizMode: metadata.quizMode
+    });
+
+    if (!result.ok) {
+      continue;
+    }
   }
 }
 
@@ -80,6 +230,7 @@ export async function login(formData: FormData) {
   }
 
   await syncPendingLessonProgress(formData);
+  await syncPendingQuizProgress(formData);
   revalidatePath("/", "layout");
   redirect("/dashboard");
 }
@@ -123,6 +274,7 @@ export async function signup(formData: FormData) {
       full_name: fullName
     });
     await syncPendingLessonProgress(formData);
+    await syncPendingQuizProgress(formData);
   }
 
   revalidatePath("/", "layout");

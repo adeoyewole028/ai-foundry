@@ -5,6 +5,7 @@ import { LessonAccessGate } from "@/components/curriculum/lesson-access-gate";
 import { ModuleAccessGate } from "@/components/curriculum/module-access-gate";
 import { ModuleProgressPanel } from "@/components/curriculum/module-progress";
 import { LessonNav } from "@/components/lessons/lesson-nav";
+import { LessonScrollReset } from "@/components/lessons/lesson-scroll-reset";
 import { LessonChecklist } from "@/components/lessons/lesson-checklist";
 import { ProjectSubmissionForm } from "@/components/lessons/project-submission-form";
 import { QuizAssessment } from "@/components/lessons/quiz-assessment";
@@ -119,8 +120,9 @@ export default async function LessonPage({
   const lessonContent = (
     <main
       id="main-content"
-      className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[300px_1fr]"
+      className="mx-auto grid max-w-6xl gap-8 px-4 py-6 sm:px-6 sm:py-10 lg:grid-cols-[300px_1fr] lg:py-10"
     >
+      <LessonScrollReset lessonSlug={lesson.slug} moduleSlug={lesson.module.slug} />
       <article className="order-1 min-w-0 rounded-xl border border-rule bg-surface px-5 py-8 shadow-sm sm:px-8 lg:order-2 lg:col-start-2 lg:row-start-1">
         <div className="mb-8 flex flex-wrap gap-2 text-xs font-semibold text-ink-soft">
           <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">{lesson.type}</span>

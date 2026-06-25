@@ -47,7 +47,7 @@ export default async function LoginPage({
         ) : null}
 
         <form action={login} className="mt-6 grid gap-4">
-          <LocalProgressField fieldName="localProgress" />
+          <LocalProgressField fieldName="localProgress" quizFieldName="localQuizProgress" />
           <label className="grid gap-1 text-sm font-semibold text-ink">
             Email
             <input

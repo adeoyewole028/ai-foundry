@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { readLessonProgress } from "@/lib/lesson-progress";
+import { lessonActivityStorageKey, readLessonProgress } from "@/lib/lesson-progress";
 
 type LocalProgressFieldProps = {
   fieldName: string;
+  quizFieldName?: string;
 };
 
-export function LocalProgressField({ fieldName }: LocalProgressFieldProps) {
+export function LocalProgressField({ fieldName, quizFieldName }: LocalProgressFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const quizInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const hydrate = () => {
@@ -18,6 +20,11 @@ export function LocalProgressField({ fieldName }: LocalProgressFieldProps) {
 
       const progress = readLessonProgress();
       inputRef.current.value = JSON.stringify(progress);
+
+      if (quizInputRef.current) {
+        const activity = window.localStorage.getItem(lessonActivityStorageKey);
+        quizInputRef.current.value = activity ?? "";
+      }
     };
 
     const onSubmit = () => {
@@ -38,11 +45,21 @@ export function LocalProgressField({ fieldName }: LocalProgressFieldProps) {
   }, []);
 
   return (
-    <input
-      ref={inputRef}
-      name={fieldName}
-      type="hidden"
-      value=""
-    />
+    <>
+      <input
+        ref={inputRef}
+        name={fieldName}
+        type="hidden"
+        value=""
+      />
+      {quizFieldName ? (
+        <input
+          ref={quizInputRef}
+          name={quizFieldName}
+          type="hidden"
+          value=""
+        />
+      ) : null}
+    </>
   );
 }

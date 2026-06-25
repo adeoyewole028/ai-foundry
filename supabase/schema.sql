@@ -1,7 +1,7 @@
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text not null,
-  full_name text not null,
+  full_name text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -45,6 +45,57 @@ create table if not exists public.project_submissions (
   updated_at timestamptz not null default now(),
   unique (user_id, module_slug, lesson_slug)
 );
+
+create or replace function public.touch_updated_at()
+returns trigger as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$ language plpgsql;
+
+drop trigger if exists set_profiles_updated_at on public.profiles;
+create trigger set_profiles_updated_at
+before update on public.profiles
+for each row
+execute procedure public.touch_updated_at();
+
+drop trigger if exists set_lesson_progress_updated_at on public.lesson_progress;
+create trigger set_lesson_progress_updated_at
+before update on public.lesson_progress
+for each row
+execute procedure public.touch_updated_at();
+
+drop trigger if exists set_project_submissions_updated_at on public.project_submissions;
+create trigger set_project_submissions_updated_at
+before update on public.project_submissions
+for each row
+execute procedure public.touch_updated_at();
+
+create index if not exists lesson_progress_user_idx
+  on public.lesson_progress(user_id);
+create index if not exists quiz_attempts_user_idx
+  on public.quiz_attempts(user_id);
+create index if not exists project_submissions_user_idx
+  on public.project_submissions(user_id);
+
+alter table public.project_submissions
+  add constraint project_submissions_status_check
+  check (status in ('submitted', 'reviewed', 'needs_work'));
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_indexes
+    where schemaname = 'public'
+      and indexname = 'quiz_attempts_module_lesson_user_desc_idx'
+  ) then
+    create index quiz_attempts_module_lesson_user_desc_idx
+      on public.quiz_attempts (user_id, module_slug, lesson_slug, created_at desc);
+  end if;
+end
+$$;
 
 alter table public.profiles enable row level security;
 alter table public.lesson_progress enable row level security;
