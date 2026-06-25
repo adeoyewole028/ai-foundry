@@ -1,0 +1,501 @@
+{
+  "title": "Deep Learning",
+  "slug": "deep-learning",
+  "order": 4,
+  "description": "Learn neural networks through practical architecture and training intuition.",
+  "level": "Intermediate",
+  "estimatedHours": 20,
+  "outcomes": [
+    "Explain layers, weights, and biases in plain language.",
+    "Use activation and loss functions to shape model behavior.",
+    "Describe backpropagation and optimization loops.",
+    "Build and evaluate a first small deep-learning model.",
+    "Reason about image-classification workflows and limitations."
+  ],
+  "lessons": [
+    {
+      "title": "What is a Neural Network?",
+      "slug": "what-is-neural-network",
+      "file": "lesson-01-what-is-a-neural-network.mdx",
+      "order": 1,
+      "type": "lesson",
+      "description": "Build intuition for neurons, connections, and learnable parameters.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can explain what a neuron does in one sentence.",
+        "I can map one network layer to an input transformation.",
+        "I can describe one reason deep models improve expressiveness."
+      ],
+      "questions": [
+        "How would you explain a layer to a non-technical teammate?",
+        "Why might depth matter even if it is harder to explain?"
+      ]
+    },
+    {
+      "title": "Layers and Weights",
+      "slug": "layers-and-weights",
+      "file": "lesson-02-layers-and-weights.mdx",
+      "order": 2,
+      "type": "lesson",
+      "description": "Understand parameter flow and output shaping across layers.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can identify weights as adjustable knobs.",
+        "I can explain shape changes across layers.",
+        "I can describe one practical architecture reason."
+      ],
+      "questions": [
+        "What are weights learning?",
+        "How do dimensions affect compatibility between layers?"
+      ]
+    },
+    {
+      "title": "Activation Functions",
+      "slug": "activation-functions",
+      "file": "lesson-03-activation-functions.mdx",
+      "order": 3,
+      "type": "lesson",
+      "description": "Learn why activations allow non-linear learning.",
+      "estimatedMinutes": 32,
+      "checklist": [
+        "I can explain why linear-only models are limited.",
+        "I can compare two activation tradeoffs.",
+        "I can choose an activation for hidden layers."
+      ],
+      "questions": [
+        "Why do non-linear activations matter?",
+        "When would a saturated activation be harmful?"
+      ]
+    },
+    {
+      "title": "Loss Functions",
+      "slug": "loss-functions",
+      "file": "lesson-04-loss-functions.mdx",
+      "order": 4,
+      "type": "lesson",
+      "description": "Learn how models measure error and learning direction.",
+      "estimatedMinutes": 36,
+      "checklist": [
+        "I can define loss as feedback for correction.",
+        "I can choose a loss linked to task type.",
+        "I can interpret loss curves in training."
+      ],
+      "questions": [
+        "How does a loss signal guide optimization?",
+        "Why does task type influence the loss choice?"
+      ]
+    },
+    {
+      "title": "Backpropagation",
+      "slug": "backpropagation",
+      "file": "lesson-05-backpropagation.mdx",
+      "order": 5,
+      "type": "lesson",
+      "description": "Understand how errors flow backward to update parameters.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can describe gradient flow at a high level.",
+        "I can explain when learning signals weaken.",
+        "I can suggest one debugging signal in training."
+      ],
+      "questions": [
+        "What is the role of gradients in learning?",
+        "How do you detect vanishing signal problems early?"
+      ]
+    },
+    {
+      "title": "Optimizers",
+      "slug": "optimizers",
+      "file": "lesson-06-optimizers.mdx",
+      "order": 6,
+      "type": "lesson",
+      "description": "Compare optimization strategies for faster and stable convergence.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can compare at least two optimizers.",
+        "I can explain learning-rate sensitivity.",
+        "I can apply one rule for stability."
+      ],
+      "questions": [
+        "How can learning rate choices hurt model progress?",
+        "When would adaptive optimizers be useful?"
+      ]
+    },
+    {
+      "title": "PyTorch Basics",
+      "slug": "pytorch-basics",
+      "file": "lesson-07-pytorch-basics.mdx",
+      "order": 7,
+      "type": "lesson",
+      "description": "Create your first tensor, model, loss, and training loop.",
+      "estimatedMinutes": 45,
+      "checklist": [
+        "I can define tensor and model objects.",
+        "I can run a tiny forward/backward loop.",
+        "I can inspect outputs and debug shapes."
+      ],
+      "questions": [
+        "What is your first PyTorch sanity check before training?",
+        "Why is deterministic seeding useful in experiments?"
+      ]
+    },
+    {
+      "title": "Image Classification",
+      "slug": "image-classification",
+      "file": "lesson-08-image-classification.mdx",
+      "order": 8,
+      "type": "lesson",
+      "description": "Apply deep learning to a small multi-class visual task.",
+      "estimatedMinutes": 50,
+      "checklist": [
+        "I can explain input normalization decisions.",
+        "I can evaluate class-level quality.",
+        "I can describe augmentation as generalization support."
+      ],
+      "questions": [
+        "Why do input shapes matter for image models?",
+        "What evaluation metric change when classes are imbalanced?"
+      ]
+    },
+    {
+      "title": "Mini Project: Small CNN Smoke Test",
+      "slug": "mini-cnn-smoke-test",
+      "file": "mini-project-small-cnn-smoke-test.mdx",
+      "order": 9,
+      "type": "project",
+      "description": "Build a tiny image classifier smoke test with stable logging.",
+      "estimatedMinutes": 90,
+      "checklist": [
+        "I can run a small end-to-end training script.",
+        "I can show training and validation metric drift.",
+        "I can document at least one model limitation."
+      ],
+      "questions": [
+        "How will you know when your model memorizes too much?",
+        "What is one practical guard against silent failure?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Portfolio Project: Image Classifier",
+      "slug": "image-classifier",
+      "file": "project.mdx",
+      "order": 10,
+      "type": "project",
+      "description": "Build a complete image-classification portfolio project.",
+      "estimatedMinutes": 150,
+      "checklist": [
+        "I can provide reproducible preprocessing.",
+        "I can evaluate per-class performance.",
+        "I can explain why architecture choices align with data."
+      ],
+      "questions": [
+        "How would you choose model capacity for this dataset?",
+        "What would you monitor after launch?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Deep Learning Quiz",
+      "slug": "deep-learning-quiz",
+      "file": "quiz.mdx",
+      "order": 11,
+      "type": "quiz",
+      "description": "Prove readiness for model-level LLM and deployment content.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can explain neural forward and backward flow.",
+        "I can describe the role of activations and loss.",
+        "I can defend my optimizer and architecture choices."
+      ],
+      "questions": [
+        "What concept links architecture depth to expressive power?",
+        "Why are optimization settings inseparable from model quality?"
+      ],
+      "quizQuestions": [
+        {
+          "id": "nn-intuition",
+          "prompt": "In your own words, explain what a neural network does and why layers help.",
+          "correctAnswer": "A neural network transforms inputs through multiple weighted layers, allowing it to learn hierarchical patterns that simple linear models cannot represent.",
+          "keywords": [
+            "transforms",
+            "layers",
+            "weighted",
+            "hierarchical",
+            "patterns",
+            "linear"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Layered weighted pattern learning",
+              "explanation": "A neural network transforms inputs through multiple weighted layers, allowing it to learn hierarchical patterns that simple linear models cannot represent."
+            },
+            {
+              "id": "distractor-1",
+              "label": "More layers first",
+              "explanation": "More layers cannot fix unclear targets, poor data, or weak evaluation."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Linear transformations only",
+              "explanation": "Without non-linear activations, deep networks cannot learn rich non-linear patterns."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Loss as vanity metric",
+              "explanation": "Loss drives training updates and helps diagnose whether learning is improving."
+            }
+          ]
+        },
+        {
+          "id": "weights",
+          "prompt": "What are weights and why are they central during training?",
+          "correctAnswer": "Weights are parameters that the model adjusts to reduce error, and they encode learned patterns linking inputs to outputs.",
+          "keywords": [
+            "parameters",
+            "adjust",
+            "error",
+            "learn",
+            "outputs"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Linear transformations only",
+              "explanation": "Without non-linear activations, deep networks cannot learn rich non-linear patterns."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Loss as vanity metric",
+              "explanation": "Loss drives training updates and helps diagnose whether learning is improving."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Skip reproducibility",
+              "explanation": "Without reproducibility practices, experiments become difficult to compare or debug."
+            },
+            {
+              "id": "correct",
+              "label": "Learned adjustable parameters",
+              "explanation": "Weights are parameters that the model adjusts to reduce error, and they encode learned patterns linking inputs to outputs."
+            }
+          ]
+        },
+        {
+          "id": "activation",
+          "prompt": "Why are non-linear activations essential in deep learning?",
+          "correctAnswer": "Without non-linear activations, stacked layers collapse to a single linear transformation and lose the ability to model complex relationships.",
+          "keywords": [
+            "non-linear",
+            "linear",
+            "stacked",
+            "complex",
+            "relationships"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Loss as vanity metric",
+              "explanation": "Loss drives training updates and helps diagnose whether learning is improving."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Skip reproducibility",
+              "explanation": "Without reproducibility practices, experiments become difficult to compare or debug."
+            },
+            {
+              "id": "correct",
+              "label": "Non-linear pattern learning",
+              "explanation": "Without non-linear activations, stacked layers collapse to a single linear transformation and lose the ability to model complex relationships."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Trust sample predictions",
+              "explanation": "Image models can fail on class imbalance, artifacts, lighting, leakage, and unseen conditions."
+            }
+          ]
+        },
+        {
+          "id": "loss",
+          "prompt": "How does loss connect to model improvement?",
+          "correctAnswer": "Loss quantifies prediction error; lowering loss signals the model is improving toward desired targets.",
+          "keywords": [
+            "quantifies",
+            "error",
+            "improving",
+            "targets",
+            "lower"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Skip reproducibility",
+              "explanation": "Without reproducibility practices, experiments become difficult to compare or debug."
+            },
+            {
+              "id": "correct",
+              "label": "Prediction error signal",
+              "explanation": "Loss quantifies prediction error; lowering loss signals the model is improving toward desired targets."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Trust sample predictions",
+              "explanation": "Image models can fail on class imbalance, artifacts, lighting, leakage, and unseen conditions."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Optimizer as guarantee",
+              "explanation": "Optimizers help update weights, but data, architecture, learning rate, and evaluation still matter."
+            }
+          ]
+        },
+        {
+          "id": "backprop",
+          "prompt": "Describe backpropagation using a simple analogy.",
+          "correctAnswer": "Backpropagation is like tracing blame backward through steps so each weight receives a correction signal based on final output error.",
+          "keywords": [
+            "trace",
+            "correction",
+            "weights",
+            "output",
+            "error"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Trust sample predictions",
+              "explanation": "Image models can fail on class imbalance, artifacts, lighting, leakage, and unseen conditions."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Optimizer as guarantee",
+              "explanation": "Optimizers help update weights, but data, architecture, learning rate, and evaluation still matter."
+            },
+            {
+              "id": "correct",
+              "label": "Backward credit assignment",
+              "explanation": "Backpropagation is like tracing blame backward through steps so each weight receives a correction signal based on final output error."
+            },
+            {
+              "id": "distractor-3",
+              "label": "More layers first",
+              "explanation": "More layers cannot fix unclear targets, poor data, or weak evaluation."
+            }
+          ]
+        },
+        {
+          "id": "optimizer",
+          "prompt": "How does an optimizer affect training quality?",
+          "correctAnswer": "The optimizer controls how aggressively weights are updated from gradients, influencing stability, convergence speed, and final model performance.",
+          "keywords": [
+            "update",
+            "gradients",
+            "stability",
+            "convergence",
+            "performance"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Optimizer as guarantee",
+              "explanation": "Optimizers help update weights, but data, architecture, learning rate, and evaluation still matter."
+            },
+            {
+              "id": "distractor-2",
+              "label": "More layers first",
+              "explanation": "More layers cannot fix unclear targets, poor data, or weak evaluation."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Linear transformations only",
+              "explanation": "Without non-linear activations, deep networks cannot learn rich non-linear patterns."
+            },
+            {
+              "id": "correct",
+              "label": "Gradient update control",
+              "explanation": "The optimizer controls how aggressively weights are updated from gradients, influencing stability, convergence speed, and final model performance."
+            }
+          ]
+        },
+        {
+          "id": "pytorch",
+          "prompt": "Why are reproducibility practices critical in PyTorch experimentation?",
+          "correctAnswer": "Reproducibility lets teams compare runs fairly, debug regressions, and trust that improvements come from design changes.",
+          "keywords": [
+            "reproduce",
+            "compare",
+            "debug",
+            "modeling",
+            "design",
+            "improvements"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "More layers first",
+              "explanation": "More layers cannot fix unclear targets, poor data, or weak evaluation."
+            },
+            {
+              "id": "correct",
+              "label": "Reproducible experiment comparison",
+              "explanation": "Reproducibility lets teams compare runs fairly, debug regressions, and trust that improvements come from design changes."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Linear transformations only",
+              "explanation": "Without non-linear activations, deep networks cannot learn rich non-linear patterns."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Loss as vanity metric",
+              "explanation": "Loss drives training updates and helps diagnose whether learning is improving."
+            }
+          ]
+        },
+        {
+          "id": "image-classification",
+          "prompt": "What are two critical checks before trusting an image classifier in a portfolio",
+          "correctAnswer": "Validate class-level performance and inspect confusion patterns, then test on realistic input distributions to avoid accidental overconfidence.",
+          "keywords": [
+            "class-level",
+            "confusion",
+            "distribution",
+            "overconfidence",
+            "validation"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Class-level and real-world checks",
+              "explanation": "Validate class-level performance and inspect confusion patterns, then test on realistic input distributions to avoid accidental overconfidence."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Linear transformations only",
+              "explanation": "Without non-linear activations, deep networks cannot learn rich non-linear patterns."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Loss as vanity metric",
+              "explanation": "Loss drives training updates and helps diagnose whether learning is improving."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Skip reproducibility",
+              "explanation": "Without reproducibility practices, experiments become difficult to compare or debug."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

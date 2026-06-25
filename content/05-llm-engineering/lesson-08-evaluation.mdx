@@ -1,0 +1,68 @@
+# Evaluation
+
+## Objective
+
+By the end of this lesson, you will evaluate LLM features using repeatable checks.
+
+## Prerequisites
+
+Before this lesson, you should understand tool use and function calls.
+
+## Plain-English Explanation
+
+Evaluation tells you if prompts, outputs, and tools are safe enough in production.
+
+## Key Terms
+
+### Regression test
+
+Simple meaning:
+Verify behavior doesn’t degrade after updates.
+
+Real-world analogy:
+Post-release smoke tests before shipping.
+
+Technical meaning:
+Automated cases covering expected and edge inputs.
+
+Example:
+Same prompt set after prompt changes should still pass quality gates.
+
+Why it matters:
+LLM behavior drifts without continuous checks.
+
+## Mental Model
+
+Treat LLM workflows like pipelines with quality, cost, and safety gates.
+
+## Example
+
+Test prompt updates against a small benchmark of resume summaries.
+
+## Code Walkthrough
+
+Create a scripted eval with pass/fail rules and metrics export.
+
+## Common Mistakes
+
+- Evaluating only once.
+- No edge-case set.
+- Ignoring latency and cost constraints.
+
+## Exercise
+
+Define three gates and a review process for failing cases.
+
+## Reflection
+
+Which metric would alert you first when risk increases?
+
+## Further Reading
+
+- [LLM eval best practices](https://www.promptingguide.ai/evaluation)
+
+## Completion Checklist
+
+- [ ] I can build recurring eval prompts.
+- [ ] I can track quality, latency, and cost.
+- [ ] I can triage failures quickly.

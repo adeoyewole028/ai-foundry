@@ -1,0 +1,68 @@
+# Embeddings
+
+## Objective
+
+By the end of this lesson, you will understand semantic vector representations for retrieval.
+
+## Prerequisites
+
+Before this lesson, you should understand chunking fundamentals.
+
+## Plain-English Explanation
+
+Embeddings convert text into vectors so similar meaning sits near each other.
+
+## Key Terms
+
+### Semantic distance
+
+Simple meaning:
+How close concepts are in meaning.
+
+Real-world analogy:
+Closely related tools in a workshop are placed together.
+
+Technical meaning:
+Similarity metric over embeddings such as cosine.
+
+Example:
+“resume” and “CV” vectors should be close.
+
+Why it matters:
+Distance drives which passages are returned.
+
+## Mental Model
+
+The corpus becomes a map; retrieval is choosing nearest neighbors.
+
+## Example
+
+Compare two texts with nearly same intent but different wording.
+
+## Code Walkthrough
+
+Generate embeddings and inspect nearest-neighbor consistency.
+
+## Common Mistakes
+
+- Comparing raw text with no embedding normalization.
+- Ignoring model updates.
+- Not refreshing vectors after major changes.
+
+## Exercise
+
+Choose a query and verify if retrieved chunk is semantically aligned.
+
+## Reflection
+
+What causes semantic retrieval to return irrelevant but lexically similar content?
+
+## Further Reading
+
+- [Introduction to embeddings](https://platform.openai.com/docs/guides/embeddings)
+
+## Completion Checklist
+
+- [ ] I can define semantic similarity.
+- [ ] I can validate embedding stability.
+- [ ] I can justify re-embedding schedules.

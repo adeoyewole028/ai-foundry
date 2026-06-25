@@ -1,0 +1,68 @@
+# Tool Use
+
+## Objective
+
+By the end of this lesson, you will coordinate multiple tools in dependable flows.
+
+## Prerequisites
+
+Before this lesson, you should understand function calling.
+
+## Plain-English Explanation
+
+Tool use is a small workflow engine guided by LLM suggestions.
+
+## Key Terms
+
+### Orchestration
+
+Simple meaning:
+Deciding which tool to call and in what order.
+
+Real-world analogy:
+An office assistant routing tasks to billing, shipping, or support teams.
+
+Technical meaning:
+Stateful control over chained tool invocations and constraints.
+
+Example:
+Search candidate, enrich context, then generate a summary.
+
+Why it matters:
+Bad flow design multiplies failure points.
+
+## Mental Model
+
+Use a state machine: idle → plan → execute → verify → return.
+
+## Example
+
+Route a user query first through intent classification, then to one of several tools.
+
+## Code Walkthrough
+
+Create routing logic with one branch timeout and one retry limit.
+
+## Common Mistakes
+
+- Unbounded loops.
+- No fallback path for failed tools.
+- Ignoring tool ordering.
+
+## Exercise
+
+Design a flow chart for a 3-step assistant request.
+
+## Reflection
+
+Which step should fail early to avoid wasted calls?
+
+## Further Reading
+
+- [Agentic patterns overview](https://www.promptingguide.ai/introduction)
+
+## Completion Checklist
+
+- [ ] I can map a multi-tool flow.
+- [ ] I can define safe branching.
+- [ ] I can build a fallback behavior.

@@ -1,0 +1,85 @@
+# What Are Tokens?
+
+## Objective
+
+By the end of this lesson, you will be able to explain tokens in plain English and describe why token limits affect cost, speed, and product design.
+
+## Prerequisites
+
+Before this lesson, you should understand that LLMs work with text and generate outputs by predicting likely continuations.
+
+## Plain-English Explanation
+
+Tokens are the chunks of text a language model reads and writes. A token can be a whole word, part of a word, punctuation, a space pattern, or another small text unit. Models do not usually read text exactly the way humans do. They break text into tokens first.
+
+Token count matters because models have limits. A model can only fit a certain number of tokens into its context window. Inputs and outputs also cost money and time based on tokens. This means product teams need to decide what information is worth sending to the model.
+
+## Key Terms
+
+### Token
+
+A token is a chunk of text used by a language model. The word "unbelievable" might be one token or several tokens depending on the tokenizer.
+
+### Context Window
+
+The context window is the maximum amount of input and output tokens the model can consider at once.
+
+### Token Budget
+
+A token budget is the practical limit a product sets for prompts, retrieved documents, conversation history, and model responses.
+
+## Mental Model
+
+Think of a model like someone reading from a limited-size whiteboard. You can write instructions, examples, user messages, and reference material on the board, but the board has a fixed size. Tokens are the pieces that take up space on that board.
+
+## Example
+
+In ResQ, a dispatcher assistant might summarize incident reports. If the report history is too long, the product needs to choose what to include: recent incidents, severe incidents, user notes, or official policy. Token limits force product decisions.
+
+## Code Walkthrough
+
+This simplified sketch shows how a product might protect a token budget:
+
+```ts
+type IncidentNote = {
+  createdAt: string;
+  text: string;
+};
+
+function selectNotesForPrompt(notes: IncidentNote[], maxNotes: number) {
+  return notes
+    .toSorted((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, maxNotes)
+    .map((note) => note.text)
+    .join("\n\n");
+}
+```
+
+This does not count exact tokens, but it shows the product habit: do not send unlimited context just because it exists.
+
+## Common Mistakes
+
+- Assuming one word always equals one token.
+- Sending entire databases into prompts.
+- Forgetting that output tokens count too.
+- Designing a feature without thinking about context limits.
+
+## Exercise
+
+Choose a long document feature, such as contract review or medical intake summarization. Decide which three sections are most important to include in the prompt and which sections can be left out.
+
+## Reflection
+
+Why might a shorter, better-selected prompt outperform a very long prompt?
+
+## Further Reading
+
+- [OpenAI Platform Docs: Text generation](https://platform.openai.com/docs/guides/text-generation)
+- [OpenAI Cookbook: How to count tokens with tiktoken](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)
+- [Anthropic Docs: Context windows](https://docs.anthropic.com/en/docs/build-with-claude/context-windows)
+
+## Completion Checklist
+
+- [ ] I can explain tokens in plain English.
+- [ ] I can describe why long prompts cost more.
+- [ ] I can identify one product constraint caused by token limits.

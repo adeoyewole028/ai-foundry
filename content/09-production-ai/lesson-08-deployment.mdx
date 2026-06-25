@@ -1,0 +1,68 @@
+# Deployment
+
+## Objective
+
+By the end of this lesson, you can deploy AI systems safely with staged release practices.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 07 in this module.
+
+## Plain-English Explanation
+
+Deployment is not one command; it is rollout, observation, and rollback discipline.
+
+## Key Terms
+
+### Blue-Green Deployment
+
+Simple meaning:
+Switch between two environments to reduce downtime.
+
+Real-world analogy:
+Switching power from old office branch to backup line.
+
+Technical meaning:
+Run old and new versions in parallel with controlled traffic shift.
+
+Example:
+Shift 10% traffic to tuned model for evaluation.
+
+Why it matters:
+Reduces blast radius of bad releases.
+
+## Mental Model
+
+Think of release as gradual trust migration rather than hard cutover.
+
+## Example
+
+Deploy to staging, run smoke checks, then shadow traffic before full release.
+
+## Code Walkthrough
+
+Define environment pipeline and rollback checks in CI/CD.
+
+## Common Mistakes
+
+- No shadow mode before prod.
+- Weak rollback validation.
+- No incident communication plan.
+
+## Exercise
+
+Draft a production runbook with 2 rollback conditions.
+
+## Reflection
+
+What does a good rollback target look like?
+
+## Further Reading
+
+- [Deployment best practices](https://martinfowler.com/bliki/BlueGreenDeployment.html)
+
+## Completion Checklist
+
+- [ ] I can run staged rollouts.
+- [ ] I can validate pre-prod behavior.
+- [ ] I can execute and test rollback.

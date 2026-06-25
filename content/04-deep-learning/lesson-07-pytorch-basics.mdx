@@ -1,0 +1,68 @@
+# PyTorch Basics
+
+## Objective
+
+By the end of this lesson, you will run a minimal training workflow in PyTorch.
+
+## Prerequisites
+
+Before this lesson, you should understand tensors and simple optimization ideas.
+
+## Plain-English Explanation
+
+PyTorch gives you composable building blocks for models, data, loss, and training loops.
+
+## Key Terms
+
+### Tensor
+
+Simple meaning:
+A multi-dimensional array for numeric compute.
+
+Real-world analogy:
+Like a structured spreadsheet that can grow in dimensions.
+
+Technical meaning:
+An n-dimensional array with GPU support and autograd integration.
+
+Example:
+Representing image batches as `(batch, channels, height, width)`.
+
+Why it matters:
+Most deep-learning tooling assumes tensor-first workflows.
+
+## Mental Model
+
+Data pipeline → model forward → loss → backward → step.
+
+## Example
+
+Create tensors, a tiny linear model, a loss function, and optimizer loop.
+
+## Code Walkthrough
+
+Write a 10-line training loop and verify gradients are not `None`.
+
+## Common Mistakes
+
+- Forgetting `model.train()` and `model.eval()` modes.
+- Forgetting to reset gradients.
+- Using wrong tensor shapes for batches.
+
+## Exercise
+
+Build a tiny training script and capture final train/val loss.
+
+## Reflection
+
+Which part of the loop helped you debug fastest?
+
+## Further Reading
+
+- [PyTorch beginner tutorial](https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html)
+
+## Completion Checklist
+
+- [ ] I can write a basic training step.
+- [ ] I can reason about tensor shape errors.
+- [ ] I can inspect gradients confidently.

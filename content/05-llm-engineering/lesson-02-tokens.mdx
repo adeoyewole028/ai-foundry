@@ -1,0 +1,68 @@
+# Tokens
+
+## Objective
+
+By the end of this lesson, you will control prompt length and output size deliberately.
+
+## Prerequisites
+
+Before this lesson, you should understand LLM basics.
+
+## Plain-English Explanation
+
+Tokens are the unit the model counts, not user-visible words.
+
+## Key Terms
+
+### Compression
+
+Simple meaning:
+Keeping ideas short while preserving meaning.
+
+Real-world analogy:
+Summarizing a paragraph for an executive memo.
+
+Technical meaning:
+Reducing unnecessary tokens lowers latency and cost.
+
+Example:
+Short constraints versus long instructions.
+
+Why it matters:
+Token spend influences reliability and cost budgets.
+
+## Mental Model
+
+Every extra token has latency and error exposure.
+
+## Example
+
+Rewrite a product message prompt to half its tokens.
+
+## Code Walkthrough
+
+Estimate token count before and after prompt refactors.
+
+## Common Mistakes
+
+- Overloading prompts with historical context.
+- Duplicating constraints in many sections.
+- Ignoring response length caps.
+
+## Exercise
+
+Build one concise system prompt and one verbose version; compare outputs.
+
+## Reflection
+
+How did shorter prompts change behavior?
+
+## Further Reading
+
+- [Token limits and costs](https://platform.openai.com/tokenizer)
+
+## Completion Checklist
+
+- [ ] I can estimate token tradeoffs.
+- [ ] I can trim unnecessary prompt noise.
+- [ ] I can set a response length policy.

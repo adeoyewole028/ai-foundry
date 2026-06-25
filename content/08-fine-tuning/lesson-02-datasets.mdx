@@ -1,0 +1,68 @@
+# Datasets
+
+## Objective
+
+By the end of this lesson, you can prepare robust data for adaptation training.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 01 in this module.
+
+## Plain-English Explanation
+
+Your data is the model's teacher; clean data is safer than more data.
+
+## Key Terms
+
+### Label Noise
+
+Simple meaning:
+Wrong or unclear expected outputs.
+
+Real-world analogy:
+Teaching from bad examples produces weak employees.
+
+Technical meaning:
+Incorrect target pairs that misalign optimization.
+
+Example:
+Conflicting response style in two similar prompts.
+
+Why it matters:
+Noisy labels create inconsistent behavior and regressions.
+
+## Mental Model
+
+Treat dataset curation as the first model-building step, not a post-task.
+
+## Example
+
+Build a small set with balanced intents and explicit refusal behavior.
+
+## Code Walkthrough
+
+Create a validation checklist for duplicates, contradictions, and format consistency.
+
+## Common Mistakes
+
+- No train/validation split.
+- Unbalanced labels.
+- Missing edge and rejection samples.
+
+## Exercise
+
+Create a rubric to score 10 candidate training pairs.
+
+## Reflection
+
+How do you measure dataset confidence before training?
+
+## Further Reading
+
+- [Data quality for ML](https://developers.google.com/machine-learning/guides/deep-learning)
+
+## Completion Checklist
+
+- [ ] I can define dataset acceptance criteria.
+- [ ] I can identify low-quality training examples.
+- [ ] I can design a validation split plan.

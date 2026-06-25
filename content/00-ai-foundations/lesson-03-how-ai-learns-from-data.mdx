@@ -1,0 +1,152 @@
+# How AI Learns from Data
+
+## Objective
+
+By the end of this lesson, you will understand how examples, labels, patterns, training, and evaluation shape model behavior.
+
+## Prerequisites
+
+You should understand that a model is a program that has learned patterns from data.
+
+## Plain-English Explanation
+
+AI learns from data by looking at many examples and adjusting itself until its outputs become useful. The data teaches the model what patterns matter.
+
+If the examples are clear, representative, and aligned with the task, the model has a better chance of performing well. If the examples are messy, biased, incomplete, or unrelated, the model may learn the wrong thing.
+
+## Key Terms
+
+### Training Data
+
+Simple meaning:
+The examples a model learns from.
+
+Real-world analogy:
+Training data is like practice questions before an exam.
+
+Technical meaning:
+A dataset used to fit a model's parameters during the training process.
+
+Example:
+Past job descriptions and successful candidate profiles could become training data for a job match model.
+
+Why it matters:
+The model can only learn from patterns present in its training data.
+
+### Label
+
+Simple meaning:
+The answer attached to an example.
+
+Real-world analogy:
+A label is the answer key for a practice question.
+
+Technical meaning:
+The target output used during supervised learning.
+
+Example:
+If an incident report is marked "urgent" or "not urgent," that urgency value is the label.
+
+Why it matters:
+Labels tell the model what it should learn to predict.
+
+### Evaluation
+
+Simple meaning:
+Testing whether the model works on examples it did not train on.
+
+Real-world analogy:
+Evaluation is the real exam after studying practice questions.
+
+Technical meaning:
+Measuring model performance on validation or test data using task-specific metrics.
+
+Example:
+ResQ might evaluate whether its incident classifier correctly prioritizes new breakdown reports.
+
+Why it matters:
+Without evaluation, you are guessing whether the model is useful.
+
+## Mental Model
+
+```text
+Examples + Labels -> Training -> Model -> Evaluation -> Product decision
+```
+
+The product decision matters. A model that is 80 percent accurate might be fine for recommendations but unacceptable for medical triage without human review.
+
+## Example
+
+Imagine FurOrbit wants to classify pet symptom messages by urgency.
+
+Training examples might look like this:
+
+```text
+"My dog ate chocolate and is shaking" -> urgent
+"My cat has been sneezing for two days" -> medium
+"My puppy needs a vaccine appointment" -> routine
+```
+
+The model learns language patterns associated with each urgency level. The team then tests it on new messages and decides where human review is required.
+
+## Code Walkthrough
+
+A small dataset can be represented as typed examples:
+
+```ts
+type TriageLabel = "urgent" | "medium" | "routine";
+
+type TriageExample = {
+  message: string;
+  label: TriageLabel;
+};
+
+const examples: TriageExample[] = [
+  {
+    message: "My dog ate chocolate and is shaking",
+    label: "urgent"
+  },
+  {
+    message: "I need to reschedule a vaccine appointment",
+    label: "routine"
+  }
+];
+```
+
+Real systems need far more examples, privacy protection, review workflows, and evaluation.
+
+## Common Mistakes
+
+- Training or prompting with examples that do not match the real product use case.
+- Measuring success only by vibes instead of clear criteria.
+- Forgetting edge cases and rare but high-risk inputs.
+- Assuming more data always fixes poor data quality.
+
+## Exercise
+
+Choose one AI product idea and write five example inputs with the output you would want.
+
+Use this format:
+
+```text
+Input:
+Expected output:
+Why this output is useful:
+```
+
+## Reflection
+
+What could go wrong if a model is trained mostly on examples from one type of user?
+
+## Further Reading
+
+- [Google ML Crash Course: Generalization and evaluation](https://developers.google.com/machine-learning/crash-course)
+- [Google Machine Learning Crash Course: Fairness and ML pitfalls](https://developers.google.com/machine-learning/crash-course/fairness)
+- [scikit-learn Model Evaluation](https://scikit-learn.org/stable/modules/model_evaluation.html)
+
+## Completion Checklist
+
+- [ ] I can explain training data.
+- [ ] I can explain labels.
+- [ ] I can explain why evaluation matters.
+- [ ] I can write example inputs and expected outputs for a product idea.

@@ -1,0 +1,69 @@
+# Features and Labels
+
+## Objective
+
+By the end of this lesson, you will distinguish inputs from targets and build clean data framing.
+
+## Prerequisites
+
+Before this lesson, you should know basic Python data handling and have completed the Data for AI module.
+
+## Plain-English Explanation
+
+Features are what you know about an example. Labels are what you want the model to predict.
+
+## Key Terms
+
+### Feature
+
+Simple meaning:
+A characteristic we use to make a prediction.
+
+Real-world analogy:
+In hiring, years of experience can be a feature for predicting interview readiness.
+
+Technical meaning:
+Numerical or encoded values passed to a model as input vectors.
+
+Example:
+Years experience, degree level, and certifications.
+
+Why it matters:
+The right features determine both performance and fairness.
+
+## Mental Model
+
+Think of each candidate as a row in a form and the target label as the answer to the form’s final question.
+
+## Example
+
+If predicting churn, features might be login frequency and support tickets, while the label is whether the user canceled.
+
+## Code Walkthrough
+
+Prepare a small table with columns: `feature_1`, `feature_2`, ..., `target`.
+Keep target separate from feature arrays before splitting.
+
+## Common Mistakes
+
+- Leaking the label into feature generation.
+- Mixing timestamps and IDs as predictive features without thought.
+- Reusing target-derived calculations.
+
+## Exercise
+
+Create one example where feature and label are accidentally swapped. Explain the impact.
+
+## Reflection
+
+How can wrong feature design quietly create bad product outcomes?
+
+## Further Reading
+
+- [Machine learning glossary: features and target](https://developers.google.com/machine-learning/glossary#feature)
+
+## Completion Checklist
+
+- [ ] I can describe features and labels clearly.
+- [ ] I can identify one leakage risk in raw columns.
+- [ ] I can show one corrected framing in my own work.

@@ -1,0 +1,68 @@
+# Citations
+
+## Objective
+
+By the end of this lesson, you will produce auditable answers with citations.
+
+## Prerequisites
+
+Before this lesson, you should complete retrieval and reranking.
+
+## Plain-English Explanation
+
+Citations show evidence source and location.
+
+## Key Terms
+
+### Evidence traceability
+
+Simple meaning:
+The ability to jump from claim to source.
+
+Real-world analogy:
+A sales report with source links.
+
+Technical meaning:
+Mapping answer spans back to chunk IDs and metadata.
+
+Example:
+“Policy X says…” with linked chunk id.
+
+Why it matters:
+Traceability builds trust and lowers hallucination impact.
+
+## Mental Model
+
+Every claim should have a source pointer.
+
+## Example
+
+Attach multiple evidence snippets for multi-part answers.
+
+## Code Walkthrough
+
+Add chunk IDs and source metadata to prompt context and response payload.
+
+## Common Mistakes
+
+- Missing source IDs.
+- Linking to wrong chunks.
+- Not handling missing evidence cases.
+
+## Exercise
+
+Create one example with claim-to-source mapping and one fake claim.
+
+## Reflection
+
+Why is weak citation control dangerous in product decisions?
+
+## Further Reading
+
+- [Citations and traceability](https://huggingface.co/docs/transformers/main/en/tasks/retrieval)
+
+## Completion Checklist
+
+- [ ] I can attach sources reliably.
+- [ ] I can validate citation integrity.
+- [ ] I can handle missing source paths.

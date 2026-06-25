@@ -1,0 +1,68 @@
+# Instruction Data
+
+## Objective
+
+By the end of this lesson, you can craft instruction examples that encode behavior and style.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 02 in this module.
+
+## Plain-English Explanation
+
+Instruction data tells the model both what to do and how to do it in context.
+
+## Key Terms
+
+### Prompt-Output Pair
+
+Simple meaning:
+One instruction plus expected expected answer.
+
+Real-world analogy:
+Trainer cards with prompt and correction.
+
+Technical meaning:
+Paired text data used to condition response style and policy.
+
+Example:
+`Summarize in 3 bullets` -> "1)... 2)... 3)..."
+
+Why it matters:
+Consistency is built by repetitive, clear examples.
+
+## Mental Model
+
+Think of every pair as a specific micro-contract.
+
+## Example
+
+Define paired cases for supportive tone, refusal policy, and escalation.
+
+## Code Walkthrough
+
+Build templates and enforce schema checks across all samples.
+
+## Common Mistakes
+
+- Missing negative examples.
+- Inconsistent output schemas.
+- Reusing the same phrasing pattern everywhere.
+
+## Exercise
+
+Create 5 instruction pairs for refusal, safe fallback, and high-confidence style.
+
+## Reflection
+
+How does tone drift show up in instruction quality?
+
+## Further Reading
+
+- [Instruction tuning paper overview](https://arxiv.org/abs/2109.01652)
+
+## Completion Checklist
+
+- [ ] I can define clear prompt-answer pairs.
+- [ ] I can balance positive and negative samples.
+- [ ] I can enforce output schema consistency.

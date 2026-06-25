@@ -1,0 +1,140 @@
+# What is AI?
+
+## Objective
+
+By the end of this lesson, you will be able to explain artificial intelligence in practical terms and identify where it appears in real software products.
+
+## Prerequisites
+
+You should be comfortable using software products and have a basic idea of how web or mobile apps take input, process it, and return output.
+
+## Plain-English Explanation
+
+Artificial intelligence is software that performs tasks we usually associate with human judgment: recognizing patterns, making predictions, generating text, understanding images, ranking options, or choosing a next action.
+
+AI is not magic. It is a way to build software that can handle messy inputs where writing exact rules would be too slow, too brittle, or impossible.
+
+For example, a normal app might say: if the button is clicked, save the form. An AI feature might say: given this messy resume and this job description, estimate how well they match.
+
+## Key Terms
+
+### Artificial Intelligence
+
+Simple meaning:
+Software that performs tasks that seem to require human-like judgment.
+
+Real-world analogy:
+Think of a skilled assistant who can sort, summarize, classify, or recommend based on examples.
+
+Technical meaning:
+A broad field of computing focused on systems that perceive, reason, learn, generate, or act in ways that usually require intelligence.
+
+Example:
+GigSwipe could use AI to summarize a resume and recommend jobs that match the candidate's experience.
+
+Why it matters:
+AI is the umbrella term. Machine learning, deep learning, LLMs, RAG, and agents all sit under it.
+
+### Model
+
+Simple meaning:
+A program that has learned patterns from data.
+
+Real-world analogy:
+A model is like a person who has reviewed many examples and can make a reasonable guess about a new one.
+
+Technical meaning:
+A mathematical function with parameters learned during training, used to transform inputs into outputs.
+
+Example:
+A model might read a support ticket and predict whether it is about billing, login, or product feedback.
+
+Why it matters:
+When builders say they are using AI, they are usually sending input to a model and using the output in a product workflow.
+
+## Mental Model
+
+Traditional software is rule-first:
+
+```text
+Human writes rules -> Program follows rules -> Output
+```
+
+AI software is pattern-first:
+
+```text
+Examples train model -> Model receives new input -> Output
+```
+
+You still write normal software around the AI. The AI part handles the judgment-heavy step.
+
+## Example
+
+Imagine FurOrbit wants to help a pet owner understand a veterinary report.
+
+Without AI, the team might write hundreds of rules for medical terms, sentence formats, and possible conditions. With AI, the product can ask a language model to summarize the report, define terms, and suggest questions to ask the vet.
+
+The app still needs product logic: user accounts, file upload, privacy, display states, and safety copy. The model only handles the language understanding step.
+
+## Code Walkthrough
+
+This pseudocode shows the shape of many AI features:
+
+```ts
+type ResumeMatchInput = {
+  resumeText: string;
+  jobDescription: string;
+};
+
+type ResumeMatchResult = {
+  score: number;
+  strengths: string[];
+  gaps: string[];
+};
+
+async function scoreResumeMatch(input: ResumeMatchInput): Promise<ResumeMatchResult> {
+  const prompt = buildResumeMatchPrompt(input);
+  const modelOutput = await callLanguageModel(prompt);
+
+  return validateResumeMatchResult(modelOutput);
+}
+```
+
+The model does the fuzzy judgment. The application still builds the prompt, calls the model, validates the response, and shows it clearly.
+
+## Common Mistakes
+
+- Treating AI as a complete product instead of one capability inside a product.
+- Assuming AI is always correct because it sounds confident.
+- Skipping validation, safety checks, and user experience design.
+- Choosing AI when simple rules would be cheaper, faster, and more reliable.
+
+## Exercise
+
+Pick one app you use weekly. Write down one feature that uses exact rules and one feature that could benefit from AI.
+
+Use this format:
+
+```text
+App:
+Rules-based feature:
+Possible AI feature:
+Why AI helps:
+```
+
+## Reflection
+
+In one paragraph, explain the difference between "AI as a feature" and "AI as a product."
+
+## Further Reading
+
+- [OpenAI API documentation: Introduction](https://platform.openai.com/docs/introduction)
+- [Google ML Crash Course: Framing machine learning](https://developers.google.com/machine-learning/crash-course)
+- [Khan Academy: Intro to Artificial Intelligence](https://www.khanacademy.org/computing/computer-science/ai)
+
+## Completion Checklist
+
+- [ ] I can define AI in plain English.
+- [ ] I can explain why AI is useful for messy inputs.
+- [ ] I can name one product feature where AI might help.
+- [ ] I understand that AI still needs normal software around it.

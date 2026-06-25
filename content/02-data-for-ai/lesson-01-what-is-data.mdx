@@ -1,0 +1,68 @@
+# What is Data?
+
+## Objective
+
+By the end of this lesson, you will be able to describe what makes data reliable enough for AI workflows.
+
+## Prerequisites
+
+Before this lesson, you should be comfortable with the basics of Python variables and collections.
+
+## Plain-English Explanation
+
+Data is what AI actually learns from. If the data is messy or biased, the model will copy those issues.
+
+## Key Terms
+
+### Data quality
+
+Simple meaning:
+How clean, complete, and dependable the data is.
+
+Real-world analogy:
+If your grocery list has wrong item names, the recipe fails.
+
+Technical meaning:
+Quality includes completeness, correctness, consistency, and representativeness.
+
+Example:
+Missing labels and mixed units in a training file.
+
+Why it matters:
+Low quality input leads to unreliable model behavior and poor user experience.
+
+## Mental Model
+
+Think of data as a foundation slab: if the slab has cracks, every room on top gets affected.
+
+## Example
+
+Imagine a customer support dataset with timestamps in mixed formats. The same model may read them incorrectly and learn the wrong trends.
+
+## Code Walkthrough
+
+Start by printing column names, row counts, and missingness for every file you ingest.
+
+## Common Mistakes
+
+- Assuming first rows represent the full dataset.
+- Ignoring duplicate rows.
+- Treating missing values as zero automatically.
+
+## Exercise
+
+Load a CSV and write three checks: column types, row count, missing rate by column.
+
+## Reflection
+
+In 2-3 sentences, what is one assumption you should test before modeling?
+
+## Further Reading
+
+- [Google: Data quality fundamentals](https://cloud.google.com/learn/what-is-data-quality)
+
+## Completion Checklist
+
+- [ ] I can explain why unreliable data harms model quality.
+- [ ] I can define data quality dimensions.
+- [ ] I can run a first-pass check on a new dataset.

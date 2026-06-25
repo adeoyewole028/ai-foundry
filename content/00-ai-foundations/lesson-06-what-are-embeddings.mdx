@@ -1,0 +1,84 @@
+# What Are Embeddings?
+
+## Objective
+
+By the end of this lesson, you will be able to explain embeddings as meaning-based representations and identify where semantic search helps AI products.
+
+## Prerequisites
+
+Before this lesson, you should understand models, tokens, and the difference between exact rules and learned patterns.
+
+## Plain-English Explanation
+
+Embeddings turn text, images, audio, or other content into lists of numbers that represent meaning. Similar meanings end up closer together in embedding space. This lets software find related information even when the exact words do not match.
+
+Keyword search asks, "Did this word appear?" Embedding search asks, "Is this meaning similar?" That difference is powerful for support search, recommendations, RAG systems, duplicate detection, and content organization.
+
+## Key Terms
+
+### Embedding
+
+An embedding is a numeric representation of content. It helps software compare meaning.
+
+### Vector
+
+A vector is a list of numbers. Embeddings are often stored as vectors.
+
+### Similarity Search
+
+Similarity search finds items whose embeddings are close to the embedding of a query.
+
+## Mental Model
+
+Imagine placing every document on a giant map of meaning. Documents about password resets sit near each other even if one says "forgot login" and another says "cannot access my account." Embeddings create that kind of map.
+
+## Example
+
+In GigSwipe, a worker might search for "weekend food delivery shifts." Keyword search may miss jobs that say "Saturday courier route." Embeddings can connect the meanings and return better matches.
+
+## Code Walkthrough
+
+Here is a simplified search flow:
+
+```ts
+type SearchResult = {
+  title: string;
+  similarity: number;
+};
+
+async function semanticSearch(query: string): Promise<SearchResult[]> {
+  const queryEmbedding = await createEmbedding(query);
+  const matches = await findNearestJobEmbeddings(queryEmbedding);
+
+  return matches.filter((match) => match.similarity > 0.75);
+}
+```
+
+The product still needs ranking, filters, permissions, and a way to explain why a result appeared.
+
+## Common Mistakes
+
+- Treating similarity as truth.
+- Forgetting that bad source content creates bad search results.
+- Using embeddings when exact filters would be safer.
+- Skipping permission checks before retrieving content.
+
+## Exercise
+
+Write three different phrases that mean "I cannot access my account." Then explain why embedding search might group them together.
+
+## Reflection
+
+Where would embedding search help more than keyword search in a product you know?
+
+## Further Reading
+
+- [OpenAI Platform Docs: Embeddings](https://platform.openai.com/docs/guides/embeddings)
+- [Google Machine Learning Crash Course: Embeddings](https://developers.google.com/machine-learning/crash-course/embeddings)
+- [Pinecone: What are vector embeddings?](https://www.pinecone.io/learn/vector-embeddings/)
+
+## Completion Checklist
+
+- [ ] I can explain embeddings as meaning coordinates.
+- [ ] I can describe semantic search.
+- [ ] I can identify one use case where embeddings beat keyword search.

@@ -1,0 +1,73 @@
+# Mini Project: Data Intake Health Checker
+
+## Objective
+
+By the end of this project, you will build a practical script to validate incoming CSV data.
+
+## Prerequisites
+
+Before this project, you should complete the first seven lessons in Module 02.
+
+## Plain-English Explanation
+
+Before an AI system uses a file, run a checklist and report what needs fixing.
+
+## Key Terms
+
+### Health report
+
+Simple meaning:
+One output summarizing what is good and what is risky in a new input.
+
+Real-world analogy:
+Pre-flight checks before a flight.
+
+Technical meaning:
+Automated schema/quality validation artifact with actionable items.
+
+Example:
+Report showing missing rate, duplicate rows, and column type mismatches.
+
+Why it matters:
+You catch data issues before they become model errors.
+
+## Mental Model
+
+Build a command that runs checks, emits a structured result, and exits with a clear status.
+
+## Example
+
+Validate headers, missingness, duplicates, and allowed numeric ranges in under one command.
+
+## Code Walkthrough
+
+Create a script that:
+
+1. Reads file path input
+2. Runs schema checks
+3. Computes a quality score
+4. Writes JSON + markdown summaries
+
+## Common Mistakes
+
+- Hiding failures behind vague logs.
+- No versioning for report format.
+- No human-readable summary output.
+
+## Exercise
+
+Build a tiny CLI that flags at least three check classes.
+
+## Reflection
+
+How does this project reduce risk when data arrives from another team?
+
+## Further Reading
+
+- [Great Expectations](https://docs.greatexpectations.io/docs/)
+
+## Completion Checklist
+
+- [ ] I can define a validation schema.
+- [ ] I can run checks on at least one sample file.
+- [ ] I can explain failures in plain language.

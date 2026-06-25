@@ -1,0 +1,81 @@
+# APIs
+
+## Objective
+
+By the end of this lesson, you will call an API endpoint and parse a response safely.
+
+## Prerequisites
+
+Functions and file handling lessons.
+
+## Plain-English Explanation
+
+An API is a contract between two systems. You send a request, get a response, and handle success or failure.
+
+## Key Terms
+
+### Status Code
+
+Simple meaning:
+The server's answer code for your request.
+
+Real-world analogy:
+Like a delivery receipt saying success, delayed, or failed.
+
+Technical meaning:
+HTTP response code such as 200, 400, 500.
+
+Example:
+`requests.get("https://example.com")`
+
+Why it matters:
+Production AI systems depend on resilient external calls.
+
+## Mental Model
+
+```text
+Request -> External service -> Status check -> Parse JSON -> Handle errors
+```
+
+## Example
+
+```python
+import requests
+
+response = requests.get("https://example.com/health")
+if response.status_code == 200:
+    print(response.json())
+```
+
+## Code Walkthrough
+
+```python
+def fetch_json(url):
+    resp = requests.get(url, timeout=5)
+    resp.raise_for_status()
+    return resp.json()
+```
+
+## Common Mistakes
+
+- Ignoring timeout and retry strategy.
+- Parsing JSON without checking status.
+
+## Exercise
+
+Call a public API endpoint and log status + keys from response JSON.
+
+## Reflection
+
+What is your fallback when an external API is slow or unavailable?
+
+## Further Reading
+
+- [MDN HTTP response codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+- [Requests library guide](https://requests.readthedocs.io/en/latest/user/quickstart/)
+
+## Completion Checklist
+
+- [ ] I can send a request and inspect status.
+- [ ] I can parse JSON only when available.
+- [ ] I can build a basic fallback path.

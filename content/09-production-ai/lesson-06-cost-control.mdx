@@ -1,0 +1,68 @@
+# Cost Control
+
+## Objective
+
+By the end of this lesson, you can reduce AI spend without harming trust.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 05 in this module.
+
+## Plain-English Explanation
+
+Cost control uses model routing, caching, and quotas to avoid unexpected spend.
+
+## Key Terms
+
+### Quota
+
+Simple meaning:
+Budget limit for usage.
+
+Real-world analogy:
+Credit card daily limit for unexpected spending.
+
+Technical meaning:
+Guardrail that caps call counts and token usage.
+
+Example:
+Per-user token cap with escalation above threshold.
+
+Why it matters:
+Finances and reliability are part of user trust.
+
+## Mental Model
+
+Allocate cost budgets to quality tiers, not just raw request volume.
+
+## Example
+
+Use a cheap model for triage and escalate complex cases.
+
+## Code Walkthrough
+
+Add budget, model-router, and cache invalidation strategy.
+
+## Common Mistakes
+
+- Cost optimization done after incidents.
+- No cache strategy for repeated requests.
+- Ignoring model routing side effects.
+
+## Exercise
+
+Design a token budget policy with warning and hard-stop levels.
+
+## Reflection
+
+How do you avoid optimizing only for cost at the expense of quality?
+
+## Further Reading
+
+- [LLM cost optimization strategies](https://docs.litellm.ai/docs/observability)
+
+## Completion Checklist
+
+- [ ] I can model per-endpoint cost.
+- [ ] I can route requests by complexity.
+- [ ] I can enforce hard budget thresholds.

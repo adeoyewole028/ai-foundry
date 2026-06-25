@@ -1,0 +1,68 @@
+# Queues
+
+## Objective
+
+By the end of this lesson, you can use queues for reliable and observable workloads.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 02 in this module.
+
+## Plain-English Explanation
+
+Queues let you process heavy tasks without blocking users.
+
+## Key Terms
+
+### Dead Letter Queue
+
+Simple meaning:
+Parking lot for failed jobs.
+
+Real-world analogy:
+Escalation inbox when normal processing fails.
+
+Technical meaning:
+Queue path for retry-exhausted messages requiring manual review.
+
+Example:
+Long job returns after timeout and is sent for inspection.
+
+Why it matters:
+Noisy failures become trackable instead of invisible.
+
+## Mental Model
+
+Use queues for fan-out and controlled retries with clear retention.
+
+## Example
+
+Model generation tasks go queue-first, then notify user when complete.
+
+## Code Walkthrough
+
+Set retry attempts, backoff policy, and dead-letter routing.
+
+## Common Mistakes
+
+- Unlimited retry loops.
+- No visibility on stuck jobs.
+- No expiry strategy for stale tasks.
+
+## Exercise
+
+Create queue handling rules for a slow report-generation workflow.
+
+## Reflection
+
+How do you preserve user trust when processing is delayed?
+
+## Further Reading
+
+- [BullMQ queue basics](https://docs.bullmq.io/)
+
+## Completion Checklist
+
+- [ ] I can choose async where needed.
+- [ ] I can configure retries and DLQ.
+- [ ] I can track queue health.

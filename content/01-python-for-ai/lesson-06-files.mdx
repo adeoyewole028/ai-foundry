@@ -1,0 +1,77 @@
+# Files
+
+## Objective
+
+By the end of this lesson, you will read and write files with safe default patterns.
+
+## Prerequisites
+
+Classes and functions lessons.
+
+## Plain-English Explanation
+
+File handling is how your scripts move data in and out of disk. Most AI prototypes fail when file parsing and encoding are not explicit.
+
+## Key Terms
+
+### Context Manager
+
+Simple meaning:
+A syntax that opens a resource and automatically closes it.
+
+Real-world analogy:
+Like checking out and returning a library laptop automatically at session end.
+
+Technical meaning:
+`with` blocks guarantee cleanup even after exceptions.
+
+Example:
+`with open("data.txt") as f: ...`
+
+Why it matters:
+Prevent file locks and partial writes in automated pipelines.
+
+## Mental Model
+
+```text
+Open file -> process lines -> close file reliably -> persist output
+```
+
+## Example
+
+```python
+with open("notes.txt", "r", encoding="utf-8") as file:
+    lines = [line.strip() for line in file]
+```
+
+## Code Walkthrough
+
+```python
+def extract_tokens(path: str) -> list[str]:
+    with open(path, "r", encoding="utf-8") as handle:
+        return handle.read().split()
+```
+
+## Common Mistakes
+
+- Forgetting encoding (especially with non-ASCII input).
+- Ignoring partial reads and malformed files.
+
+## Exercise
+
+Read a text file and write only lines longer than a threshold to a new file.
+
+## Reflection
+
+How do encoding and file format choices affect AI text quality?
+
+## Further Reading
+
+- [Python File I/O](https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files)
+- [Pathlib reference](https://docs.python.org/3/library/pathlib.html)
+
+## Completion Checklist
+
+- [ ] I can read and write using `with`.
+- [ ] I can avoid common encoding issues.
+- [ ] I can validate input format before parsing.

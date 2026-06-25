@@ -1,0 +1,84 @@
+# What is an AI Agent?
+
+## Objective
+
+By the end of this lesson, you will be able to explain what an AI agent is, how it differs from a chatbot, and why tools and guardrails matter.
+
+## Prerequisites
+
+Before this lesson, you should understand LLMs, prompts, models, and basic product workflows.
+
+## Plain-English Explanation
+
+An AI agent is an AI system that can pursue a goal by deciding what steps to take, often using tools along the way. A chatbot usually responds to a message. An agent may inspect data, call APIs, create drafts, update records, ask follow-up questions, and decide what to do next.
+
+Agents are powerful because they can coordinate work. They are risky because bad decisions can affect real systems. A useful agent needs clear scope, limited permissions, observability, and human review for sensitive actions.
+
+## Key Terms
+
+### Agent
+
+An agent is a system that uses AI to plan or choose actions toward a goal.
+
+### Tool
+
+A tool is a function or external capability the agent can use, such as search, email, calendar access, or database lookup.
+
+### Guardrail
+
+A guardrail is a product rule that limits what the agent can do or checks its output before action.
+
+## Mental Model
+
+Think of an agent like a junior teammate with a checklist and a toolbox. The teammate can help, but you would not give them unlimited access to payroll, production databases, or customer emails on day one.
+
+## Example
+
+In ResQ, an incident agent might read a breakdown report, classify urgency, look up available vehicles, draft a dispatcher note, and ask a human to approve the final action.
+
+## Code Walkthrough
+
+This simplified sketch shows scoped tool use:
+
+```ts
+type AgentTool = "searchIncidents" | "draftDispatcherNote";
+
+async function runIncidentAgent(goal: string, allowedTools: AgentTool[]) {
+  const plan = await createPlan(goal, allowedTools);
+
+  if (plan.tool === "draftDispatcherNote") {
+    return draftNote(plan.input);
+  }
+
+  return searchIncidents(plan.input);
+}
+```
+
+The important product decision is `allowedTools`. Agents should receive the smallest useful set of permissions.
+
+## Common Mistakes
+
+- Calling any LLM feature an agent.
+- Giving tools too much permission too early.
+- Letting agents take irreversible actions without review.
+- Failing to log what the agent saw and did.
+
+## Exercise
+
+Choose one repetitive workflow. List one safe tool an agent could use and one tool it should not get until the product is mature.
+
+## Reflection
+
+What is the difference between an agent that drafts a recommendation and an agent that directly changes a customer record?
+
+## Further Reading
+
+- [OpenAI Platform Docs: Agents](https://platform.openai.com/docs/guides/agents)
+- [Google Cloud: AI agents](https://cloud.google.com/discover/what-are-ai-agents)
+- [Microsoft: Responsible AI principles](https://www.microsoft.com/ai/responsible-ai)
+
+## Completion Checklist
+
+- [ ] I can explain what an agent is.
+- [ ] I can distinguish a tool-using agent from a chatbot.
+- [ ] I can name one guardrail an agent needs.

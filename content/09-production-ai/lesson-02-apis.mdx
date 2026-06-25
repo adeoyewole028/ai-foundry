@@ -1,0 +1,68 @@
+# APIs
+
+## Objective
+
+By the end of this lesson, you can build API contracts that remain robust under change.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 01 in this module.
+
+## Plain-English Explanation
+
+APIs are the public contract between users and your AI system.
+
+## Key Terms
+
+### Idempotency
+
+Simple meaning:
+Repeated calls produce the same result.
+
+Real-world analogy:
+Pressing a button twice creates one action.
+
+Technical meaning:
+Safe request identifiers and deduplication semantics.
+
+Example:
+Job submission endpoint with request_id.
+
+Why it matters:
+Prevents duplicate charges and duplicated side effects.
+
+## Mental Model
+
+Treat every endpoint like a product promise: inputs, outputs, and errors are fixed expectations.
+
+## Example
+
+`POST /ai/tasks` accepts `idempotencyKey` and returns request status.
+
+## Code Walkthrough
+
+Define payload schema, status codes, and standardized error bodies.
+
+## Common Mistakes
+
+- Inconsistent response shapes.
+- Not handling malformed payloads consistently.
+- No timeout policy for model calls.
+
+## Exercise
+
+Define one API schema with success and failure responses.
+
+## Reflection
+
+Which failure should expose details and which should stay generic?
+
+## Further Reading
+
+- [REST API design best practices](https://cloud.google.com/apis/design/resources)
+
+## Completion Checklist
+
+- [ ] I can design stable endpoints with clear error contracts.
+- [ ] I can add idempotency controls.
+- [ ] I can protect consumers from backend changes.

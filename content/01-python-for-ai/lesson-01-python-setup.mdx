@@ -1,0 +1,80 @@
+# Python Setup
+
+## Objective
+
+By the end of this lesson, you will be able to set up Python and run reproducible scripts from a clean workspace.
+
+## Prerequisites
+
+No prior Python knowledge required.
+
+## Plain-English Explanation
+
+Python setup is choosing the right version, creating a project folder, and avoiding hidden environment traps. The goal is simple: when you run code today, it should run the same way tomorrow.
+
+## Key Terms
+
+### Interpreter
+
+Simple meaning:
+The Python interpreter executes your script.
+
+Real-world analogy:
+Think of it as a translator that reads your instructions and performs each command.
+
+Technical meaning:
+The installed Python runtime selected to execute your code.
+
+Example:
+Running `python` in a terminal opens that interpreter.
+
+Why it matters:
+Different runtimes can lead to different behavior if versions differ.
+
+## Mental Model
+
+```text
+Install Python -> Create environment -> Run script -> Verify output
+```
+
+## Example
+
+Run:
+
+```bash
+python -V
+python -m venv .venv
+```
+
+## Code Walkthrough
+
+```bash
+# create and use an isolated environment
+python -m venv .venv
+source .venv/bin/activate
+python -V
+```
+
+## Common Mistakes
+
+- Installing dependencies globally and inheriting unknown versions.
+- Running `python` and `pip` from different environments.
+
+## Exercise
+
+Create a folder, initialize a venv, and run a script printing your Python version.
+
+## Reflection
+
+What would break in your team if everyone used a different environment setup?
+
+## Further Reading
+
+- [Python: Installing Python](https://docs.python.org/3/using/windows.html#installing-python)
+- [pyenv for version management](https://github.com/pyenv/pyenv)
+
+## Completion Checklist
+
+- [ ] I can run `python -V` from my project terminal.
+- [ ] I created a `.venv` for a new project.
+- [ ] My script executes without global dependency dependence.

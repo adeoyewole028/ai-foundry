@@ -1,0 +1,68 @@
+# Agent Failure Modes
+
+## Objective
+
+By the end of this lesson, you can identify and guard against common agent failures.
+
+## Prerequisites
+
+Before this lesson, you should complete the first six lessons in this module.
+
+## Plain-English Explanation
+
+Agents fail in patterns: loops, wrong tools, stale memory, wrong assumptions.
+
+## Key Terms
+
+### Guardrail
+
+Simple meaning:
+A rule that prevents bad behavior.
+
+Real-world analogy:
+Circuit breaker in banking systems.
+
+Technical meaning:
+Automated policy that can stop, rollback, or escalate.
+
+Example:
+Limit retries on `send_application` to 2 attempts.
+
+Why it matters:
+Prevents silent damage from model mistakes.
+
+## Mental Model
+
+Every decision should have a "what if it goes wrong" branch.
+
+## Example
+
+If context is inconsistent, the agent should pause and ask for clarification.
+
+## Code Walkthrough
+
+Track failure counts, reasons, and escalation counters in one workflow record.
+
+## Common Mistakes
+
+- No hard stop after repeated failures.
+- Silent retries without changing strategy.
+- Skipping observability on tool failures.
+
+## Exercise
+
+List the top three failures in your own current AI project and one mitigation each.
+
+## Reflection
+
+How do you decide when the system should fail closed?
+
+## Further Reading
+
+- [Prompt injection and safety controls](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
+
+## Completion Checklist
+
+- [ ] I can map failure classes clearly.
+- [ ] I can define retry and escalation policies.
+- [ ] I can choose fail-closed behavior for unknown states.

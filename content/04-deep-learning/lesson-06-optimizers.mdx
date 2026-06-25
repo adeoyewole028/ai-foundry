@@ -1,0 +1,68 @@
+# Optimizers
+
+## Objective
+
+By the end of this lesson, you will compare optimizer behavior and choose practical defaults.
+
+## Prerequisites
+
+Before this lesson, you should understand gradients and update rules.
+
+## Plain-English Explanation
+
+Optimizers decide how large and in what direction to move model weights.
+
+## Key Terms
+
+### Learning rate
+
+Simple meaning:
+How big the step size is each update.
+
+Real-world analogy:
+Walking toward a target with big or small steps.
+
+Technical meaning:
+Hyperparameter that scales gradient-based updates.
+
+Example:
+Adam adapts step sizes based on past gradients.
+
+Why it matters:
+Step size and momentum affect speed and stability.
+
+## Mental Model
+
+Imagine steering with different aggressiveness based on terrain.
+
+## Example
+
+Compare SGD, SGD with momentum, and Adam on the same tiny model.
+
+## Code Walkthrough
+
+Swap optimizer settings and track validation curve stability.
+
+## Common Mistakes
+
+- Too aggressive learning rate.
+- Forgetting weight decay or regularization.
+- Copy-pasting defaults blindly.
+
+## Exercise
+
+Write a note for when you would choose a smaller learning rate.
+
+## Reflection
+
+How do you decide whether a change is optimizer behavior or data behavior?
+
+## Further Reading
+
+- [PyTorch optimizer docs](https://pytorch.org/docs/stable/optim.html)
+
+## Completion Checklist
+
+- [ ] I can compare optimizer tradeoffs.
+- [ ] I can explain learning-rate sensitivity.
+- [ ] I can justify a parameter adjustment from curves.

@@ -1,0 +1,68 @@
+# Monitoring
+
+## Objective
+
+By the end of this lesson, you can build monitoring that surfaces quality and safety risks.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 04 in this module.
+
+## Plain-English Explanation
+
+Monitoring is your early-warning system for production behavior.
+
+## Key Terms
+
+### Alert Fatigue
+
+Simple meaning:
+Too many alerts reducing response quality.
+
+Real-world analogy:
+Constant false alarms in an on-call channel.
+
+Technical meaning:
+Noisy thresholds causing ignored alerts.
+
+Example:
+Over-alerting on low-severity fluctuations.
+
+Why it matters:
+Critical incidents get missed when everyone is overloaded.
+
+## Mental Model
+
+Create a layered alert system: warning, action, and escalation.
+
+## Example
+
+Alert on sustained latency rise plus rejection spikes.
+
+## Code Walkthrough
+
+Track SLOs and tie alerts to runbooks.
+
+## Common Mistakes
+
+- Only tracking uptime.
+- No user-facing impact metric.
+- Copy-paste dashboards without labels.
+
+## Exercise
+
+Define five metrics and two alert thresholds for one AI endpoint.
+
+## Reflection
+
+How do you prevent alert fatigue while preserving safety?
+
+## Further Reading
+
+- [Prometheus alerting patterns](https://prometheus.io/docs/practices/alerting/)
+
+## Completion Checklist
+
+- [ ] I can define high-signal metrics.
+- [ ] I can set sensible thresholds.
+- [ ] I can pair each alert with a response action.

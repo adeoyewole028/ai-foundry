@@ -1,0 +1,68 @@
+# Context Windows
+
+## Objective
+
+By the end of this lesson, you will keep context relevant in long workflows.
+
+## Prerequisites
+
+Before this lesson, you should understand token budgeting.
+
+## Plain-English Explanation
+
+Context windows are the part of memory the model can use right now.
+
+## Key Terms
+
+### Truncation
+
+Simple meaning:
+Dropping old or lower-priority text.
+
+Real-world analogy:
+A meeting summary before handing off to the next engineer.
+
+Technical meaning:
+Evicting tokens when prompts exceed max length.
+
+Example:
+Keeping only top relevant user messages.
+
+Why it matters:
+Useful signals must survive while noise is dropped.
+
+## Mental Model
+
+Think like a rolling memo: always update what matters most.
+
+## Example
+
+In an onboarding bot, keep constraints and user goal, drop repeated greetings.
+
+## Code Walkthrough
+
+Design a simple context reducer function and test it with long transcripts.
+
+## Common Mistakes
+
+- Keeping too much chatty history.
+- Dropping safety instructions.
+- Forgetting timezone, locale, or persona settings.
+
+## Exercise
+
+Draft a context policy for a support chatbot.
+
+## Reflection
+
+What content should never be dropped?
+
+## Further Reading
+
+- [Prompt length limits](https://platform.openai.com/docs/api-reference/chat/create#chat-create-messages)
+
+## Completion Checklist
+
+- [ ] I can prioritize context by relevance.
+- [ ] I can design a stable fallback policy.
+- [ ] I can explain truncation tradeoffs.

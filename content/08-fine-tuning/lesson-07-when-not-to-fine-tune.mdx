@@ -1,0 +1,68 @@
+# When Not to Fine-Tune
+
+## Objective
+
+By the end of this lesson, you can decide when fine-tuning is the wrong tool.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 06 in this module.
+
+## Plain-English Explanation
+
+Fine-tuning is powerful, but sometimes risky, expensive, and unnecessary.
+
+## Key Terms
+
+### Guardrail First
+
+Simple meaning:
+Prefer constraints before retraining.
+
+Real-world analogy:
+Improve safety by policy and review before replacing staff.
+
+Technical meaning:
+Prompting, retrieval, or policy changes can outperform adaptation.
+
+Example:
+Use structured output + rules before tuning for formatting tasks.
+
+Why it matters:
+Avoids wasted spend and locked-in bad behavior.
+
+## Mental Model
+
+Adaptation should come after easier levers are validated.
+
+## Example
+
+Choosing function calling with policies rather than model retraining for a strict workflow.
+
+## Code Walkthrough
+
+Create a decision rubric across cost, data availability, drift, and governance.
+
+## Common Mistakes
+
+- Treating tuning as default.
+- Ignoring maintenance overhead.
+- Overfitting a narrow dataset.
+
+## Exercise
+
+Draft a one-page decision memo for your product.
+
+## Reflection
+
+How do you prevent fine-tuning becoming a strategic shortcut?
+
+## Further Reading
+
+- [Model update strategy notes](https://docs.mistral.ai/guides/fine-tuning)
+
+## Completion Checklist
+
+- [ ] I can justify alternatives to fine-tuning.
+- [ ] I can estimate maintenance cost.
+- [ ] I can define a no-fine-tune baseline.

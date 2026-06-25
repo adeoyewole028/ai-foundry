@@ -1,0 +1,89 @@
+# What Are Models?
+
+## Objective
+
+By the end of this lesson, you will be able to explain what an AI model is, how it is different from an application, and why model behavior depends on training and evaluation.
+
+## Prerequisites
+
+Before this lesson, you should understand that AI systems learn patterns from data and that machine learning, deep learning, and LLMs are different levels of AI technique.
+
+## Plain-English Explanation
+
+An AI model is the learned part of an AI system. It is not the whole product. The product includes screens, databases, prompts, permissions, logs, and human workflows. The model is the part that receives an input and produces a prediction, ranking, classification, summary, image, or next piece of text.
+
+Think of the model as a compressed pattern engine. During training, it sees examples. After training, it uses the patterns from those examples to respond to new inputs. It does not "know" in the human sense. It has learned statistical relationships that can be useful, wrong, incomplete, or surprisingly good depending on the problem.
+
+## Key Terms
+
+### Model
+
+A model is a trained system that maps inputs to outputs. For example, it can map a support ticket to a category, a user query to an answer, or a photo to a label.
+
+### Parameters
+
+Parameters are internal values the model adjusts during training. They are part of how the model stores learned patterns.
+
+### Inference
+
+Inference is the moment when a trained model is used to produce an output for a new input.
+
+## Mental Model
+
+Imagine a chef who has tasted thousands of soups and learned what usually makes soup salty, bland, spicy, or balanced. The chef cannot replay every soup they ever tasted. Instead, they use learned taste patterns to judge a new soup. A model works similarly: it does not keep every example as a perfect memory, but it uses learned patterns to respond.
+
+## Example
+
+In FurOrbit, a model might classify appointment notes as routine care, urgent concern, grooming request, or medication question. The app still handles scheduling, permissions, reminders, and the user interface. The model only performs the classification task.
+
+## Code Walkthrough
+
+Here is a small product-shaped sketch:
+
+```ts
+type Ticket = {
+  subject: string;
+  body: string;
+};
+
+type Classification = "billing" | "login" | "bug" | "feature-request";
+
+async function classifyTicket(ticket: Ticket): Promise<Classification> {
+  const modelInput = `${ticket.subject}\n\n${ticket.body}`;
+
+  return runModel(modelInput);
+}
+```
+
+The important idea is that `runModel` is only one part of the feature. The product still needs validation, review, error handling, and a fallback when the model is uncertain.
+
+## Common Mistakes
+
+- Treating the model as the whole product.
+- Assuming the model has a perfect memory of facts.
+- Skipping evaluation because the first demo looks impressive.
+- Forgetting that a smaller or simpler model may be enough.
+
+## Exercise
+
+Pick one feature from an app you use. Write down:
+
+1. What input the model would receive.
+2. What output the model should produce.
+3. What the surrounding product still needs to handle.
+
+## Reflection
+
+Explain why "we need a model" is not the same as "we have a product."
+
+## Further Reading
+
+- [Google Machine Learning Crash Course: ML models](https://developers.google.com/machine-learning/crash-course)
+- [AWS: What is a machine learning model?](https://aws.amazon.com/what-is/machine-learning-model/)
+- [IBM: What is an AI model?](https://www.ibm.com/topics/ai-model)
+
+## Completion Checklist
+
+- [ ] I can explain a model as a learned pattern system.
+- [ ] I can distinguish a model from the app that uses it.
+- [ ] I can name one way model quality can fail.

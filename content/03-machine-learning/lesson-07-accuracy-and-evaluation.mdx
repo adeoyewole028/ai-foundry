@@ -1,0 +1,68 @@
+# Accuracy and Evaluation
+
+## Objective
+
+By the end of this lesson, you will evaluate models with task-appropriate metrics.
+
+## Prerequisites
+
+Before this lesson, you should complete classification and train/validation workflows.
+
+## Plain-English Explanation
+
+Accuracy says “how often we’re right,” but it is not always the right scoreboard.
+
+## Key Terms
+
+### Precision
+
+Simple meaning:
+When we predict positive, how often we are correct.
+
+Real-world analogy:
+Calling someone for interview; precision is keeping false positives low.
+
+Technical meaning:
+TP / (TP + FP) for positive predictions.
+
+Example:
+Fraud detection with many legitimate transactions.
+
+Why it matters:
+Wrong metric choice can hide harmful errors.
+
+## Mental Model
+
+Use a scoreboard that matches your business pain, not just convenience.
+
+## Example
+
+If missing a fraud is costly, you prioritize recall for fraud cases.
+
+## Code Walkthrough
+
+Generate and inspect confusion matrix plus precision/recall, then choose a threshold from risk.
+
+## Common Mistakes
+
+- Celebrating high accuracy when positives are rare.
+- Treating recall and precision as interchangeable.
+- Tuning metrics only on test data.
+
+## Exercise
+
+Choose one metric for a binary product use case and justify your choice.
+
+## Reflection
+
+What metric would you change if user trust, not speed, were the top priority?
+
+## Further Reading
+
+- [Precision and recall](https://developers.google.com/machine-learning/crash-course/classification/precision-and-recall)
+
+## Completion Checklist
+
+- [ ] I can explain accuracy limits.
+- [ ] I can define precision and recall.
+- [ ] I can justify metric choice using business risk.

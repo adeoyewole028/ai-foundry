@@ -1,0 +1,71 @@
+# Portfolio Project: Job Application Assistant
+
+## Objective
+
+By the end of this project, you can deliver a production-minded agent that coordinates tool calls and reviews.
+
+## Prerequisites
+
+Before this project, complete all Module 07 lessons and mini project.
+
+## Plain-English Explanation
+
+Build a reliable assistant that moves applications from discovery to reviewed draft and tracks execution history.
+
+## Key Terms
+
+### Audit Trail
+
+Simple meaning:
+Record of what happened and why.
+
+Real-world analogy:
+Version history in a legal document workflow.
+
+Technical meaning:
+Persistent logs for actions, approvals, outcomes, and failures.
+
+Example:
+Storing each approval request with timestamp and state snapshot.
+
+Why it matters:
+Audits support debugging, trust, and iteration.
+
+## Mental Model
+
+Intake -> Agent plan -> Tool run -> Human checkpoint -> Finalize -> Archive.
+
+## Example
+
+From one job posting URL to final ready-to-send application package.
+
+## Code Walkthrough
+
+Implement:
+- Plan and state data models
+- Tool wrappers with strict schemas
+- Dashboard metrics for completion and escalation
+
+## Common Mistakes
+
+- No rollback on partial success.
+- Hardcoded tool calls.
+- Missing user messaging at each handoff.
+
+## Exercise
+
+Create a portfolio write-up including scope, architecture, risks, and monitoring plan.
+
+## Reflection
+
+What is the most important control your product misses today?
+
+## Further Reading
+
+- [AWS Well-Architected reliability considerations](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+
+## Completion Checklist
+
+- [ ] I can present an end-to-end agent workflow.
+- [ ] I can describe how the audit trail supports trust.
+- [ ] I can report three monitoring metrics.

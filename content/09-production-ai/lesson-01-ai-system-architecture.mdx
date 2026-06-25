@@ -1,0 +1,68 @@
+# AI System Architecture
+
+## Objective
+
+By the end of this lesson, you can design a stable architecture for AI product traffic.
+
+## Prerequisites
+
+Before this lesson, you should complete Modules 00–08.
+
+## Plain-English Explanation
+
+Architecture decides where reliability comes from: API gateways, orchestration, model layer, and data stores.
+
+## Key Terms
+
+### Bounded Context
+
+Simple meaning:
+Each service owns one part of the system.
+
+Real-world analogy:
+HR, engineering, and finance keep separate responsibilities in one company.
+
+Technical meaning:
+Loose coupling and clear contracts between AI, control plane, and storage.
+
+Example:
+Separate model call service from user-facing API.
+
+Why it matters:
+Clear boundaries make incidents understandable and recoverable.
+
+## Mental Model
+
+Think in layers: ingress -> control -> model -> persistence -> observability.
+
+## Example
+
+Use a request processor that validates user input before model invocation.
+
+## Code Walkthrough
+
+Sketch the critical path and identify exactly where retries and timeouts sit.
+
+## Common Mistakes
+
+- Putting policy checks after model execution.
+- No separate control layer for safe fallbacks.
+- Hidden data paths with unclear ownership.
+
+## Exercise
+
+Draft your production architecture for one real feature.
+
+## Reflection
+
+Where will you add the first trust boundary?
+
+## Further Reading
+
+- [Google SRE site reliability foundations](https://sre.google/sre-book/table-of-contents/)
+
+## Completion Checklist
+
+- [ ] I can separate synchronous and asynchronous responsibilities.
+- [ ] I can map model calls to owned service boundaries.
+- [ ] I can justify where errors should short-circuit.

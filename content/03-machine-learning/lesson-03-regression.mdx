@@ -1,0 +1,68 @@
+# Regression
+
+## Objective
+
+By the end of this lesson, you will build intuition for predicting continuous outcomes.
+
+## Prerequisites
+
+Before this lesson, you should understand features, labels, and basic split hygiene.
+
+## Plain-English Explanation
+
+Regression predicts numbers like a line of best fit that balances error.
+
+## Key Terms
+
+### Continuous target
+
+Simple meaning:
+A target that can take many values.
+
+Real-world analogy:
+Predicting salary is continuous; predicting hired vs not hired is not.
+
+Technical meaning:
+The label is numeric and evaluation often uses regression loss metrics.
+
+Example:
+Forecasting monthly active users.
+
+Why it matters:
+Continuous predictions drive pricing, forecasting, and ranking tasks.
+
+## Mental Model
+
+Imagine dropping a smooth curve through points and measuring distance to each point.
+
+## Example
+
+Estimate resume score as a number from profile signals.
+
+## Code Walkthrough
+
+Fit a baseline linear model on standardized numeric features and review error distribution.
+
+## Common Mistakes
+
+- Treating regression as class prediction.
+- Ignoring outliers and scale.
+- Choosing the wrong loss metric for business intent.
+
+## Exercise
+
+Describe one case where a one-point prediction error is more important than another.
+
+## Reflection
+
+When does a linear assumption fail in your product data?
+
+## Further Reading
+
+- [Scikit-learn regression intro](https://scikit-learn.org/stable/modules/linear_model.html)
+
+## Completion Checklist
+
+- [ ] I can define regression in plain language.
+- [ ] I can give one concrete use case.
+- [ ] I can name one regression pitfall and fix.

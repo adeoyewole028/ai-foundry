@@ -1,0 +1,77 @@
+# Functions
+
+## Objective
+
+By the end of this lesson, you will use reusable functions for text normalization and prompt preparation.
+
+## Prerequisites
+
+Practice with variables, types, lists, and dictionaries.
+
+## Plain-English Explanation
+
+Functions package behavior so your code becomes predictable and easy to test.
+
+## Key Terms
+
+### Function
+
+Simple meaning:
+Named block of code that can run with inputs.
+
+Real-world analogy:
+Like a recipe you run repeatedly with new ingredients.
+
+Technical meaning:
+A callable object that maps arguments to return values.
+
+Example:
+`def clean_text(text): ...`
+
+Why it matters:
+AI workflows become stable when preparation steps are centralized.
+
+## Mental Model
+
+```text
+Input -> function -> transformation -> output
+```
+
+## Example
+
+```python
+def normalize(text: str) -> str:
+    return " ".join(text.strip().split())
+```
+
+## Code Walkthrough
+
+```python
+def build_prompt(topic: str, max_chars: int = 120):
+    cleaned = normalize(topic)
+    return cleaned[:max_chars]
+```
+
+## Common Mistakes
+
+- Functions doing too many things at once.
+- Returning different shape responses from one function.
+
+## Exercise
+
+Write a function that trims text and validates minimum length.
+
+## Reflection
+
+What would you move into a function first when your script starts to grow?
+
+## Further Reading
+
+- [Python Functions Guide](https://docs.python.org/3/tutorial/controlflow.html#defining-functions)
+- [Clean code with small functions](https://realpython.com/defining-your-own-python-function/)
+
+## Completion Checklist
+
+- [ ] I can define and call a function.
+- [ ] I can give meaningful default values.
+- [ ] I can return a consistent output type.

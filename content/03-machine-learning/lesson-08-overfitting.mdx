@@ -1,0 +1,68 @@
+# Overfitting
+
+## Objective
+
+By the end of this lesson, you will detect overfitting and apply basic mitigation.
+
+## Prerequisites
+
+Before this lesson, you should know how to create train/validation/test splits.
+
+## Plain-English Explanation
+
+Overfitting happens when a model memorizes examples instead of learning reusable patterns.
+
+## Key Terms
+
+### Generalization
+
+Simple meaning:
+How well learning works on new, unseen data.
+
+Real-world analogy:
+Studying for the exact exam questions vs learning concepts.
+
+Technical meaning:
+Small train/val gap drift indicates better generalization.
+
+Example:
+High train score with collapsing validation score.
+
+Why it matters:
+Generalization is the only thing that predicts product behavior.
+
+## Mental Model
+
+Picture a model as a student: fitting practice questions perfectly is not understanding.
+
+## Example
+
+Monitor validation error after each training pass and stop before performance diverges.
+
+## Code Walkthrough
+
+Track learning curves and compare complexity settings (`max_depth`, regularization).
+
+## Common Mistakes
+
+- Tuning on test set.
+- Mistaking memorization for performance.
+- Ignoring early stopping and validation trend.
+
+## Exercise
+
+Create a short mitigation plan that includes at least two anti-overfitting steps.
+
+## Reflection
+
+What single signal in validation history most worries you?
+
+## Further Reading
+
+- [Bias-variance tradeoff](https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff)
+
+## Completion Checklist
+
+- [ ] I can describe overfitting in one analogy.
+- [ ] I can identify train/val divergence.
+- [ ] I can suggest at least one fix.

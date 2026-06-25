@@ -1,0 +1,78 @@
+# Variables and Data Types
+
+## Objective
+
+By the end of this lesson, you will use Python variables and core types to hold input, output, and metadata.
+
+## Prerequisites
+
+Complete the Python setup lesson.
+
+## Plain-English Explanation
+
+Variables are named boxes. Each type tells your program what kind of value it can safely hold and how it behaves.
+
+## Key Terms
+
+### Data Type
+
+Simple meaning:
+The kind of value you are storing.
+
+Real-world analogy:
+Like choosing the right form field type (number, text, checkbox).
+
+Technical meaning:
+Python object categories such as `str`, `int`, `float`, `bool`, `list`, and `dict`.
+
+Example:
+Use `int` for lesson counts, `str` for text.
+
+Why it matters:
+Mixing types creates silent bugs before you ever touch AI components.
+
+## Mental Model
+
+```text
+input string -> parse -> validated type -> reliable behavior
+```
+
+## Example
+
+```python
+lesson_count = 10
+is_ready = False
+topics = ["python", "ai", "api"]
+```
+
+## Code Walkthrough
+
+```python
+raw_minutes = "30"
+minutes = int(raw_minutes)
+metadata = {"level": "beginner", "minutes": minutes}
+```
+
+## Common Mistakes
+
+- Forgetting to convert strings before calculations.
+- Relying on implicit behavior without checks.
+
+## Exercise
+
+Write a tiny script that converts age from string to int and prints whether user is beginner or advanced.
+
+## Reflection
+
+Why is type clarity especially important when building data pipelines?
+
+## Further Reading
+
+- [Python Data Types](https://docs.python.org/3/library/stdtypes.html)
+- [Type Hints (PEP 484)](https://peps.python.org/pep-0484/)
+
+## Completion Checklist
+
+- [ ] I can identify `str`, `int`, `float`, and `bool`.
+- [ ] I can convert values safely.
+- [ ] I can spot likely type-related failure points.

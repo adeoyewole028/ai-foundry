@@ -1,0 +1,68 @@
+# Decision Trees
+
+## Objective
+
+By the end of this lesson, you will read model decisions as branching logic.
+
+## Prerequisites
+
+Before this lesson, you should understand classification basics and training split hygiene.
+
+## Plain-English Explanation
+
+Decision trees split data repeatedly based on one rule at a time until reaching a prediction.
+
+## Key Terms
+
+### Node
+
+Simple meaning:
+One question in the branching flow.
+
+Real-world analogy:
+A flowchart asking yes/no questions.
+
+Technical meaning:
+A decision point that partitions observations by feature thresholds.
+
+Example:
+If experience > 3 years then go left, else right.
+
+Why it matters:
+Trees are interpretable and fast to explain.
+
+## Mental Model
+
+Each path from root to leaf is an if/else narrative.
+
+## Example
+
+Predict candidate score with if/else rules around role fit indicators.
+
+## Code Walkthrough
+
+Train a depth-limited tree and print a small textual representation of top splits.
+
+## Common Mistakes
+
+- Allowing uncontrolled depth.
+- Overfitting to noisy rules.
+- Ignoring minimum samples per leaf.
+
+## Exercise
+
+Sketch a small tree for yes/no access control based on 3 conditions.
+
+## Reflection
+
+What tradeoff did you make by improving interpretability?
+
+## Further Reading
+
+- [Decision tree concept](https://en.wikipedia.org/wiki/Decision_tree)
+
+## Completion Checklist
+
+- [ ] I can explain why trees can overfit.
+- [ ] I can identify depth as a controlling choice.
+- [ ] I can explain a path from feature to prediction.

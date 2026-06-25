@@ -1,0 +1,466 @@
+{
+  "title": "Machine Learning",
+  "slug": "machine-learning",
+  "order": 3,
+  "description": "Build baseline models by understanding features, training loops, and evaluation.",
+  "level": "Beginner",
+  "estimatedHours": 18,
+  "outcomes": [
+    "Define features and labels and explain model assumptions in plain language.",
+    "Describe the training/validation/testing lifecycle and why splits matter.",
+    "Implement a simple regression and classification baseline workflow.",
+    "Choose evaluation metrics that match prediction tasks.",
+    "Interpret model behavior to reduce overfitting.",
+    "Explain how tree-based models fit when patterns are non-linear.",
+    "Ship a working project artifact with a clear model rationale."
+  ],
+  "lessons": [
+    {
+      "title": "Features and Labels",
+      "slug": "features-and-labels",
+      "file": "lesson-01-features-and-labels.mdx",
+      "order": 1,
+      "type": "lesson",
+      "description": "Separate what model inputs are and what model output should predict.",
+      "estimatedMinutes": 28,
+      "checklist": [
+        "I can define features and labels in plain language.",
+        "I can identify target leakage risks in a dataset.",
+        "I can suggest one feature engineering improvement."
+      ],
+      "questions": [
+        "What is the simplest way to explain a feature vs label?",
+        "How can leakage happen before training begins?"
+      ]
+    },
+    {
+      "title": "Training and Testing",
+      "slug": "training-and-testing",
+      "file": "lesson-02-training-and-testing.mdx",
+      "order": 2,
+      "type": "lesson",
+      "description": "Understand split strategy and evaluation hygiene.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can explain why random seeds matter.",
+        "I can describe a clean split strategy.",
+        "I can avoid a common leakage mistake."
+      ],
+      "questions": [
+        "Why can't we evaluate on training data only?",
+        "When would stratified splits be important?"
+      ]
+    },
+    {
+      "title": "Regression",
+      "slug": "regression",
+      "file": "lesson-03-regression.mdx",
+      "order": 3,
+      "type": "lesson",
+      "description": "Build first predictive intuition with continuous outcomes.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can explain what regression predicts.",
+        "I can interpret a slope-like relationship.",
+        "I can spot one regression failure mode."
+      ],
+      "questions": [
+        "When is regression a good first choice?",
+        "What does a high error on validation suggest?"
+      ]
+    },
+    {
+      "title": "Classification",
+      "slug": "classification",
+      "file": "lesson-04-classification.mdx",
+      "order": 4,
+      "type": "lesson",
+      "description": "Predict categories and interpret class-based outcomes.",
+      "estimatedMinutes": 42,
+      "checklist": [
+        "I can distinguish regression from classification problems.",
+        "I can explain class imbalance consequences.",
+        "I can pick a baseline strategy for binary classification."
+      ],
+      "questions": [
+        "Why do balanced classes change which metric you choose?",
+        "What is a simple baseline for class predictions?"
+      ]
+    },
+    {
+      "title": "Decision Trees",
+      "slug": "decision-trees",
+      "file": "lesson-05-decision-trees.mdx",
+      "order": 5,
+      "type": "lesson",
+      "description": "Learn interpretable branching models and their tradeoffs.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can explain how a tree makes decisions.",
+        "I can identify signs of depth overuse.",
+        "I can compare tree logic with linear models."
+      ],
+      "questions": [
+        "Why are trees often easier to explain to non-technical teams?",
+        "What happens when a tree grows too deep?"
+      ]
+    },
+    {
+      "title": "Random Forest",
+      "slug": "random-forest",
+      "file": "lesson-06-random-forest.mdx",
+      "order": 6,
+      "type": "lesson",
+      "description": "Use many trees together for stronger generalization.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can describe the ensemble idea in simple terms.",
+        "I can explain variance reduction in a forest.",
+        "I can choose when to prefer forest over a single tree."
+      ],
+      "questions": [
+        "Why can one forest beat one tree?",
+        "How does averaging predictions reduce instability?"
+      ]
+    },
+    {
+      "title": "Accuracy and Evaluation",
+      "slug": "accuracy-and-evaluation",
+      "file": "lesson-07-accuracy-and-evaluation.mdx",
+      "order": 7,
+      "type": "lesson",
+      "description": "Choose and interpret metrics that guide model decisions.",
+      "estimatedMinutes": 42,
+      "checklist": [
+        "I can explain accuracy limitations.",
+        "I can match a metric to task risk.",
+        "I can read a confusion matrix confidently."
+      ],
+      "questions": [
+        "Why can accuracy be misleading with imbalance?",
+        "What do precision and recall answer for decisions?"
+      ]
+    },
+    {
+      "title": "Overfitting",
+      "slug": "overfitting",
+      "file": "lesson-08-overfitting.mdx",
+      "order": 8,
+      "type": "lesson",
+      "description": "Detect and reduce overfitting through validation-aware choices.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can describe overfitting with one analogy.",
+        "I can detect it in train/val behavior.",
+        "I can suggest one mitigation strategy."
+      ],
+      "questions": [
+        "Why do good training metrics mislead sometimes?",
+        "What is one practical anti-overfitting habit?"
+      ]
+    },
+    {
+      "title": "Mini Project: Match Score Scoring Check",
+      "slug": "mini-job-match-scoring",
+      "file": "mini-project-job-match-score-checker.mdx",
+      "order": 9,
+      "type": "project",
+      "description": "Prototype a small scoring pipeline with clear train/test separation.",
+      "estimatedMinutes": 90,
+      "checklist": [
+        "I can build and document a baseline scorer.",
+        "I can track feature and target leakage.",
+        "I can compare at least two model variations."
+      ],
+      "questions": [
+        "How do you prove your scoreer is not leaking?",
+        "How will you communicate uncertainty to users?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Portfolio Project: Job Match Score Predictor",
+      "slug": "job-match-score-predictor",
+      "file": "project.mdx",
+      "order": 10,
+      "type": "project",
+      "description": "Create a portfolio-ready model that predicts a job fit score from role features.",
+      "estimatedMinutes": 140,
+      "checklist": [
+        "I can build a full preprocessing and split pipeline.",
+        "I can justify feature choices from business intent.",
+        "I can present model limits and next improvements."
+      ],
+      "questions": [
+        "What makes your model production-friendly?",
+        "Which metric will you trust for this use case and why?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Machine Learning Quiz",
+      "slug": "machine-learning-quiz",
+      "file": "quiz.mdx",
+      "order": 11,
+      "type": "quiz",
+      "description": "Confirm readiness before moving into deep learning topics.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can explain feature and target role separation.",
+        "I can interpret overfitting and metric fit.",
+        "I can defend a basic model choice."
+      ],
+      "questions": [
+        "Which part of the model lifecycle most protects product trust?",
+        "How do you decide between trees and linear models?"
+      ],
+      "quizQuestions": [
+        {
+          "id": "features-labels",
+          "prompt": "In simple terms, what is the difference between a feature and a label?",
+          "correctAnswer": "Features are the inputs used to make a prediction, while the label is the target value the model is trying to predict.",
+          "keywords": [
+            "feature",
+            "input",
+            "label",
+            "target",
+            "predict"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Model before task",
+              "explanation": "The learning task must be clear before model choice can be meaningful."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Accuracy for everything",
+              "explanation": "Accuracy can hide poor performance when classes are imbalanced or error costs differ."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Training-only evaluation",
+              "explanation": "Training performance alone cannot show whether the model generalizes to new examples."
+            },
+            {
+              "id": "correct",
+              "label": "Inputs versus prediction target",
+              "explanation": "Features are the inputs used to make a prediction, while the label is the target value the model is trying to predict."
+            }
+          ]
+        },
+        {
+          "id": "train-test",
+          "prompt": "Why does splitting data correctly matter before model development?",
+          "correctAnswer": "Correct splitting creates an honest evaluation by keeping unseen data separate, so performance reflects behavior in new cases and avoids leakage-driven optimism.",
+          "keywords": [
+            "honest",
+            "unseen",
+            "separate",
+            "evaluation",
+            "leakage"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Accuracy for everything",
+              "explanation": "Accuracy can hide poor performance when classes are imbalanced or error costs differ."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Training-only evaluation",
+              "explanation": "Training performance alone cannot show whether the model generalizes to new examples."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Complexity by default",
+              "explanation": "Complexity can increase overfitting and reduce explainability without improving the product outcome."
+            },
+            {
+              "id": "correct",
+              "label": "Honest unseen-data evaluation",
+              "explanation": "Correct splitting creates an honest evaluation by keeping unseen data separate, so performance reflects behavior in new cases and avoids leakage-driven optimism."
+            }
+          ]
+        },
+        {
+          "id": "regression-vs-classification",
+          "prompt": "When should you use regression instead of classification?",
+          "correctAnswer": "Use regression when outputs are continuous values and classification when outputs are categories or class labels.",
+          "keywords": [
+            "continuous",
+            "category",
+            "classification",
+            "regression",
+            "labels"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Continuous versus category outputs",
+              "explanation": "Use regression when outputs are continuous values and classification when outputs are categories or class labels."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Training-only evaluation",
+              "explanation": "Training performance alone cannot show whether the model generalizes to new examples."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Complexity by default",
+              "explanation": "Complexity can increase overfitting and reduce explainability without improving the product outcome."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Labels as metadata",
+              "explanation": "Labels define the target a supervised model learns to predict."
+            }
+          ]
+        },
+        {
+          "id": "tree-explainability",
+          "prompt": "What makes tree-based models easy to explain to business teams?",
+          "correctAnswer": "Trees split decisions into simple rules, so you can describe prediction steps as conditional questions on features.",
+          "keywords": [
+            "rules",
+            "features",
+            "conditional",
+            "simple",
+            "predict"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Rule-like decision paths",
+              "explanation": "Trees split decisions into simple rules, so you can describe prediction steps as conditional questions on features."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Complexity by default",
+              "explanation": "Complexity can increase overfitting and reduce explainability without improving the product outcome."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Labels as metadata",
+              "explanation": "Labels define the target a supervised model learns to predict."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Ignore validation trends",
+              "explanation": "Validation and monitoring trends help detect overfitting, drift, and degraded performance."
+            }
+          ]
+        },
+        {
+          "id": "forest-benefit",
+          "prompt": "Why does a random forest often generalize better than one decision tree?",
+          "correctAnswer": "A forest combines many trees on varied samples, and averaging their outputs reduces instability and overfitting compared with a single tree.",
+          "keywords": [
+            "many trees",
+            "average",
+            "variance",
+            "stability",
+            "overfitting"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Labels as metadata",
+              "explanation": "Labels define the target a supervised model learns to predict."
+            },
+            {
+              "id": "correct",
+              "label": "Averaged trees reduce variance",
+              "explanation": "A forest combines many trees on varied samples, and averaging their outputs reduces instability and overfitting compared with a single tree."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Ignore validation trends",
+              "explanation": "Validation and monitoring trends help detect overfitting, drift, and degraded performance."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Model before task",
+              "explanation": "The learning task must be clear before model choice can be meaningful."
+            }
+          ]
+        },
+        {
+          "id": "metric-choice",
+          "prompt": "How should metric choice change when classes are imbalanced?",
+          "correctAnswer": "When imbalance is high, use metrics like precision and recall that reveal minority-class performance, not only overall accuracy.",
+          "keywords": [
+            "imbalanced",
+            "precision",
+            "recall",
+            "accuracy",
+            "minority"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Precision and recall for imbalance",
+              "explanation": "When imbalance is high, use metrics like precision and recall that reveal minority-class performance, not only overall accuracy."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Ignore validation trends",
+              "explanation": "Validation and monitoring trends help detect overfitting, drift, and degraded performance."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Model before task",
+              "explanation": "The learning task must be clear before model choice can be meaningful."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Accuracy for everything",
+              "explanation": "Accuracy can hide poor performance when classes are imbalanced or error costs differ."
+            }
+          ]
+        },
+        {
+          "id": "overfitting",
+          "prompt": "Describe one reliable sign of overfitting in train and validation trends.",
+          "correctAnswer": "Overfitting is often seen when training metrics improve while validation metrics worsen, suggesting the model has memorized patterns that do not generalize.",
+          "keywords": [
+            "training",
+            "validation",
+            "generalize",
+            "memorized",
+            "worsen"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Model before task",
+              "explanation": "The learning task must be clear before model choice can be meaningful."
+            },
+            {
+              "id": "correct",
+              "label": "Training improves, validation worsens",
+              "explanation": "Overfitting is often seen when training metrics improve while validation metrics worsen, suggesting the model has memorized patterns that do not generalize."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Accuracy for everything",
+              "explanation": "Accuracy can hide poor performance when classes are imbalanced or error costs differ."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Training-only evaluation",
+              "explanation": "Training performance alone cannot show whether the model generalizes to new examples."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

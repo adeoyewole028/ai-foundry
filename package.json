@@ -1,0 +1,40 @@
+{
+  "name": "ai-foundry",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build --webpack",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test:curriculum": "node --test scripts/check-curriculum-structure.mjs",
+    "test:progress": "node --test scripts/check-progress.mjs",
+    "test:links": "node --test scripts/check-mdx-links.mjs",
+    "test:prerequisites": "node --test scripts/check-prerequisite-locks.mjs",
+    "test:smoke": "npm run test:curriculum && npm run test:progress && npm run test:links && npm run test:prerequisites"
+  },
+  "dependencies": {
+    "@mdx-js/react": "^3.1.1",
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.108.2",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.21.0",
+    "next": "^16.2.9",
+    "next-mdx-remote": "^6.0.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.1",
+    "@types/node": "^26.0.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.5.0",
+    "eslint-config-next": "^16.2.9",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.1",
+    "typescript": "^6.0.3"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "lastScan": "2026-06-25",
+  "framework": "Next.js 16 App Router",
+  "fontStack": "Self-contained system sans + system mono",
+  "palette": "Tailwind v4 @theme tokens in tokens.css",
+  "motion": "motion-cut; no animation library installed",
+  "spacing": "semantic CSS spacing tokens plus Tailwind utilities",
+  "preserve": ["Next.js 16", "Tailwind 4", "content-first curriculum IA"],
+  "introduced": ["Workbench macrostructure", "N5 floating pill nav", "Ft2 inline footer", "tokenized global CSS"]
+}

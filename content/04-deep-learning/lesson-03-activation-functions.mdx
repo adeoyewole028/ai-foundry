@@ -1,0 +1,68 @@
+# Activation Functions
+
+## Objective
+
+By the end of this lesson, you will choose activations based on learning behavior.
+
+## Prerequisites
+
+Before this lesson, you should understand layers and linear transforms.
+
+## Plain-English Explanation
+
+Activations decide when signals stay, shrink, or change direction.
+
+## Key Terms
+
+### Non-linearity
+
+Simple meaning:
+A rule that bends straight lines.
+
+Real-world analogy:
+Turning a dial up then clipping at zero is like a simple threshold.
+
+Technical meaning:
+Non-linear function applied element-wise after linear computation.
+
+Example:
+ReLU zeroes negative values while passing positives.
+
+Why it matters:
+It enables deep models to represent more than linear patterns.
+
+## Mental Model
+
+Without activations, stacked transforms collapse into one line.
+
+## Example
+
+Compare ReLU and sigmoid on sparse feature signals.
+
+## Code Walkthrough
+
+Swap activations in a small model and track convergence differences.
+
+## Common Mistakes
+
+- Saturation from sigmoid in deeper stacks.
+- Zero gradients from dead units.
+- Mismatched output activation for task.
+
+## Exercise
+
+Explain why task output activation differs between binary and multi-class tasks.
+
+## Reflection
+
+Which activation choice feels most intuitive for your product context?
+
+## Further Reading
+
+- [Activation functions by type](https://en.wikipedia.org/wiki/Activation_function)
+
+## Completion Checklist
+
+- [ ] I can explain activation purpose.
+- [ ] I can name a common pitfall.
+- [ ] I can pick an output activation by task.

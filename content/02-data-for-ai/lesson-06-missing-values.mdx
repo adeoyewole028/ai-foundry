@@ -1,0 +1,68 @@
+# Missing Values
+
+## Objective
+
+By the end of this lesson, you will be able to handle missing values deliberately.
+
+## Prerequisites
+
+Before this lesson, you should understand DataFrames and simple aggregations.
+
+## Plain-English Explanation
+
+Missing values are blanks, nulls, or placeholders. How you treat them affects model fairness.
+
+## Key Terms
+
+### Imputation
+
+Simple meaning:
+Filling missing values with a chosen estimate.
+
+Real-world analogy:
+Replacing missing survey answers with a fair default after deciding policy.
+
+Technical meaning:
+Using constant, mean/median, or model-driven strategies to replace nulls.
+
+Example:
+Replacing missing age with median age within a cohort.
+
+Why it matters:
+Randomly filling or dropping data can bias models.
+
+## Mental Model
+
+Treat missingness as a signal first. Only fill or remove after considering why data is missing.
+
+## Example
+
+Compare dropout rates before and after dropping rows vs imputing with median.
+
+## Code Walkthrough
+
+Count nulls, visualize missingness, and compare a couple of strategies on a validation split.
+
+## Common Mistakes
+
+- Always dropping rows without checking class imbalance.
+- Imputing with a single value without context.
+- Forgetting to track chosen strategy in metadata.
+
+## Exercise
+
+Choose one dataset and apply two different missing-value strategies. Compare outcomes.
+
+## Reflection
+
+How can poor handling of missing values hide production risk?
+
+## Further Reading
+
+- [scikit-learn Impute](https://scikit-learn.org/stable/modules/impute.html)
+
+## Completion Checklist
+
+- [ ] I can quantify missingness by feature.
+- [ ] I can choose a strategy per feature context.
+- [ ] I can justify the chosen approach.

@@ -1,0 +1,68 @@
+# Evaluation
+
+## Objective
+
+By the end of this lesson, you will evaluate RAG quality and risk.
+
+## Prerequisites
+
+Before this lesson, you should complete citation and earlier RAG topics.
+
+## Plain-English Explanation
+
+Evaluation includes retrieval success, grounding accuracy, and answer usefulness.
+
+## Key Terms
+
+### Faithfulness
+
+Simple meaning:
+How well the answer matches supporting evidence.
+
+Real-world analogy:
+Claims in a pitch with documented proofs.
+
+Technical meaning:
+Measuring whether generated statements are supported by context.
+
+Example:
+No citation claim should appear without backing text.
+
+Why it matters:
+Unfaithful answers erode trust fast.
+
+## Mental Model
+
+Use layered metrics: retrieval, citation, and end-to-end quality.
+
+## Example
+
+Evaluate with 20 queries and calculate grounded-accuracy score.
+
+## Code Walkthrough
+
+Build a simple evaluator script and export pass/fail summary.
+
+## Common Mistakes
+
+- One metric only.
+- No adversarial query set.
+- No user-facing quality reviews.
+
+## Exercise
+
+Create three eval cases: good, weak evidence, wrong grounding.
+
+## Reflection
+
+Which metric would catch bad behavior earliest?
+
+## Further Reading
+
+- [Evaluating RAG systems](https://www.microsoft.com/en-us/research/article/evaluating-retrieval-augmented-generation/)
+
+## Completion Checklist
+
+- [ ] I can define and run a repeatable eval set.
+- [ ] I can report faithfulness and latency.
+- [ ] I can propose fixes from eval failures.

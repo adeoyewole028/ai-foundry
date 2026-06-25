@@ -1,0 +1,68 @@
+# Agent Memory
+
+## Objective
+
+By the end of this lesson, you can design memory strategies that balance continuity and safety.
+
+## Prerequisites
+
+Before this lesson, you should complete Lessons 01 and 02 in this module.
+
+## Plain-English Explanation
+
+Memory helps an agent remember purpose, constraints, and prior actions.
+
+## Key Terms
+
+### Persistent Memory
+
+Simple meaning:
+Information stored across sessions.
+
+Real-world analogy:
+Customer profile kept in CRM.
+
+Technical meaning:
+State and artifacts saved to external storage for reuse.
+
+Example:
+Saved job applications and review status.
+
+Why it matters:
+Without memory, agents repeat work and lose context.
+
+## Mental Model
+
+Imagine memory as two layers: immediate notes for one run and durable records for the journey.
+
+## Example
+
+An agent keeps the user's role preference while switching from discovery to draft mode.
+
+## Code Walkthrough
+
+Track: `goal`, `latest_state`, `blocked_items`, and `handoff_reason`.
+
+## Common Mistakes
+
+- Storing too much raw context.
+- Retaining sensitive data too broadly.
+- No retention policy.
+
+## Exercise
+
+Design a memory schema for a candidate interview prep assistant.
+
+## Reflection
+
+What should never be remembered automatically?
+
+## Further Reading
+
+- [Anthropic: Agent memory patterns](https://www.anthropic.com/engineering/building-agents)
+
+## Completion Checklist
+
+- [ ] I can split memory into temporary and persistent layers.
+- [ ] I can define retention boundaries.
+- [ ] I can explain when stale memory should be purged.

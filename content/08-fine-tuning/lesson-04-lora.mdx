@@ -1,0 +1,68 @@
+# LoRA
+
+## Objective
+
+By the end of this lesson, you can explain low-rank adaptation and why it is compute-efficient.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 03 in this module.
+
+## Plain-English Explanation
+
+LoRA tunes a smaller parameter subspace so adaptation is cheaper.
+
+## Key Terms
+
+### Rank
+
+Simple meaning:
+How much capacity adaptation has.
+
+Real-world analogy:
+Choosing limited but focused edits in an essay.
+
+Technical meaning:
+Low-rank matrix updates reduce full parameter updates.
+
+Example:
+Keeping base model frozen while adding task adapters.
+
+Why it matters:
+Lower cost often with strong task performance.
+
+## Mental Model
+
+LoRA is a focused override layer rather than rebuilding the full brain.
+
+## Example
+
+Use LoRA for a company-specific helpdesk tone while preserving base language ability.
+
+## Code Walkthrough
+
+Plan rank, target modules, and learning rate before running adaptation jobs.
+
+## Common Mistakes
+
+- Overly high rank without validation.
+- Wrong layer targeting.
+- Ignoring stability warnings.
+
+## Exercise
+
+List one parameter choice you would tune first in a LoRA experiment.
+
+## Reflection
+
+How do you detect when efficiency gains hurt behavior?
+
+## Further Reading
+
+- [LoRA paper](https://arxiv.org/abs/2106.09685)
+
+## Completion Checklist
+
+- [ ] I can explain the LoRA efficiency principle.
+- [ ] I can propose base defaults for rank and target layers.
+- [ ] I can describe one stability checkpoint.

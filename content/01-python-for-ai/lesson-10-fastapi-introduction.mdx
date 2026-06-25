@@ -1,0 +1,82 @@
+# FastAPI Introduction
+
+## Objective
+
+By the end of this lesson, you will expose a tiny endpoint and return structured JSON.
+
+## Prerequisites
+
+APIs and virtual environments lessons.
+
+## Plain-English Explanation
+
+FastAPI helps you wrap your logic in network-accessible endpoints. It is a practical first step from script to service.
+
+## Key Terms
+
+### Endpoint
+
+Simple meaning:
+A URL path your app can receive requests on.
+
+Real-world analogy:
+Like a counter window for one specific request type.
+
+Technical meaning:
+HTTP route tied to a request handler.
+
+Example:
+`GET /health`
+
+Why it matters:
+Consistent endpoints make AI utilities easier to integrate and test.
+
+## Mental Model
+
+```text
+Client request -> endpoint -> business logic -> JSON response
+```
+
+## Example
+
+```python
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+```
+
+## Code Walkthrough
+
+```python
+@app.post("/analyze")
+def analyze(payload: dict):
+    text = payload.get("text", "")
+    return {"length": len(text), "ok": bool(text)}
+```
+
+## Common Mistakes
+
+- Returning inconsistent response keys.
+- Missing input validation.
+
+## Exercise
+
+Create one GET and one POST endpoint using predictable response shapes.
+
+## Reflection
+
+What boundary should your API expose so model internals can change safely later?
+
+## Further Reading
+
+- [FastAPI tutorial](https://fastapi.tiangolo.com/tutorial/)
+- [Pydantic basics](https://docs.pydantic.dev/latest/)
+
+## Completion Checklist
+
+- [ ] I can define a GET route.
+- [ ] I can define a POST route with request body.
+- [ ] I can return consistent JSON responses.

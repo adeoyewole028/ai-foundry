@@ -1,0 +1,68 @@
+# Security
+
+## Objective
+
+By the end of this lesson, you can implement practical security controls for AI features.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 06 in this module.
+
+## Plain-English Explanation
+
+Security in AI products protects data, keys, and user trust.
+
+## Key Terms
+
+### Input Validation
+
+Simple meaning:
+Check what users send before processing.
+
+Real-world analogy:
+Airport baggage screening before loading.
+
+Technical meaning:
+Schema, sanitizer, and policy checks before tool/model calls.
+
+Example:
+Block script-like payloads before model context injection.
+
+Why it matters:
+Prevention is cheaper than cleanup.
+
+## Mental Model
+
+Every boundary is an attack opportunity unless validated.
+
+## Example
+
+Validate file types, sanitize prompts, and log suspicious input.
+
+## Code Walkthrough
+
+Implement allowlists, redaction, and service token rotation procedures.
+
+## Common Mistakes
+
+- Storing secrets in client code.
+- No audit logs for sensitive operations.
+- Weak role checks on agent actions.
+
+## Exercise
+
+List five security checks for one AI endpoint.
+
+## Reflection
+
+What threat model surprises you most for this feature?
+
+## Further Reading
+
+- [OWASP API Security Top 10](https://owasp.org/www-project-api-security/)
+
+## Completion Checklist
+
+- [ ] I can secure secret management.
+- [ ] I can validate and sanitize input paths.
+- [ ] I can document roles and permissions.

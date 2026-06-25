@@ -1,0 +1,68 @@
+# Cleaning Data
+
+## Objective
+
+By the end of this lesson, you will be able to clean messy data using a repeatable pipeline.
+
+## Prerequisites
+
+Before this lesson, you should be comfortable inspecting DataFrames and basic Python string handling.
+
+## Plain-English Explanation
+
+Cleaning is removing traps before your model consumes data.
+
+## Key Terms
+
+### Pipeline
+
+Simple meaning:
+An ordered set of cleaning steps.
+
+Real-world analogy:
+Like an assembly line where each station checks one issue before moving forward.
+
+Technical meaning:
+An ordered, testable series of transformations with predictable outputs.
+
+Example:
+Standardize dates, trim spaces, and normalize column names in fixed order.
+
+Why it matters:
+Reliable cleaning reduces noise and stabilizes model behavior.
+
+## Mental Model
+
+Write cleaning as a script so every run gives the same result from the same input.
+
+## Example
+
+A contact dataset with inconsistent casing and spacing normalized to canonical forms.
+
+## Code Walkthrough
+
+Deduplicate rows, normalize text, enforce types, and capture counts before and after each step.
+
+## Common Mistakes
+
+- Cleaning without recording change counts.
+- Reordering operations randomly.
+- In-place mutation without backups.
+
+## Exercise
+
+Create a mini cleaning script for one dataset and log three row-count changes.
+
+## Reflection
+
+What cleaning step changed your data quality the most, and why?
+
+## Further Reading
+
+- [Data cleaning overview](https://www.kaggle.com/learn/data-cleaning)
+
+## Completion Checklist
+
+- [ ] I can document each cleaning step.
+- [ ] I can keep transformations repeatable.
+- [ ] I can compare before/after quality signals.

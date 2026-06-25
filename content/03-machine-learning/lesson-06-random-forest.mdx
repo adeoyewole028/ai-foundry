@@ -1,0 +1,68 @@
+# Random Forest
+
+## Objective
+
+By the end of this lesson, you will explain why combining trees can stabilize predictions.
+
+## Prerequisites
+
+Before this lesson, you should understand decision trees and split discipline.
+
+## Plain-English Explanation
+
+Random forest is a group of diverse trees voting together.
+
+## Key Terms
+
+### Ensemble
+
+Simple meaning:
+Many models combine to make one opinion.
+
+Real-world analogy:
+Ask five experts and take the majority vote.
+
+Technical meaning:
+Bootstrap sampling and feature randomness reduce variance and improve generalization.
+
+Example:
+Multiple trees classify matching probability more robustly than one tree.
+
+Why it matters:
+It often improves performance with little extra conceptual complexity.
+
+## Mental Model
+
+Imagine each tree has a slightly different memory of data; majority opinion smooths noise.
+
+## Example
+
+Use forest outputs in a scoring workflow and track both mean prediction and spread.
+
+## Code Walkthrough
+
+Train a forest with `n_estimators`, `max_depth`, and `random_state`; compare with a single tree.
+
+## Common Mistakes
+
+- Setting too few trees for unstable variance.
+- Ignoring reproducibility seeds.
+- Measuring only train metrics.
+
+## Exercise
+
+List one situation where a single tree is preferable despite lower performance.
+
+## Reflection
+
+How does averaging predictions help with confidence?
+
+## Further Reading
+
+- [Random forest overview](https://en.wikipedia.org/wiki/Random_forest)
+
+## Completion Checklist
+
+- [ ] I can explain why voting improves stability.
+- [ ] I can name one forest hyperparameter.
+- [ ] I can compare single-tree vs forest behavior.

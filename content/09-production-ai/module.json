@@ -1,0 +1,359 @@
+{
+  "title": "Production AI",
+  "slug": "production-ai",
+  "order": 9,
+  "description": "Ship reliable AI products with architecture, monitoring, and safe operations.",
+  "level": "Advanced",
+  "estimatedHours": 22,
+  "outcomes": [
+    "Design resilient AI system architecture for production traffic.",
+    "Build API and queue patterns that survive spikes.",
+    "Set up evaluation and observability for model-driven features.",
+    "Control cost and security for long-running AI products.",
+    "Plan secure deployment and incident response."
+  ],
+  "lessons": [
+    {
+      "title": "AI System Architecture",
+      "slug": "ai-system-architecture",
+      "file": "lesson-01-ai-system-architecture.mdx",
+      "order": 1,
+      "type": "lesson",
+      "description": "Define service boundaries, model interfaces, and data flow.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can draw a minimal production architecture.",
+        "I can separate sync and async paths.",
+        "I can explain where controls sit."
+      ],
+      "questions": [
+        "What belongs in orchestration versus model-facing services?",
+        "Where is observability inserted first?"
+      ]
+    },
+    {
+      "title": "APIs",
+      "slug": "apis",
+      "file": "lesson-02-apis.mdx",
+      "order": 2,
+      "type": "lesson",
+      "description": "Build API contracts that keep AI features stable and testable.",
+      "estimatedMinutes": 32,
+      "checklist": [
+        "I can version API contracts.",
+        "I can secure endpoint boundaries.",
+        "I can define timeout and error contracts."
+      ],
+      "questions": [
+        "How do you keep model changes from breaking clients?",
+        "What status and error patterns build resilient API consumers?"
+      ]
+    },
+    {
+      "title": "Queues",
+      "slug": "queues",
+      "file": "lesson-03-queues.mdx",
+      "order": 3,
+      "type": "lesson",
+      "description": "Use queues for asynchronous workflows and reliable retries.",
+      "estimatedMinutes": 36,
+      "checklist": [
+        "I can pick queue patterns for long tasks.",
+        "I can set retry and dead-letter policies.",
+        "I can preserve idempotency."
+      ],
+      "questions": [
+        "Which AI tasks should never be purely synchronous?",
+        "How do you prevent duplicate processing?"
+      ]
+    },
+    {
+      "title": "Evaluation",
+      "slug": "production-evaluation",
+      "file": "lesson-04-evaluation.mdx",
+      "order": 4,
+      "type": "lesson",
+      "description": "Create ongoing checks for quality, drift, and regressions.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can design regression test sets.",
+        "I can track quality trends over time.",
+        "I can alert on significant drift."
+      ],
+      "questions": [
+        "What is the minimum useful evaluation cadence?",
+        "How do you evaluate both speed and correctness?"
+      ]
+    },
+    {
+      "title": "Monitoring",
+      "slug": "monitoring",
+      "file": "lesson-05-monitoring.mdx",
+      "order": 5,
+      "type": "lesson",
+      "description": "Track latency, errors, cost, and safety events in one place.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can define meaningful dashboards.",
+        "I can set alert thresholds.",
+        "I can act on incidents quickly."
+      ],
+      "questions": [
+        "What metric mix catches most production issues?",
+        "Which alert should trigger immediate action?"
+      ]
+    },
+    {
+      "title": "Cost Control",
+      "slug": "cost-control",
+      "file": "lesson-06-cost-control.mdx",
+      "order": 6,
+      "type": "lesson",
+      "description": "Optimize spend with caching, model choice, and routing logic.",
+      "estimatedMinutes": 32,
+      "checklist": [
+        "I can set up token and request budgets.",
+        "I can choose cheaper models for simple tasks.",
+        "I can implement caching with cache invalidation."
+      ],
+      "questions": [
+        "How do you prevent runaway inference spend?",
+        "When is caching highest-value?"
+      ]
+    },
+    {
+      "title": "Security",
+      "slug": "security",
+      "file": "lesson-07-security.mdx",
+      "order": 7,
+      "type": "lesson",
+      "description": "Protect secrets, input channels, and model outputs.",
+      "estimatedMinutes": 38,
+      "checklist": [
+        "I can secure secrets and APIs.",
+        "I can sanitize inputs and outputs.",
+        "I can enforce least privilege for tools."
+      ],
+      "questions": [
+        "What are common attack surfaces in AI APIs?",
+        "How do you prevent prompt and data leakage?"
+      ]
+    },
+    {
+      "title": "Deployment",
+      "slug": "deployment",
+      "file": "lesson-08-deployment.mdx",
+      "order": 8,
+      "type": "lesson",
+      "description": "Publish and operate AI features with safe rollout practices.",
+      "estimatedMinutes": 44,
+      "checklist": [
+        "I can define environment promotion flow.",
+        "I can run staged rollouts and rollback.",
+        "I can document incident response steps."
+      ],
+      "questions": [
+        "How do you test before full rollout?",
+        "What is your rollback trigger?"
+      ]
+    },
+    {
+      "title": "Mini Project: Production AI Feature",
+      "slug": "mini-production-ai-feature",
+      "file": "mini-project-production-ai-feature.mdx",
+      "order": 9,
+      "type": "project",
+      "description": "Add queue-backed API workflow and basic monitoring plan.",
+      "estimatedMinutes": 110,
+      "checklist": [
+        "I can build async job flow.",
+        "I can define alert thresholds.",
+        "I can create rollback and incident notes."
+      ],
+      "questions": [
+        "How would monitoring shape your first sprint?",
+        "Where could failure costs be highest?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Portfolio Project: Production AI SaaS Feature",
+      "slug": "production-ai-saas-feature",
+      "file": "project.mdx",
+      "order": 10,
+      "type": "project",
+      "description": "Ship a production-ready AI feature with architecture, observability, and security notes.",
+      "estimatedMinutes": 170,
+      "checklist": [
+        "I can document an end-to-end architecture.",
+        "I can define operational runbooks.",
+        "I can set measurable reliability targets."
+      ],
+      "questions": [
+        "How do you balance quality, cost, and reliability?",
+        "What security controls do you monitor weekly?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Production AI Quiz",
+      "slug": "production-ai-quiz",
+      "file": "quiz.mdx",
+      "order": 11,
+      "type": "quiz",
+      "description": "Validate production readiness and operating discipline.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can design architecture for reliability.",
+        "I can propose rollout and rollback rules.",
+        "I can measure cost and safety continuously."
+      ],
+      "questions": [
+        "What are the first production controls you would implement?",
+        "How do cost and trust influence architecture?"
+      ],
+      "quizQuestions": [
+        {
+          "id": "architecture-boundaries",
+          "prompt": "What should your first AI architecture decision prioritize and why?",
+          "correctAnswer": "It should prioritize reliable orchestration boundaries between model calls, policy checks, and user-facing responses so failures can be isolated and recovered.",
+          "keywords": [
+            "orchestration",
+            "boundaries",
+            "isolate",
+            "policy",
+            "recovery"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Reliable orchestration boundaries",
+              "explanation": "It should prioritize reliable orchestration boundaries between model calls, policy checks, and user-facing responses so failures can be isolated and recovered."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Provider choice first",
+              "explanation": "Architecture should start with user workflow, reliability boundaries, latency, cost, and risk."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Synchronous everything",
+              "explanation": "Long or unreliable jobs often need queues for retries, backpressure, and better user experience."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Uptime-only monitoring",
+              "explanation": "AI production also needs quality, latency, cost, safety, drift, and fallback monitoring."
+            }
+          ]
+        },
+        {
+          "id": "queue-selection",
+          "prompt": "When would you prefer queues over synchronous endpoints?",
+          "correctAnswer": "Use queues when requests are long-running, non-deterministic in timing, or need retries and status tracking without blocking the user request thread.",
+          "keywords": [
+            "async",
+            "retry",
+            "long-running",
+            "tracking",
+            "non-blocking"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Queued long-running retries",
+              "explanation": "Use queues when requests are long-running, non-deterministic in timing, or need retries and status tracking without blocking the user request thread."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Synchronous everything",
+              "explanation": "Long or unreliable jobs often need queues for retries, backpressure, and better user experience."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Uptime-only monitoring",
+              "explanation": "AI production also needs quality, latency, cost, safety, drift, and fallback monitoring."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Cache every response",
+              "explanation": "Caching can reduce cost, but stale or user-specific responses can harm trust."
+            }
+          ]
+        },
+        {
+          "id": "monitoring-metrics",
+          "prompt": "Which monitoring set is most critical for AI production reliability?",
+          "correctAnswer": "Track latency, error rate, output rejection rate, cost per request, and model fallback rates with alert thresholds tied to business impact.",
+          "keywords": [
+            "latency",
+            "error",
+            "rejection",
+            "cost",
+            "fallback"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Uptime-only monitoring",
+              "explanation": "AI production also needs quality, latency, cost, safety, drift, and fallback monitoring."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Cache every response",
+              "explanation": "Caching can reduce cost, but stale or user-specific responses can harm trust."
+            },
+            {
+              "id": "correct",
+              "label": "Quality, latency, cost, safety",
+              "explanation": "Track latency, error rate, output rejection rate, cost per request, and model fallback rates with alert thresholds tied to business impact."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Prompts are not security",
+              "explanation": "AI systems still handle data, tools, permissions, injection risks, and audit requirements."
+            }
+          ]
+        },
+        {
+          "id": "cost-controls",
+          "prompt": "How can model routing and caching reduce cost without harming trust?",
+          "correctAnswer": "Route simple tasks to cheaper models, cache deterministic outputs, and use stricter fallback policies for expensive calls while preserving quality checks.",
+          "keywords": [
+            "routing",
+            "caching",
+            "cheaper models",
+            "fallback",
+            "quality checks"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Cache every response",
+              "explanation": "Caching can reduce cost, but stale or user-specific responses can harm trust."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Prompts are not security",
+              "explanation": "AI systems still handle data, tools, permissions, injection risks, and audit requirements."
+            },
+            {
+              "id": "correct",
+              "label": "Routing, caching, prompt limits",
+              "explanation": "Route simple tasks to cheaper models, cache deterministic outputs, and use stricter fallback policies for expensive calls while preserving quality checks."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Cheapest model always",
+              "explanation": "Routing should balance quality, latency, risk, and cost for each task."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

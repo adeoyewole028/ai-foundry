@@ -1,0 +1,68 @@
+# RAG Quiz
+
+## Objective
+
+By the end of this quiz, you will justify RAG decisions across reliability and value.
+
+## Prerequisites
+
+Before this quiz, you should complete all Module 06 lessons.
+
+## Plain-English Explanation
+
+Test your grounding judgment with concrete implementation examples.
+
+## Key Terms
+
+### Retrieval budget
+
+Simple meaning:
+How much retrieval cost and context you can spend.
+
+Real-world analogy:
+How much time to research before responding.
+
+Technical meaning:
+Top-k, rerank depth, and context window allocation.
+
+Example:
+Choosing k=6 for complex query and k=3 for simple query.
+
+Why it matters:
+Budget tradeoffs affect speed, cost, and answer quality.
+
+## Mental Model
+
+Ground truth should be visible in final output.
+
+## Example
+
+Use one wrong citation and show how you would handle it.
+
+## Code Walkthrough
+
+No code required. Focus on product and design tradeoffs.
+
+## Common Mistakes
+
+- Forgetting evidence checks.
+- Overusing large top-k everywhere.
+- No strategy for low-confidence responses.
+
+## Exercise
+
+Answer all questions with real implementation references.
+
+## Reflection
+
+What is the first metric you change when users report inaccurate responses?
+
+## Further Reading
+
+- [RAG evaluation frameworks](https://docs.ragas.io/)
+
+## Completion Checklist
+
+- [ ] I can explain one retrieval budget decision.
+- [ ] I can design fallback policy.
+- [ ] I can set evidence-based quality KPIs.

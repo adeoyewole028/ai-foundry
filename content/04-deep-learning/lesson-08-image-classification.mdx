@@ -1,0 +1,68 @@
+# Image Classification
+
+## Objective
+
+By the end of this lesson, you will build a foundational image-classification approach.
+
+## Prerequisites
+
+Before this lesson, you should complete PyTorch basics and model training loops.
+
+## Plain-English Explanation
+
+Image classification maps image data to labels through learned visual patterns.
+
+## Key Terms
+
+### Channels
+
+Simple meaning:
+Color planes like red, green, blue.
+
+Real-world analogy:
+Three stacks of transparencies combined into one photo.
+
+Technical meaning:
+Tensor depth representing color/band dimensions.
+
+Example:
+An RGB image has 3 channels.
+
+Why it matters:
+Wrong channel assumptions break model behavior.
+
+## Mental Model
+
+Resize, normalize, and batch consistently before feeding a fixed architecture.
+
+## Example
+
+Classify simple fashion/product categories with careful class mapping.
+
+## Code Walkthrough
+
+Build a small CNN, run train/val loop, and evaluate class-wise accuracy.
+
+## Common Mistakes
+
+- Mixing channel order.
+- Ignoring class imbalance.
+- Overfitting a tiny dataset without split discipline.
+
+## Exercise
+
+Create a data plan for one new image class and describe augmentation choices.
+
+## Reflection
+
+What is your first indicator that the model is memorizing your validation set?
+
+## Further Reading
+
+- [Convolutional networks intro](https://cs231n.github.io/convolutional-networks/)
+
+## Completion Checklist
+
+- [ ] I can define preprocessing for images.
+- [ ] I can inspect class-level performance.
+- [ ] I can explain one architecture tradeoff.

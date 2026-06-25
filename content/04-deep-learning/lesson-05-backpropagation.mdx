@@ -1,0 +1,68 @@
+# Backpropagation
+
+## Objective
+
+By the end of this lesson, you will explain backpropagation as blame assignment.
+
+## Prerequisites
+
+Before this lesson, you should understand loss and gradients at a high level.
+
+## Plain-English Explanation
+
+Backpropagation moves error signals backward through the network.
+
+## Key Terms
+
+### Gradient
+
+Simple meaning:
+Direction to change parameters for improvement.
+
+Real-world analogy:
+If sales drop after a campaign, you trace which channels got blamed and corrected.
+
+Technical meaning:
+Partial derivatives of loss with respect to parameters.
+
+Example:
+Compute gradient for output then propagate to earlier layers.
+
+Why it matters:
+Without backpropagation, deep networks cannot learn internal features.
+
+## Mental Model
+
+Think of passing review comments backward from final decision to each contributor.
+
+## Example
+
+Trace one wrong prediction and identify which feature paths changed most.
+
+## Code Walkthrough
+
+Inspect gradients and parameter norms after a training step.
+
+## Common Mistakes
+
+- Forgetting to zero gradients.
+- Not normalizing input before deep training.
+- Ignoring exploding values early.
+
+## Exercise
+
+Write one sentence explaining why gradient flow can fail in deep stacks.
+
+## Reflection
+
+How does backprop help you debug a model that plateaus?
+
+## Further Reading
+
+- [Backpropagation explained](https://www.ibm.com/topics/backpropagation)
+
+## Completion Checklist
+
+- [ ] I can describe why direction of change is important.
+- [ ] I can name one gradient-related failure mode.
+- [ ] I can check for unstable gradient behavior.

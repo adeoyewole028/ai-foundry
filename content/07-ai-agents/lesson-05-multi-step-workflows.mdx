@@ -1,0 +1,69 @@
+# Multi-Step Workflows
+
+## Objective
+
+By the end of this lesson, you can connect several actions into a safe agent workflow.
+
+## Prerequisites
+
+Before this lesson, you should complete Lesson 04 in this module.
+
+## Plain-English Explanation
+
+Multi-step means one request may require several connected actions before completion.
+
+## Key Terms
+
+### Workflow Chain
+
+Simple meaning:
+A sequence of related steps.
+
+Real-world analogy:
+Ordering food: choose, pay, confirm, pick up.
+
+Technical meaning:
+Stateful orchestration over tools with branching decisions.
+
+Example:
+Find vacancy → generate custom answer points → confirm tone → submit.
+
+Why it matters:
+Without chains, agents cannot handle realistic tasks.
+
+## Mental Model
+
+Map each step as node transitions: input state and output state.
+
+## Example
+
+If one document fetch fails, branch to `retry` and then `manual_upload`.
+
+## Code Walkthrough
+
+Use lightweight state machine logic:
+`step`, `status`, `retry_count`, `error_bucket`.
+
+## Common Mistakes
+
+- Ignoring branch conditions.
+- No per-step timeout.
+- No idempotency keys for repeat actions.
+
+## Exercise
+
+Design a workflow with at least one branch and one fallback.
+
+## Reflection
+
+Where should branching happen for reliability and clarity?
+
+## Further Reading
+
+- [Orchestrating agents with state machines](https://nextra.site/docs/docs/guides/agents)
+
+## Completion Checklist
+
+- [ ] I can model branch logic for different outcomes.
+- [ ] I can define step-level timeouts and retries.
+- [ ] I can prevent duplicate execution.

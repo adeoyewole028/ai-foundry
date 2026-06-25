@@ -1,0 +1,68 @@
+# Structured Outputs
+
+## Objective
+
+By the end of this lesson, you will enforce structured responses for reliable automation.
+
+## Prerequisites
+
+Before this lesson, you should know prompt basics.
+
+## Plain-English Explanation
+
+If a downstream system reads the output, shape it like code, not prose.
+
+## Key Terms
+
+### JSON schema
+
+Simple meaning:
+A fixed contract for what fields must exist.
+
+Real-world analogy:
+An invoice form with required boxes.
+
+Technical meaning:
+Predeclared key types, required fields, and constraints.
+
+Example:
+Returning `{title,score,action}` consistently.
+
+Why it matters:
+Unstructured text forces humans into error-prone parsing.
+
+## Mental Model
+
+The parser expects exact keys; one missing key breaks the chain.
+
+## Example
+
+Build a candidate response with required `status`, `summary`, `next_step`.
+
+## Code Walkthrough
+
+Validate output against a schema and fail gracefully when invalid.
+
+## Common Mistakes
+
+- Allowing free-form prose.
+- Missing required keys.
+- No fallback for malformed responses.
+
+## Exercise
+
+Create a schema and two sample valid outputs.
+
+## Reflection
+
+Which fields are critical for automation?
+
+## Further Reading
+
+- [Structured JSON responses](https://platform.openai.com/docs/guides/function-calling)
+
+## Completion Checklist
+
+- [ ] I can define a required output schema.
+- [ ] I can validate and recover from invalid output.
+- [ ] I can explain why structure reduces manual work.

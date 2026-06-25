@@ -1,0 +1,68 @@
+# Re-ranking
+
+## Objective
+
+By the end of this lesson, you will improve retrieved context quality with reranking.
+
+## Prerequisites
+
+Before this lesson, you should complete Retrieval.
+
+## Plain-English Explanation
+
+Reranking refines candidate passages before prompt injection.
+
+## Key Terms
+
+### Two-stage retrieval
+
+Simple meaning:
+First broad, then precise ranking.
+
+Real-world analogy:
+Candidate shortlist then final interview shortlist.
+
+Technical meaning:
+Coarse ANN retrieval followed by tighter scoring.
+
+Example:
+Use semantic retrieval then semantic cross-encoder scoring.
+
+Why it matters:
+Reranking usually improves precision significantly.
+
+## Mental Model
+
+Think of broad search as “who might match,” rerank as “who should answer.”
+
+## Example
+
+Rerank passages for legal policy accuracy and remove redundant snippets.
+
+## Code Walkthrough
+
+Add a reranker step and compare final context snippets manually.
+
+## Common Mistakes
+
+- Re-ranking too aggressively with wrong cost budget.
+- Duplicating semantically similar chunks.
+- Relying on a single scoring signal.
+
+## Exercise
+
+Measure answer quality before/after reranking with one test set.
+
+## Reflection
+
+Where would reranking add too much latency for your use case?
+
+## Further Reading
+
+- [Reranking concepts](https://www.pinecone.io/learn/what-is-re-ranking/)
+
+## Completion Checklist
+
+- [ ] I can explain two-stage retrieval.
+- [ ] I can measure rerank benefit.
+- [ ] I can set latency-aware rerank settings.

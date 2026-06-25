@@ -1,0 +1,68 @@
+# Vector Databases
+
+## Objective
+
+By the end of this lesson, you will choose and use vector storage for RAG systems.
+
+## Prerequisites
+
+Before this lesson, you should understand embeddings and similarity.
+
+## Plain-English Explanation
+
+Vector DBs store embeddings and return nearest matches quickly.
+
+## Key Terms
+
+### ANN
+
+Simple meaning:
+Approximate nearest-neighbor search.
+
+Real-world analogy:
+Finding related tickets quickly by category.
+
+Technical meaning:
+Index structures that balance speed and exactness.
+
+Example:
+Returning top-k candidate chunks for a query.
+
+Why it matters:
+ANN impacts both latency and retrieval quality.
+
+## Mental Model
+
+Fast neighbor lookup is the gateway to RAG quality.
+
+## Example
+
+Build a vector collection and compare query latency across index configs.
+
+## Code Walkthrough
+
+Create an index, upsert embeddings, and query with top-k.
+
+## Common Mistakes
+
+- Wrong dimensions per collection.
+- Missing metadata filtering.
+- No backup for vector index corruption.
+
+## Exercise
+
+Document one operational check for your vector store.
+
+## Reflection
+
+How do you choose between strictness and speed in production?
+
+## Further Reading
+
+- [Vector database basics](https://qdrant.tech/articles/what-is-vector-search/)
+
+## Completion Checklist
+
+- [ ] I can configure indexing for recall.
+- [ ] I can compare vector and metadata filtering.
+- [ ] I can plan maintenance operations.

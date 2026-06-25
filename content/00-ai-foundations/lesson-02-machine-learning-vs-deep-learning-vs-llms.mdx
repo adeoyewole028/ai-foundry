@@ -1,0 +1,140 @@
+# Machine Learning vs Deep Learning vs LLMs
+
+## Objective
+
+By the end of this lesson, you will be able to compare machine learning, deep learning, and large language models, and choose the right mental category for a product idea.
+
+## Prerequisites
+
+You should understand that AI systems often use models trained from examples.
+
+## Plain-English Explanation
+
+Machine learning, deep learning, and LLMs are related, but they are not the same thing.
+
+Machine learning is the broad approach of teaching computers from examples instead of hand-writing every rule. Deep learning is a powerful type of machine learning that uses neural networks with many layers. Large language models are deep learning models trained on huge amounts of text and code so they can understand and generate language.
+
+## Key Terms
+
+### Machine Learning
+
+Simple meaning:
+Software learns patterns from examples.
+
+Real-world analogy:
+Instead of giving someone a rulebook, you show them many solved examples until they learn the pattern.
+
+Technical meaning:
+A set of methods that train models on data so they can make predictions or decisions on new inputs.
+
+Example:
+ResQ could train a model to predict whether a vehicle breakdown report is urgent based on past incidents.
+
+Why it matters:
+Machine learning is useful when historical examples can teach the system what to predict.
+
+### Deep Learning
+
+Simple meaning:
+Machine learning with large neural networks.
+
+Real-world analogy:
+Think of a factory line where each station notices a different level of detail before passing it forward.
+
+Technical meaning:
+A family of machine learning methods based on multi-layer neural networks that learn representations from data.
+
+Example:
+A deep learning model could classify images of damaged vehicle parts.
+
+Why it matters:
+Deep learning powers many modern AI breakthroughs in vision, speech, language, and recommendations.
+
+### Large Language Model
+
+Simple meaning:
+A model that works with language and can read, write, summarize, classify, and reason over text.
+
+Real-world analogy:
+An LLM is like a very fast writing partner trained from a huge library.
+
+Technical meaning:
+A deep learning model, usually transformer-based, trained on massive text datasets to predict and generate tokens.
+
+Example:
+GigSwipe could use an LLM to rewrite resume bullet points for a specific role.
+
+Why it matters:
+LLMs are the center of many current AI products because so much business work is language work.
+
+## Mental Model
+
+```text
+AI
+└── Machine Learning
+    └── Deep Learning
+        └── Large Language Models
+```
+
+The categories nest inside one another. Every LLM is deep learning. Deep learning is machine learning. Machine learning is one way to build AI.
+
+## Example
+
+Suppose you are building a job matching product.
+
+- Use rules if you only need exact filters like location, salary, or seniority.
+- Use machine learning if you have historical data showing which candidates matched which jobs.
+- Use an LLM if you need to summarize resumes, compare text, explain gaps, or generate interview prep.
+
+Good AI product work often combines all three: rules for reliable constraints, ML for predictions, and LLMs for language-heavy tasks.
+
+## Code Walkthrough
+
+This TypeScript model shows how a product can label each AI capability clearly:
+
+```ts
+type AICapability =
+  | { kind: "rules"; useCase: "exact filtering" }
+  | { kind: "machine-learning"; useCase: "prediction from past examples" }
+  | { kind: "llm"; useCase: "language understanding or generation" };
+
+const resumeAssistant: AICapability[] = [
+  { kind: "rules", useCase: "exact filtering" },
+  { kind: "llm", useCase: "language understanding or generation" }
+];
+```
+
+This kind of explicit thinking keeps the product from using an LLM for everything.
+
+## Common Mistakes
+
+- Calling every AI feature an LLM feature.
+- Using an LLM when a simple rule is more reliable.
+- Trying to train a custom model before checking whether an existing model solves the job.
+- Ignoring the data needed to evaluate whether the model is working.
+
+## Exercise
+
+Classify these features as rules, machine learning, deep learning, or LLM:
+
+1. Reject job posts below a minimum salary.
+2. Predict the chance a delivery will be late from past delivery records.
+3. Summarize a customer support conversation.
+4. Detect whether an image contains a cracked windshield.
+
+## Reflection
+
+What is one feature in a startup idea you have seen that should not use an LLM?
+
+## Further Reading
+
+- [scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html)
+- [PyTorch Tutorials](https://pytorch.org/tutorials/)
+- [OpenAI Introduction to Text generation](https://platform.openai.com/docs/guides/text-generation)
+
+## Completion Checklist
+
+- [ ] I can explain machine learning in simple terms.
+- [ ] I can explain how deep learning relates to machine learning.
+- [ ] I can explain what LLMs are useful for.
+- [ ] I can choose between rules, ML, and LLMs for a simple feature.

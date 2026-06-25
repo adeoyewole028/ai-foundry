@@ -1,0 +1,68 @@
+# NumPy
+
+## Objective
+
+By the end of this lesson, you will be able to use arrays for consistent numeric preparation.
+
+## Prerequisites
+
+Before this lesson, you should know basic Python syntax and have arrays/loops available.
+
+## Plain-English Explanation
+
+NumPy lets you work with numbers in bulk, not one value at a time.
+
+## Key Terms
+
+### Array shape
+
+Simple meaning:
+How many dimensions and elements each axis has.
+
+Real-world analogy:
+Like a box layout: width, height, and depth.
+
+Technical meaning:
+Shapes define dimensions and compatibility for mathematical operations.
+
+Example:
+Two arrays with matching dimensions can be added directly.
+
+Why it matters:
+Shape mismatches in prep logic create hard-to-trace bugs in AI pipelines.
+
+## Mental Model
+
+Use arrays for transformations that apply to entire datasets at once, then move to pandas for label-aware operations.
+
+## Example
+
+Normalize a numeric column with vector operations to create a scaled feature quickly.
+
+## Code Walkthrough
+
+Import NumPy, inspect shapes, run vectorized transforms, and guard against `dtype` surprises.
+
+## Common Mistakes
+
+- Mixing shapes in arithmetic.
+- Relying on silent type coercion.
+- Forgetting to fix units before scaling.
+
+## Exercise
+
+Load toy numeric data and apply one normalization operation in bulk.
+
+## Reflection
+
+How does vectorized behavior change how fast and reliably you process data?
+
+## Further Reading
+
+- [NumPy Quickstart](https://numpy.org/doc/stable/user/quickstart.html)
+
+## Completion Checklist
+
+- [ ] I can inspect and interpret array shapes.
+- [ ] I can apply simple vector operations safely.
+- [ ] I can spot likely shape mismatch risks.

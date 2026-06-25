@@ -1,0 +1,359 @@
+{
+  "title": "AI Agents",
+  "slug": "ai-agents",
+  "order": 7,
+  "description": "Build AI systems that plan, use tools, and execute safely through controlled workflows.",
+  "level": "Advanced",
+  "estimatedHours": 20,
+  "outcomes": [
+    "Design agent goals, tools, and permission boundaries.",
+    "Build memory strategies for continuing multi-turn agent work.",
+    "Plan and govern multi-step workflows with fail-safes.",
+    "Handle human-in-the-loop review for risky operations.",
+    "Measure and improve agent reliability under failure conditions."
+  ],
+  "lessons": [
+    {
+      "title": "What is an Agent?",
+      "slug": "what-is-an-agent",
+      "file": "lesson-01-what-is-an-agent.mdx",
+      "order": 1,
+      "type": "lesson",
+      "description": "Differentiate passive tools from autonomous planning systems.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can explain the difference between tool use and agent planning.",
+        "I can identify tasks that benefit from autonomy.",
+        "I can describe one agent contract and boundary."
+      ],
+      "questions": [
+        "When is an agent overkill versus simple prompt chaining?",
+        "Why do product constraints matter before adding autonomy?"
+      ]
+    },
+    {
+      "title": "Tools",
+      "slug": "tools",
+      "file": "lesson-02-tools.mdx",
+      "order": 2,
+      "type": "lesson",
+      "description": "Build safe tool surfaces for agents with typed contracts.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can map each tool to explicit input/output contracts.",
+        "I can limit side effects by tool policy.",
+        "I can validate tool calls before execution."
+      ],
+      "questions": [
+        "How do strict schemas reduce wrong tool calls?",
+        "What is a minimal safe tool for dangerous operations?"
+      ]
+    },
+    {
+      "title": "Memory",
+      "slug": "memory",
+      "file": "lesson-03-memory.mdx",
+      "order": 3,
+      "type": "lesson",
+      "description": "Preserve context, state, and checkpoints for agent continuity.",
+      "estimatedMinutes": 36,
+      "checklist": [
+        "I can describe short-term and persistent memory.",
+        "I can prune stale context and noise.",
+        "I can persist checkpoints for handoff."
+      ],
+      "questions": [
+        "What should an agent remember across sessions?",
+        "How do you avoid stale memory causing bad decisions?"
+      ]
+    },
+    {
+      "title": "Planning",
+      "slug": "planning",
+      "file": "lesson-04-planning.mdx",
+      "order": 4,
+      "type": "lesson",
+      "description": "Decompose goals into ordered plans that can execute safely.",
+      "estimatedMinutes": 42,
+      "checklist": [
+        "I can design a simple plan as ordered steps.",
+        "I can add explicit stopping criteria.",
+        "I can recover from a partial or failed plan."
+      ],
+      "questions": [
+        "How does planning reduce repeated retries?",
+        "When should an agent stop and ask for help?"
+      ]
+    },
+    {
+      "title": "Multi-Step Workflows",
+      "slug": "multi-step-workflows",
+      "file": "lesson-05-multi-step-workflows.mdx",
+      "order": 5,
+      "type": "lesson",
+      "description": "Chain multiple tools while preserving context and control.",
+      "estimatedMinutes": 44,
+      "checklist": [
+        "I can connect tool outputs to later steps.",
+        "I can add branching logic for alternate paths.",
+        "I can detect loops and prevent infinite execution."
+      ],
+      "questions": [
+        "What is the first sign of an execution loop?",
+        "Why is step-level observability essential in multi-step flows?"
+      ]
+    },
+    {
+      "title": "Human Approval",
+      "slug": "human-approval",
+      "file": "lesson-06-human-approval.mdx",
+      "order": 6,
+      "type": "lesson",
+      "description": "Introduce guardrails where human confirmation is required.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can define high-risk actions that require review.",
+        "I can design clear approval payloads.",
+        "I can preserve context across approval handoffs."
+      ],
+      "questions": [
+        "Which actions should never be fully autonomous?",
+        "How do approvals improve trust without blocking everything?"
+      ]
+    },
+    {
+      "title": "Agent Failure Modes",
+      "slug": "agent-failure-modes",
+      "file": "lesson-07-agent-failure-modes.mdx",
+      "order": 7,
+      "type": "lesson",
+      "description": "Detect hallucinations, stalling, drift, and unsafe tool use.",
+      "estimatedMinutes": 36,
+      "checklist": [
+        "I can name common failure patterns.",
+        "I can add fail-closed policies.",
+        "I can define retry and escalation rules."
+      ],
+      "questions": [
+        "Why does confidence reporting without policy cause risk?",
+        "How do you prevent silent failure masking?"
+      ]
+    },
+    {
+      "title": "Agent Evaluation",
+      "slug": "agent-evaluation",
+      "file": "lesson-08-agent-evaluation.mdx",
+      "order": 8,
+      "type": "lesson",
+      "description": "Measure end-to-end success, latency, cost, and safety outcomes.",
+      "estimatedMinutes": 38,
+      "checklist": [
+        "I can set success criteria beyond token correctness.",
+        "I can track agent completion and escalation rates.",
+        "I can evaluate cost-to-value trends."
+      ],
+      "questions": [
+        "How do completion metrics differ from satisfaction metrics?",
+        "Which dashboard fields catch failures early?"
+      ]
+    },
+    {
+      "title": "Mini Project: Job Application Assistant Agent",
+      "slug": "mini-job-application-assistant",
+      "file": "mini-project-job-application-assistant-agent.mdx",
+      "order": 9,
+      "type": "project",
+      "description": "Create an assisted workflow that drafts and reviews applications with approval.",
+      "estimatedMinutes": 100,
+      "checklist": [
+        "I can plan and execute a multi-step workflow.",
+        "I can add a safe handoff for human review.",
+        "I can log every tool action."
+      ],
+      "questions": [
+        "How do you define user trust checkpoints?",
+        "What failures should trigger human review first?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Portfolio Project: Agent for Job Applications",
+      "slug": "job-application-assistant",
+      "file": "project.mdx",
+      "order": 10,
+      "type": "project",
+      "description": "Build a portfolio-grade agent that sources roles, drafts responses, and tracks approvals.",
+      "estimatedMinutes": 150,
+      "checklist": [
+        "I can ship a full agent flow with checkpoints.",
+        "I can manage memory and state across turns.",
+        "I can document governance and escalation behavior."
+      ],
+      "questions": [
+        "How do you balance speed, quality, and control?",
+        "What risk metrics would you report weekly?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "AI Agents Quiz",
+      "slug": "ai-agents-quiz",
+      "file": "quiz.mdx",
+      "order": 11,
+      "type": "quiz",
+      "description": "Validate reliability-first agent design before production adoption.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can explain the core safety contract of agents.",
+        "I can identify and mitigate failure modes.",
+        "I can propose measurable controls."
+      ],
+      "questions": [
+        "How should an agent respond to uncertain outcomes?",
+        "What would you include in an agent safety policy?"
+      ],
+      "quizQuestions": [
+        {
+          "id": "agent-boundaries",
+          "prompt": "Explain in your own words what makes an AI agent different from a simple tool-calling prompt.",
+          "correctAnswer": "An AI agent plans and executes multi-step actions over time with memory and state, while tool calling is usually a single-step invocation under explicit user or system control.",
+          "keywords": [
+            "plan",
+            "steps",
+            "memory",
+            "state",
+            "control"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Multi-step goals with tools",
+              "explanation": "An AI agent plans and executes multi-step actions over time with memory and state, while tool calling is usually a single-step invocation under explicit user or system control."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Broad unconstrained tools",
+              "explanation": "Agents need scoped tools, strict schemas, and permission boundaries to avoid unsafe actions."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Permanent memory",
+              "explanation": "Agent memory can become stale, private, irrelevant, or misleading without retention rules."
+            },
+            {
+              "id": "distractor-3",
+              "label": "No human review",
+              "explanation": "Human approval is important when actions are costly, irreversible, sensitive, or risky."
+            }
+          ]
+        },
+        {
+          "id": "tool-design",
+          "prompt": "Why must every agent tool expose a strict schema and safety policy?",
+          "correctAnswer": "Strict schemas define allowed inputs and outputs, while safety policy limits damage and prevents unsafe or unintended tool operations.",
+          "keywords": [
+            "schema",
+            "safety",
+            "inputs",
+            "outputs",
+            "limits"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Permanent memory",
+              "explanation": "Agent memory can become stale, private, irrelevant, or misleading without retention rules."
+            },
+            {
+              "id": "correct",
+              "label": "Strict schemas and safety policies",
+              "explanation": "Strict schemas define allowed inputs and outputs, while safety policy limits damage and prevents unsafe or unintended tool operations."
+            },
+            {
+              "id": "distractor-2",
+              "label": "No human review",
+              "explanation": "Human approval is important when actions are costly, irreversible, sensitive, or risky."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Just a longer prompt",
+              "explanation": "Agents coordinate goals, steps, tools, state, and guardrails beyond a single response."
+            }
+          ]
+        },
+        {
+          "id": "memory-risk",
+          "prompt": "What memory mistakes are common in agents and how do they affect outcomes?",
+          "correctAnswer": "Noisy or stale memory leads to repeated work, wrong assumptions, or unsafe decisions, while proper pruning and checkpointing preserve context quality.",
+          "keywords": [
+            "memory",
+            "stale",
+            "pruning",
+            "checkpoint",
+            "context"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "No human review",
+              "explanation": "Human approval is important when actions are costly, irreversible, sensitive, or risky."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Just a longer prompt",
+              "explanation": "Agents coordinate goals, steps, tools, state, and guardrails beyond a single response."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Unlimited retries",
+              "explanation": "Retries need limits and fallback handling to avoid loops, costs, and unintended side effects."
+            },
+            {
+              "id": "correct",
+              "label": "Stale or noisy memory",
+              "explanation": "Noisy or stale memory leads to repeated work, wrong assumptions, or unsafe decisions, while proper pruning and checkpointing preserve context quality."
+            }
+          ]
+        },
+        {
+          "id": "human-loop",
+          "prompt": "Describe when a human-in-the-loop step should be mandatory.",
+          "correctAnswer": "Human review is needed for high-risk changes, financial commitments, irreversible actions, or any decision with compliance implications.",
+          "keywords": [
+            "mandatory",
+            "high-risk",
+            "irreversible",
+            "compliance",
+            "review"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Review for high-risk actions",
+              "explanation": "Human review is needed for high-risk changes, financial commitments, irreversible actions, or any decision with compliance implications."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Just a longer prompt",
+              "explanation": "Agents coordinate goals, steps, tools, state, and guardrails beyond a single response."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Unlimited retries",
+              "explanation": "Retries need limits and fallback handling to avoid loops, costs, and unintended side effects."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Hidden tool behavior",
+              "explanation": "Logs are needed to debug decisions, failures, permissions, and outcomes."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

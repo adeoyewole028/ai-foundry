@@ -1,0 +1,68 @@
+# Train/Test Split
+
+## Objective
+
+By the end of this lesson, you will be able to split datasets reliably for evaluation.
+
+## Prerequisites
+
+Before this lesson, you should know how to clean and inspect data with pandas.
+
+## Plain-English Explanation
+
+You hold out some data to test whether your model really works on unseen examples.
+
+## Key Terms
+
+### Leakage
+
+Simple meaning:
+Accidentally letting test information influence training.
+
+Real-world analogy:
+Practicing exam questions and also using them as test answers.
+
+Technical meaning:
+Information from the test set appears in training in any form.
+
+Example:
+Scaling features using full dataset statistics before splitting.
+
+Why it matters:
+Leakage creates inflated metrics and false confidence.
+
+## Mental Model
+
+Think of train/test split as a timeline checkpoint: what was available at training time cannot include what you evaluate later.
+
+## Example
+
+Split by random seed and validate class balance in both partitions.
+
+## Code Walkthrough
+
+Set deterministic seed, create train and test partitions, and compare simple distribution metrics.
+
+## Common Mistakes
+
+- Using random splits without stratification on skewed labels.
+- Sharing preprocessing transformations computed on full dataset.
+- Ignoring time-based splits for temporal data.
+
+## Exercise
+
+Create a split and compute one metric on each set.
+
+## Reflection
+
+Why is a good split strategy as important as model choice?
+
+## Further Reading
+
+- [Machine learning split strategies](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)
+
+## Completion Checklist
+
+- [ ] I can create deterministic splits.
+- [ ] I can detect potential leakage points.
+- [ ] I can justify the split strategy used.

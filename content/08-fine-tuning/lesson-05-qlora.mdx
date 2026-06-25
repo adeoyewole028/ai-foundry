@@ -1,0 +1,68 @@
+# QLoRA
+
+## Objective
+
+By the end of this lesson, you can compare LoRA and QLoRA for memory-aware workflows.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 04 in this module.
+
+## Plain-English Explanation
+
+QLoRA applies quantization to reduce memory while retaining adapter adaptation benefits.
+
+## Key Terms
+
+### Quantization
+
+Simple meaning:
+Compressing numbers with limited precision.
+
+Real-world analogy:
+Saving images at lower quality to reduce file size.
+
+Technical meaning:
+Representing weights at reduced bit width to save memory.
+
+Example:
+Enabling larger context trials on constrained hardware.
+
+Why it matters:
+It can unlock experimentation in smaller budgets.
+
+## Mental Model
+
+QLoRA is LoRA plus a controlled compression layer.
+
+## Example
+
+Running adaptation for a small assistant on constrained GPUs.
+
+## Code Walkthrough
+
+Track quality impact after compression and choose thresholds before release.
+
+## Common Mistakes
+
+- Using QLoRA without baseline comparisons.
+- Treating quality regression as acceptable by default.
+- Underestimating inference latency changes.
+
+## Exercise
+
+Define a minimal test set for comparing LoRA and QLoRA behavior.
+
+## Reflection
+
+When should compression pressure reduce quality expectations?
+
+## Further Reading
+
+- [QLoRA docs](https://arxiv.org/abs/2305.14314)
+
+## Completion Checklist
+
+- [ ] I can explain what QLoRA changes.
+- [ ] I can compare memory and quality outcomes.
+- [ ] I can set a rollback policy for quality drops.

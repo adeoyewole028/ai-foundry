@@ -1,0 +1,86 @@
+# AI Product Thinking
+
+## Objective
+
+By the end of this lesson, you will be able to evaluate an AI product idea by starting from the user problem, choosing a technique, and defining success.
+
+## Prerequisites
+
+Before this lesson, you should understand AI, ML, LLMs, models, tokens, embeddings, RAG, and agents at a plain-English level.
+
+## Plain-English Explanation
+
+AI product thinking means you do not start with "Where can we add AI?" You start with a user problem. Then you ask whether AI can improve the workflow in a way that is useful, reliable, and worth the cost.
+
+Good AI products usually help with uncertainty, language, search, summarization, ranking, pattern detection, or decision support. Bad AI products use a model where a form, filter, rule, or checklist would be clearer and safer.
+
+## Key Terms
+
+### User Problem
+
+A user problem is the real pain, delay, confusion, cost, or risk the product should reduce.
+
+### Success Signal
+
+A success signal is measurable evidence that the feature helps, such as time saved, fewer mistakes, faster routing, or better completion rates.
+
+### Human-in-the-Loop
+
+Human-in-the-loop means a person reviews, approves, or corrects AI output before it affects something important.
+
+## Mental Model
+
+Think of AI as an expensive specialist tool in a workshop. You do not use it for every job. You use it when the job has enough ambiguity or scale that the specialist tool creates real leverage.
+
+## Example
+
+For GigSwipe, an AI feature might summarize why a gig matches a worker's schedule and preferences. The user problem is not "we need AI." The user problem is "workers waste time comparing gig fit across many listings."
+
+## Code Walkthrough
+
+Use a simple product framing object before building:
+
+```ts
+type AIFeatureBrief = {
+  userProblem: string;
+  aiTechnique: "rules" | "embedding-search" | "llm" | "rag" | "agent";
+  successSignal: string;
+  safetyConcern: string;
+};
+
+const brief: AIFeatureBrief = {
+  userProblem: "Workers need to compare gig fit quickly.",
+  aiTechnique: "llm",
+  successSignal: "Users shortlist jobs in less time.",
+  safetyConcern: "The explanation might overstate pay or availability."
+};
+```
+
+This kind of brief keeps the team honest before implementation starts.
+
+## Common Mistakes
+
+- Starting with the model instead of the workflow.
+- Optimizing for demo quality instead of user value.
+- Ignoring cost, latency, privacy, and failure modes.
+- Measuring usage but not usefulness.
+
+## Exercise
+
+Choose one feature idea. Write the user problem, the AI technique, one non-AI alternative, one success signal, and one safety concern.
+
+## Reflection
+
+What would make your AI idea worth building, and what evidence would make you stop?
+
+## Further Reading
+
+- [Google PAIR: People + AI Guidebook](https://pair.withgoogle.com/guidebook/)
+- [Microsoft HAX Toolkit](https://www.microsoft.com/en-us/haxtoolkit/)
+- [Nielsen Norman Group: AI UX](https://www.nngroup.com/articles/ai-user-experience/)
+
+## Completion Checklist
+
+- [ ] I can start with the user problem before the model.
+- [ ] I can choose an AI technique for one product idea.
+- [ ] I can define a useful success signal.

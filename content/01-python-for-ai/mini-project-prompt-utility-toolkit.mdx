@@ -1,0 +1,78 @@
+# Mini Project: Prompt Utility Toolkit
+
+## Objective
+
+Build a tiny utility that standardizes prompt text, validates lengths, and writes outputs in a predictable structure.
+
+## Prerequisites
+
+Complete lessons 1 through 10.
+
+## Plain-English Explanation
+
+This mini project simulates a support utility for AI features. You keep logic consistent before building full AI models.
+
+## Key Terms
+
+### Utility
+
+Simple meaning:
+A helper for repetitive work.
+
+Real-world analogy:
+Like a reusable content pre-processing station.
+
+Technical meaning:
+Modular script package that handles a focused transformation.
+
+Example:
+Reusable `normalize_prompt` function.
+
+Why it matters:
+Stable inputs lead to more stable AI outputs.
+
+## Mental Model
+
+```text
+Raw text -> normalize -> validate -> structured output -> API-ready payload
+```
+
+## Example
+
+```txt
+User input: "  What is AI?  "
+Normalized: "What is AI?"
+```
+
+## Code Walkthrough
+
+No one correct implementation is required yet. Focus on:
+
+- input parser
+- normalizer
+- validator
+- JSON writer
+
+## Common Mistakes
+
+- No central normalization and no validation step.
+- Silent failures for malformed input files.
+
+## Exercise
+
+Create a command that reads a text file and writes a JSON payload with normalized text and character count.
+
+## Reflection
+
+What does your utility do when input is empty, too short, or malformed?
+
+## Further Reading
+
+- [Designing small CLI tools](https://docs.python.org/3/library/argparse.html)
+- [JSON basics](https://www.json.org/json-en.html)
+
+## Completion Checklist
+
+- [ ] I built a reusable normalization function.
+- [ ] I validated basic input constraints.
+- [ ] I produced a consistent output schema.

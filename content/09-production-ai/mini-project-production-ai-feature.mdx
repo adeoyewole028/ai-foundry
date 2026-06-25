@@ -1,0 +1,68 @@
+# Mini Project: Production AI Feature
+
+## Objective
+
+By the end of this project, you can implement a reliable AI workflow with queued execution.
+
+## Prerequisites
+
+Before this mini project, complete Lessons 01–07 in this module.
+
+## Plain-English Explanation
+
+You will ship one feature end-to-end with monitoring, fallback, and rollout notes.
+
+## Key Terms
+
+### Runbook
+
+Simple meaning:
+Step-by-step incident handling guide.
+
+Real-world analogy:
+Emergency checklist for service incidents.
+
+Technical meaning:
+Operational document linking alerts, thresholds, and actions.
+
+Example:
+If rejection rate rises above 15%, pause queue and notify.
+
+Why it matters:
+Teams recover faster with clear steps.
+
+## Mental Model
+
+Feature -> async process -> monitoring -> alert -> manual intervention.
+
+## Example
+
+Queue heavy content generation and notify users of progress.
+
+## Code Walkthrough
+
+Implement async task, retries, DLQ, and dashboard metric updates.
+
+## Common Mistakes
+
+- No DLQ for repeated failures.
+- No user-facing progress signals.
+- Missing rollback trigger in config.
+
+## Exercise
+
+Create a release checklist and incident action map.
+
+## Reflection
+
+How do you prevent one bad job from blocking all jobs?
+
+## Further Reading
+
+- [Async job processing in production](https://aws.amazon.com/blogs/compute/choosing-right-queue-patterns/)
+
+## Completion Checklist
+
+- [ ] I can implement queue and retry behavior.
+- [ ] I can track meaningful production metrics.
+- [ ] I can trigger safe fallback on high failure.

@@ -1,0 +1,68 @@
+# Evaluation
+
+## Objective
+
+By the end of this lesson, you can evaluate fine-tuned outputs before production use.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 05 in this module.
+
+## Plain-English Explanation
+
+Evaluation catches regressions, improves trust, and verifies expected behavior.
+
+## Key Terms
+
+### A/B Evaluation
+
+Simple meaning:
+Compare old and new behavior side-by-side.
+
+Real-world analogy:
+Pilot testing two versions of onboarding copy.
+
+Technical meaning:
+Use benchmark prompts and scoring across baseline and tuned models.
+
+Example:
+Compare refusal style before and after tuning.
+
+Why it matters:
+Prevents shipping subtle failures.
+
+## Mental Model
+
+Baseline and tuned behavior must be judged against the same task set.
+
+## Example
+
+Run a weekly scoring job across 30 prompts.
+
+## Code Walkthrough
+
+Keep metrics for quality, safety, formatting, and latency.
+
+## Common Mistakes
+
+- Tiny eval sets that miss common edge cases.
+- Manual spot checks only.
+- No baseline retention.
+
+## Exercise
+
+Create a scoring matrix for accuracy, tone, policy adherence.
+
+## Reflection
+
+Which failure should block rollout?
+
+## Further Reading
+
+- [Open-source evaluation checklists](https://github.com/OpenAI/evals)
+
+## Completion Checklist
+
+- [ ] I can set clear pass/fail criteria.
+- [ ] I can run baseline comparisons.
+- [ ] I can block rollout on critical quality failures.

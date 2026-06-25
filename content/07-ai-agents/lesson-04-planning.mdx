@@ -1,0 +1,68 @@
+# Planning for Agents
+
+## Objective
+
+By the end of this lesson, you can decompose a goal into actionable steps with safe stop points.
+
+## Prerequisites
+
+Before this lesson, you should complete Lesson 03 in this module.
+
+## Plain-English Explanation
+
+Planning means deciding what to do next before executing the current action.
+
+## Key Terms
+
+### Plan Step
+
+Simple meaning:
+One concrete action with clear inputs.
+
+Real-world analogy:
+A checklist for submitting a report.
+
+Technical meaning:
+Ordered operation unit with conditions and fallback.
+
+Example:
+Search role → generate draft → request approval → polish final copy.
+
+Why it matters:
+Plans reduce random loops and missing steps.
+
+## Mental Model
+
+Treat planning as a to-do list with dependencies and deadlines.
+
+## Example
+
+Hiring assistant agent: shortlist roles, verify fit, draft custom cover letter, route for user review.
+
+## Code Walkthrough
+
+Represent plan as JSON with `status`, `step`, `result`, and `next` for each state.
+
+## Common Mistakes
+
+- Unbounded loops with no stop condition.
+- No dependency checks.
+- No rollback on mid-flow failures.
+
+## Exercise
+
+Create a 5-step plan for processing one job application from first click to completion.
+
+## Reflection
+
+How do you keep planning useful but not over-engineered?
+
+## Further Reading
+
+- [LangGraph planning concepts](https://www.langchain.com/langgraph)
+
+## Completion Checklist
+
+- [ ] I can define ordered execution steps.
+- [ ] I can identify stop/escape conditions.
+- [ ] I can recover from mid-plan failure.

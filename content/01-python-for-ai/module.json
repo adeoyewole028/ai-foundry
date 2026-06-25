@@ -1,0 +1,602 @@
+{
+  "title": "Python for AI",
+  "slug": "python-for-ai",
+  "order": 1,
+  "description": "Learn the Python basics you need for AI tooling, data handling, and small production APIs.",
+  "level": "Beginner",
+  "estimatedHours": 12,
+  "outcomes": [
+    "Set up Python environments and run scripts in a repeatable way.",
+    "Use Python primitives to model and manipulate practical data.",
+    "Write clean functions and classes for AI-facing helpers.",
+    "Read and write files safely for simple data pipelines.",
+    "Use APIs and simple web frameworks to build AI-ready backends.",
+    "Run code in notebooks and structure a small app prototype with FastAPI."
+  ],
+  "lessons": [
+    {
+      "title": "Python Setup",
+      "slug": "python-setup",
+      "file": "lesson-01-python-setup.mdx",
+      "order": 1,
+      "type": "lesson",
+      "description": "Install Python and understand how to run a script safely.",
+      "estimatedMinutes": 20,
+      "checklist": [
+        "I can run a hello-world script.",
+        "I can check python and pip versions.",
+        "I can create a clean project directory."
+      ],
+      "questions": [
+        "What problem does a Python virtual environment solve?",
+        "How do you verify you are running the expected Python version?"
+      ]
+    },
+    {
+      "title": "Variables and Data Types",
+      "slug": "python-variables-and-types",
+      "file": "lesson-02-variables-and-types.mdx",
+      "order": 2,
+      "type": "lesson",
+      "description": "Store and convert values using Python's core types.",
+      "estimatedMinutes": 25,
+      "checklist": [
+        "I can define and update variables.",
+        "I can choose the correct type for simple cases.",
+        "I can describe immutable vs mutable behavior at a high level."
+      ],
+      "questions": [
+        "Why should you keep data shapes consistent in AI code?",
+        "Where does Python's type behavior surprise teams during prototyping?"
+      ]
+    },
+    {
+      "title": "Lists and Dictionaries",
+      "slug": "python-lists-dictionaries",
+      "file": "lesson-03-lists-and-dictionaries.mdx",
+      "order": 3,
+      "type": "lesson",
+      "description": "Store collections and map keys to values for AI workflows.",
+      "estimatedMinutes": 25,
+      "checklist": [
+        "I can filter and loop over a list.",
+        "I can represent structured data in dictionaries.",
+        "I can avoid common key/index mistakes."
+      ],
+      "questions": [
+        "When does a dictionary outperform a list?",
+        "Which container is easier for one-to-one mappings?"
+      ]
+    },
+    {
+      "title": "Functions",
+      "slug": "python-functions",
+      "file": "lesson-04-functions.mdx",
+      "order": 4,
+      "type": "lesson",
+      "description": "Build reusable logic with parameters, return values, and docstrings.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can define a function with input and output.",
+        "I can call helper functions from another function.",
+        "I can test a function using simple sample inputs."
+      ],
+      "questions": [
+        "What is the difference between a function and a class method?",
+        "How do functions help with AI prompt and API consistency?"
+      ]
+    },
+    {
+      "title": "Classes",
+      "slug": "python-classes",
+      "file": "lesson-05-classes.mdx",
+      "order": 5,
+      "type": "lesson",
+      "description": "Represent domain objects with simple class structures.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can define a class with attributes and methods.",
+        "I can instantiate objects for one use case.",
+        "I can explain when a class is overkill."
+      ],
+      "questions": [
+        "When does a class make code easier to reason about?",
+        "Why should AI-facing models stay focused on one responsibility?"
+      ]
+    },
+    {
+      "title": "Files",
+      "slug": "python-files",
+      "file": "lesson-06-files.mdx",
+      "order": 6,
+      "type": "lesson",
+      "description": "Load and write text-based data safely with Python file APIs.",
+      "estimatedMinutes": 25,
+      "checklist": [
+        "I can read and write files with context managers.",
+        "I can handle common text parsing issues.",
+        "I can validate input before writing output."
+      ],
+      "questions": [
+        "Why is context manager syntax important for file handling?",
+        "What do you do when input format changes unexpectedly?"
+      ]
+    },
+    {
+      "title": "APIs",
+      "slug": "python-apis",
+      "file": "lesson-07-apis.mdx",
+      "order": 7,
+      "type": "lesson",
+      "description": "Call and consume external APIs safely and predictably.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can send a basic request and inspect the response.",
+        "I can parse JSON into Python objects.",
+        "I can add error handling for failed requests."
+      ],
+      "questions": [
+        "How do status codes change how you proceed?",
+        "How does timeout handling affect production reliability?"
+      ]
+    },
+    {
+      "title": "Virtual Environments",
+      "slug": "python-virtual-environments",
+      "file": "lesson-08-virtual-environments.mdx",
+      "order": 8,
+      "type": "lesson",
+      "description": "Use isolated environments so projects stay reproducible.",
+      "estimatedMinutes": 20,
+      "checklist": [
+        "I can create and activate a venv.",
+        "I can pin dependencies in requirements.",
+        "I can explain why global installs are risky."
+      ],
+      "questions": [
+        "Why do reproducible environments matter for team work?",
+        "What breaks when two apps depend on different package versions?"
+      ]
+    },
+    {
+      "title": "Jupyter Notebooks",
+      "slug": "python-jupyter-notebooks",
+      "file": "lesson-09-jupyter-notebooks.mdx",
+      "order": 9,
+      "type": "lesson",
+      "description": "Explore interactive notebooks for experiments and AI exploration.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can run cells in sequence and inspect outputs.",
+        "I can keep imports, data prep, and results separate.",
+        "I can export or summarize a reproducible notebook."
+      ],
+      "questions": [
+        "When is a notebook good for exploration but not production?",
+        "How do you keep notebooks maintainable for others?"
+      ]
+    },
+    {
+      "title": "FastAPI Introduction",
+      "slug": "python-fastapi-introduction",
+      "file": "lesson-10-fastapi-introduction.mdx",
+      "order": 10,
+      "type": "lesson",
+      "description": "Build a simple API route to serve AI-ready outputs.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can run a tiny FastAPI app with one endpoint.",
+        "I can test requests and read JSON responses.",
+        "I can describe request/response boundaries."
+      ],
+      "questions": [
+        "How would you expose a model helper through API endpoints?",
+        "What validation is important before returning AI output?"
+      ]
+    },
+    {
+      "title": "Mini Project: Prompt Utility Toolkit",
+      "slug": "python-mini-project",
+      "file": "mini-project-prompt-utility-toolkit.mdx",
+      "order": 11,
+      "type": "project",
+      "description": "Create a tiny CLI utility for reusable text-clean and request helper functions.",
+      "estimatedMinutes": 60,
+      "checklist": [
+        "I can define a small input pipeline.",
+        "I can handle missing file paths and bad input.",
+        "I can explain how this utility helps an AI feature."
+      ],
+      "questions": [
+        "What inputs does your utility accept?",
+        "How do you avoid silent failure in automation scripts?"
+      ]
+    },
+    {
+      "title": "Python for AI Starter API",
+      "slug": "python-starter-api-project",
+      "file": "project.mdx",
+      "order": 12,
+      "type": "project",
+      "description": "Design a minimal FastAPI service contract for an AI workflow.",
+      "estimatedMinutes": 90,
+      "checklist": [
+        "I can sketch endpoint contracts before coding.",
+        "I can define safe error messages and response shape.",
+        "I can list one security and one scalability concern."
+      ],
+      "questions": [
+        "Which endpoint should start your API and why?",
+        "What one guardrail prevents unsafe input from reaching your model helper?"
+      ]
+    },
+    {
+      "title": "Python Foundations Quiz",
+      "slug": "python-quiz",
+      "file": "quiz.mdx",
+      "order": 13,
+      "type": "quiz",
+      "description": "Check readiness for moving into data-focused AI modules.",
+      "estimatedMinutes": 25,
+      "checklist": [
+        "I can explain Python data organization.",
+        "I can read and describe API request/response behavior.",
+        "I can define a small reproducible setup."
+      ],
+      "questions": [
+        "What is the difference between script style code and reusable function design?",
+        "Why are environments essential in team AI work?"
+      ],
+      "quizQuestions": [
+        {
+          "id": "python-setup",
+          "prompt": "What is your best reason for using a virtual environment for an AI project?",
+          "correctAnswer": "A virtual environment keeps dependencies isolated so each project can use exact versions without conflicts, improving reproducibility and reliability in teams.",
+          "keywords": [
+            "isolated",
+            "dependencies",
+            "reproducible",
+            "project"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Isolated project dependencies",
+              "explanation": "A virtual environment keeps dependencies isolated so each project can use exact versions without conflicts, improving reproducibility and reliability in teams."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Global package installs",
+              "explanation": "Global installs make projects harder to reproduce and can create dependency conflicts across teams."
+            },
+            {
+              "id": "distractor-2",
+              "label": "One-cell prototypes",
+              "explanation": "Notebooks are useful for exploration, but reliable AI workflows need reusable, testable code."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Trust successful responses",
+              "explanation": "A successful request can still return malformed, incomplete, stale, or unsafe data."
+            }
+          ]
+        },
+        {
+          "id": "types",
+          "prompt": "How do Python types help reduce mistakes when preparing AI inputs?",
+          "correctAnswer": "Clear types help you validate assumptions about input shape and format, catching inconsistencies before they reach model calls or API boundaries.",
+          "keywords": [
+            "validate",
+            "input",
+            "shape",
+            "format",
+            "consistency"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "One-cell prototypes",
+              "explanation": "Notebooks are useful for exploration, but reliable AI workflows need reusable, testable code."
+            },
+            {
+              "id": "correct",
+              "label": "Input shape and format validation",
+              "explanation": "Clear types help you validate assumptions about input shape and format, catching inconsistencies before they reach model calls or API boundaries."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Trust successful responses",
+              "explanation": "A successful request can still return malformed, incomplete, stale, or unsafe data."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Everything as strings",
+              "explanation": "String-only data hides type mistakes and makes validation harder before AI inputs are sent downstream."
+            }
+          ]
+        },
+        {
+          "id": "lists-vs-dict",
+          "prompt": "When would you use a dictionary over a list in prompt/metadata workflows?",
+          "correctAnswer": "Use a dictionary when you need key-based access to named fields like user_id, text, timestamps, or route metadata, where order is less important than lookup and clarity.",
+          "keywords": [
+            "dictionary",
+            "key",
+            "metadata",
+            "lookup",
+            "named"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Trust successful responses",
+              "explanation": "A successful request can still return malformed, incomplete, stale, or unsafe data."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Everything as strings",
+              "explanation": "String-only data hides type mistakes and makes validation harder before AI inputs are sent downstream."
+            },
+            {
+              "id": "correct",
+              "label": "Keyed metadata access",
+              "explanation": "Use a dictionary when you need key-based access to named fields like user_id, text, timestamps, or route metadata, where order is less important than lookup and clarity."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Write before validation",
+              "explanation": "File output from user data needs validation to avoid overwrites, leaks, or unsafe paths."
+            }
+          ]
+        },
+        {
+          "id": "functions",
+          "prompt": "Why does one small function matter before building AI features?",
+          "correctAnswer": "Small focused functions separate concerns, make behavior testable, and keep prompt preparation, request handling, and response parsing easier to maintain.",
+          "keywords": [
+            "focused",
+            "separate",
+            "testable",
+            "maintenance"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Everything as strings",
+              "explanation": "String-only data hides type mistakes and makes validation harder before AI inputs are sent downstream."
+            },
+            {
+              "id": "correct",
+              "label": "Small reusable behavior units",
+              "explanation": "Small focused functions separate concerns, make behavior testable, and keep prompt preparation, request handling, and response parsing easier to maintain."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Write before validation",
+              "explanation": "File output from user data needs validation to avoid overwrites, leaks, or unsafe paths."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Model call first",
+              "explanation": "The API shape should define validation, errors, observability, and reliability boundaries."
+            }
+          ]
+        },
+        {
+          "id": "classes",
+          "prompt": "When is a class a good fit in AI application code?",
+          "correctAnswer": "A class helps when multiple fields and behaviors belong together, such as request context and helper methods, and you need reusable structured handling.",
+          "keywords": [
+            "fields",
+            "behavior",
+            "reusable",
+            "structured",
+            "request"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Write before validation",
+              "explanation": "File output from user data needs validation to avoid overwrites, leaks, or unsafe paths."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Model call first",
+              "explanation": "The API shape should define validation, errors, observability, and reliability boundaries."
+            },
+            {
+              "id": "correct",
+              "label": "Grouped state and behavior",
+              "explanation": "A class helps when multiple fields and behaviors belong together, such as request context and helper methods, and you need reusable structured handling."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Global package installs",
+              "explanation": "Global installs make projects harder to reproduce and can create dependency conflicts across teams."
+            }
+          ]
+        },
+        {
+          "id": "file-handling",
+          "prompt": "What should you do before writing file output from user-generated data?",
+          "correctAnswer": "Validate and normalize data first, handle encoding and missing fields, then write atomically or with explicit paths to avoid corrupting prior output.",
+          "keywords": [
+            "validate",
+            "normalize",
+            "encoding",
+            "atomic",
+            "output"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Model call first",
+              "explanation": "The API shape should define validation, errors, observability, and reliability boundaries."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Global package installs",
+              "explanation": "Global installs make projects harder to reproduce and can create dependency conflicts across teams."
+            },
+            {
+              "id": "correct",
+              "label": "Validate before writing files",
+              "explanation": "Validate and normalize data first, handle encoding and missing fields, then write atomically or with explicit paths to avoid corrupting prior output."
+            },
+            {
+              "id": "distractor-3",
+              "label": "One-cell prototypes",
+              "explanation": "Notebooks are useful for exploration, but reliable AI workflows need reusable, testable code."
+            }
+          ]
+        },
+        {
+          "id": "api-calls",
+          "prompt": "What are two checks you do before trusting a third-party API response?",
+          "correctAnswer": "Verify status codes and parse/validate response schema before using the payload, and add retry or fail-safe logic for temporary outages.",
+          "keywords": [
+            "status",
+            "schema",
+            "retry",
+            "fallback",
+            "validation"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Global package installs",
+              "explanation": "Global installs make projects harder to reproduce and can create dependency conflicts across teams."
+            },
+            {
+              "id": "distractor-2",
+              "label": "One-cell prototypes",
+              "explanation": "Notebooks are useful for exploration, but reliable AI workflows need reusable, testable code."
+            },
+            {
+              "id": "correct",
+              "label": "Status and schema validation",
+              "explanation": "Verify status codes and parse/validate response schema before using the payload, and add retry or fail-safe logic for temporary outages."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Trust successful responses",
+              "explanation": "A successful request can still return malformed, incomplete, stale, or unsafe data."
+            }
+          ]
+        },
+        {
+          "id": "venv",
+          "prompt": "Why can global package installs hurt AI teams?",
+          "correctAnswer": "Global installs mix libraries across projects, causing version conflicts and non-reproducible behavior between dev machines and deployments.",
+          "keywords": [
+            "global",
+            "conflicts",
+            "reproducible",
+            "version",
+            "deployments"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "One-cell prototypes",
+              "explanation": "Notebooks are useful for exploration, but reliable AI workflows need reusable, testable code."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Trust successful responses",
+              "explanation": "A successful request can still return malformed, incomplete, stale, or unsafe data."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Everything as strings",
+              "explanation": "String-only data hides type mistakes and makes validation harder before AI inputs are sent downstream."
+            },
+            {
+              "id": "correct",
+              "label": "Reproducible dependency isolation",
+              "explanation": "Global installs mix libraries across projects, causing version conflicts and non-reproducible behavior between dev machines and deployments."
+            }
+          ]
+        },
+        {
+          "id": "notebooks",
+          "prompt": "What is a practical reason to move from notebook to scripts after prototyping?",
+          "correctAnswer": "Scripts and services are easier to version, test, and deploy reliably once logic is stable, while notebooks are great for exploration and iteration.",
+          "keywords": [
+            "version",
+            "test",
+            "deploy",
+            "exploration",
+            "stable"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Move stable logic to scripts",
+              "explanation": "Scripts and services are easier to version, test, and deploy reliably once logic is stable, while notebooks are great for exploration and iteration."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Trust successful responses",
+              "explanation": "A successful request can still return malformed, incomplete, stale, or unsafe data."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Everything as strings",
+              "explanation": "String-only data hides type mistakes and makes validation harder before AI inputs are sent downstream."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Write before validation",
+              "explanation": "File output from user data needs validation to avoid overwrites, leaks, or unsafe paths."
+            }
+          ]
+        },
+        {
+          "id": "fastapi",
+          "prompt": "How does API shape support AI reliability?",
+          "correctAnswer": "A clear request/response contract lets clients know what to send and what to expect, making AI helper services easier to debug, monitor, and evolve safely.",
+          "keywords": [
+            "contract",
+            "reliability",
+            "debug",
+            "monitor",
+            "evolve"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Clear request-response contracts",
+              "explanation": "A clear request/response contract lets clients know what to send and what to expect, making AI helper services easier to debug, monitor, and evolve safely."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Everything as strings",
+              "explanation": "String-only data hides type mistakes and makes validation harder before AI inputs are sent downstream."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Write before validation",
+              "explanation": "File output from user data needs validation to avoid overwrites, leaks, or unsafe paths."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Model call first",
+              "explanation": "The API shape should define validation, errors, observability, and reliability boundaries."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

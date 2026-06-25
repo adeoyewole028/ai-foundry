@@ -1,0 +1,68 @@
+# Loss Functions
+
+## Objective
+
+By the end of this lesson, you will choose loss functions consistent with task objectives.
+
+## Prerequisites
+
+Before this lesson, you should understand predictions and model outputs.
+
+## Plain-English Explanation
+
+Loss tells the model how far off it is for each prediction.
+
+## Key Terms
+
+### Loss
+
+Simple meaning:
+A score for “how wrong we are.”
+
+Real-world analogy:
+A test score with penalties for each missed question.
+
+Technical meaning:
+Differentiable objective computed from prediction-target comparisons.
+
+Example:
+Cross-entropy for class prediction.
+
+Why it matters:
+Correct loss aligns optimization with business goals.
+
+## Mental Model
+
+Each batch creates a scalar feedback number that drives updates.
+
+## Example
+
+Use MSE for numeric outcomes and cross-entropy for class labels.
+
+## Code Walkthrough
+
+Train same architecture with two losses and compare stability.
+
+## Common Mistakes
+
+- Wrong loss for output type.
+- Reading loss alone without monitoring metrics.
+- Not scaling targets appropriately.
+
+## Exercise
+
+Pick one classification metric and describe why it pairs with your loss.
+
+## Reflection
+
+Why does “lower loss” not always mean “better business value”?
+
+## Further Reading
+
+- [Loss functions in deep learning](https://neptune.ai/blog/types-of-loss-functions)
+
+## Completion Checklist
+
+- [ ] I can map tasks to loss functions.
+- [ ] I can monitor loss as training signal.
+- [ ] I can defend one loss choice clearly.

@@ -1,0 +1,69 @@
+# Training and Testing
+
+## Objective
+
+By the end of this lesson, you will explain how train/validation/test splits protect model trust.
+
+## Prerequisites
+
+Before this lesson, you should understand data quality checks and missing values handling.
+
+## Plain-English Explanation
+
+You train on one set, tune decisions on another, and test on a third you never peek at.
+
+## Key Terms
+
+### Split
+
+Simple meaning:
+How you divide data into different buckets.
+
+Real-world analogy:
+Think of studying, practicing, and a final exam.
+
+Technical meaning:
+Partitioning dataset indices into disjoint subsets for learning, tuning, and evaluation.
+
+Example:
+70% train, 15% validation, 15% test.
+
+Why it matters:
+Without this, your model may appear good but fail in production.
+
+## Mental Model
+
+Use three boxes and never open the test box until final review.
+
+## Example
+
+Train a scoring model on 2023 resumes, tune thresholds on 2022 held-out resumes, then test on untouched 2024 data.
+
+## Code Walkthrough
+
+Set deterministic seeds.
+Use a split function and assert the three sets are disjoint.
+
+## Common Mistakes
+
+- Reusing the same rows for both train and validation.
+- Leaking feature scaling computed on full data.
+- Forgetting to preserve class balance in each split.
+
+## Exercise
+
+Write down a split plan with seed, ratio, and leakage checks for your project.
+
+## Reflection
+
+Why do teams still underperform when they “did train/test split” but still leak?
+
+## Further Reading
+
+- [Train-test split guide (scikit-learn)](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)
+
+## Completion Checklist
+
+- [ ] I can describe why each split exists.
+- [ ] I can explain why randomness must be controlled.
+- [ ] I can verify split disjointness in practice.

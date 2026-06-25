@@ -1,0 +1,78 @@
+# Virtual Environments
+
+## Objective
+
+By the end of this lesson, you will keep Python projects reproducible with isolated dependencies.
+
+## Prerequisites
+
+API and files lessons.
+
+## Plain-English Explanation
+
+Without isolated environments, dependency versions drift and your teammate's working state can diverge. Virtual environments keep projects self-contained.
+
+## Key Terms
+
+### Dependency
+
+Simple meaning:
+An external package your code depends on.
+
+Real-world analogy:
+Like ingredients for a recipe that must be in the right amounts.
+
+Technical meaning:
+Python package installed via `pip` in an environment.
+
+Example:
+`requests==2.31.0` pinned in `requirements.txt`.
+
+Why it matters:
+Dependency drift causes mysterious runtime errors.
+
+## Mental Model
+
+```text
+Project -> requirements -> environment -> predictable runs
+```
+
+## Example
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install requests==2.31.0
+pip freeze > requirements.txt
+```
+
+## Code Walkthrough
+
+```python
+import sys
+print(sys.prefix)
+```
+
+## Common Mistakes
+
+- Installing all projects into the same global environment.
+- Not pinning dependency versions.
+
+## Exercise
+
+Create a requirements file and a note explaining two key pinned versions.
+
+## Reflection
+
+How would dependency inconsistency appear in a shared AI team pipeline?
+
+## Further Reading
+
+- [pip documentation](https://pip.pypa.io/en/stable/)
+- [PEP 668 and virtual environments](https://peps.python.org/pep-0668/)
+
+## Completion Checklist
+
+- [ ] I can create and activate a virtual environment.
+- [ ] I can generate pinned dependencies.
+- [ ] I can reproduce setup on another machine.

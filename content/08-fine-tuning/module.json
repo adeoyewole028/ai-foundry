@@ -1,0 +1,341 @@
+{
+  "title": "Fine-Tuning",
+  "slug": "fine-tuning",
+  "order": 8,
+  "description": "Customize model behavior with data and training strategies before deploying at scale.",
+  "level": "Advanced",
+  "estimatedHours": 20,
+  "outcomes": [
+    "Decide when fine-tuning is warranted over prompt engineering.",
+    "Prepare and clean domain data for instruction tuning.",
+    "Understand PEFT concepts and memory-aware methods.",
+    "Configure evaluation loops for targeted behavior changes.",
+    "Know when to avoid fine-tuning due to risk or cost."
+  ],
+  "lessons": [
+    {
+      "title": "What is Fine-Tuning?",
+      "slug": "what-is-fine-tuning",
+      "file": "lesson-01-what-is-fine-tuning.mdx",
+      "order": 1,
+      "type": "lesson",
+      "description": "Understand how model behavior can be adapted with examples.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can explain fine-tuning vs prompt engineering.",
+        "I can identify suitable use cases.",
+        "I can name one data quality risk."
+      ],
+      "questions": [
+        "When does fine-tuning become the least costly option?",
+        "What is the wrong use case for fine-tuning?"
+      ]
+    },
+    {
+      "title": "Datasets",
+      "slug": "datasets",
+      "file": "lesson-02-datasets.mdx",
+      "order": 2,
+      "type": "lesson",
+      "description": "Build and validate training data for adaptation tasks.",
+      "estimatedMinutes": 36,
+      "checklist": [
+        "I can define a schema for training samples.",
+        "I can detect low-quality or noisy examples.",
+        "I can split train/validation data correctly."
+      ],
+      "questions": [
+        "How can bad labels affect behavior?",
+        "How much diversity is enough in one domain dataset?"
+      ]
+    },
+    {
+      "title": "Instruction Data",
+      "slug": "instruction-data",
+      "file": "lesson-03-instruction-data.mdx",
+      "order": 3,
+      "type": "lesson",
+      "description": "Use instruction-style examples for controllable output styles.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can craft instruction pairs with consistent style.",
+        "I can include edge cases and rejection examples.",
+        "I can document expected output format."
+      ],
+      "questions": [
+        "What makes one instruction sample stronger than another?",
+        "Why do failure examples matter?"
+      ]
+    },
+    {
+      "title": "LoRA",
+      "slug": "lora",
+      "file": "lesson-04-lora.mdx",
+      "order": 4,
+      "type": "lesson",
+      "description": "Apply low-rank adaptation for efficient parameter updates.",
+      "estimatedMinutes": 45,
+      "checklist": [
+        "I can explain LoRA’s efficiency advantage.",
+        "I can identify common rank tradeoffs.",
+        "I can describe where adapters are inserted."
+      ],
+      "questions": [
+        "Why does LoRA reduce compute in many adaptation cases?",
+        "Where can parameter bottlenecks appear?"
+      ]
+    },
+    {
+      "title": "QLoRA",
+      "slug": "qlora",
+      "file": "lesson-05-qlora.mdx",
+      "order": 5,
+      "type": "lesson",
+      "description": "Use quantized low-rank adapters for lower memory adaptation.",
+      "estimatedMinutes": 44,
+      "checklist": [
+        "I can compare LoRA and QLoRA tradeoffs.",
+        "I can evaluate memory/quality balance.",
+        "I can set practical fallback criteria."
+      ],
+      "questions": [
+        "When should you prefer QLoRA over LoRA?",
+        "How do you test quality drift after quantization?"
+      ]
+    },
+    {
+      "title": "Evaluation",
+      "slug": "fine-tuning-evaluation",
+      "file": "lesson-06-fine-tuning-evaluation.mdx",
+      "order": 6,
+      "type": "lesson",
+      "description": "Measure adaptation quality using paired prompts and tasks.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can define behavioral and quality benchmarks.",
+        "I can compare pre- and post-fine-tuning outputs.",
+        "I can monitor regressions on core tasks."
+      ],
+      "questions": [
+        "How do you avoid overfitting evaluation loops?",
+        "What baseline must always be preserved?"
+      ]
+    },
+    {
+      "title": "When Not to Fine-Tune",
+      "slug": "when-not-to-fine-tune",
+      "file": "lesson-07-when-not-to-fine-tune.mdx",
+      "order": 7,
+      "type": "lesson",
+      "description": "Use alternatives when fine-tuning adds cost and risk.",
+      "estimatedMinutes": 28,
+      "checklist": [
+        "I can list viable alternatives.",
+        "I can assess risk in behavior drift.",
+        "I can choose conservative rollout strategies."
+      ],
+      "questions": [
+        "When do data changes break a fine-tuned model quickly?",
+        "Which tasks should stay prompt-based?"
+      ]
+    },
+    {
+      "title": "Mini Project: Small Assistant Tuning",
+      "slug": "mini-small-assistant-tuning",
+      "file": "mini-project-small-assistant-tuning.mdx",
+      "order": 8,
+      "type": "project",
+      "description": "Prepare a compact instruction dataset and tuning strategy.",
+      "estimatedMinutes": 100,
+      "checklist": [
+        "I can define training and validation splits.",
+        "I can document target style and tone constraints.",
+        "I can build an evaluation checklist."
+      ],
+      "questions": [
+        "How do you reduce overfitting in tiny datasets?",
+        "What is your rollback policy?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Portfolio Project: Fine-Tune a Small Assistant",
+      "slug": "fine-tune-small-assistant",
+      "file": "project.mdx",
+      "order": 9,
+      "type": "project",
+      "description": "Ship a complete adaptation plan for a small assistant.",
+      "estimatedMinutes": 160,
+      "checklist": [
+        "I can build a reproducible training and eval pipeline.",
+        "I can evaluate before-and-after quality.",
+        "I can propose monitoring and rollback."
+      ],
+      "questions": [
+        "How will you measure customer value after tuning?",
+        "Which safeguards prevent misuse after deployment?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Fine-Tuning Quiz",
+      "slug": "fine-tuning-quiz",
+      "file": "quiz.mdx",
+      "order": 10,
+      "type": "quiz",
+      "description": "Confirm readiness to decide on adaptation and deployment tradeoffs.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can justify when to fine-tune.",
+        "I can design instruction quality checks.",
+        "I can balance cost, quality, and risk."
+      ],
+      "questions": [
+        "Which tradeoff is strongest in choosing LoRA vs no tuning?",
+        "What metrics reveal adaptation failure?"
+      ],
+      "quizQuestions": [
+        {
+          "id": "need-fine-tuning",
+          "prompt": "When is fine-tuning better than prompt engineering?",
+          "correctAnswer": "Fine-tuning is better when repeated style, policy, or domain behavior must be baked in consistently and prompt methods are too brittle or costly at scale.",
+          "keywords": [
+            "style",
+            "policy",
+            "domain",
+            "consistent",
+            "scale"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Fine-tune first",
+              "explanation": "Fine-tuning is best when behavior or style must change repeatedly, not as the first fix for missing context."
+            },
+            {
+              "id": "correct",
+              "label": "Repeated behavior adaptation",
+              "explanation": "Fine-tuning is better when repeated style, policy, or domain behavior must be baked in consistently and prompt methods are too brittle or costly at scale."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Unreviewed log data",
+              "explanation": "Training data needs consent, cleaning, quality review, and validation splits."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Same LoRA tradeoffs",
+              "explanation": "They differ in memory, quantization, training cost, and deployment constraints."
+            }
+          ]
+        },
+        {
+          "id": "dataset-quality",
+          "prompt": "Why are instruction pairs and validation splits central to fine-tuning quality?",
+          "correctAnswer": "High-quality instruction pairs define exact behaviors, while proper validation catches overfitting and drift before production.",
+          "keywords": [
+            "instruction",
+            "validation",
+            "overfitting",
+            "drift",
+            "quality"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Quality pairs and validation splits",
+              "explanation": "High-quality instruction pairs define exact behaviors, while proper validation catches overfitting and drift before production."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Unreviewed log data",
+              "explanation": "Training data needs consent, cleaning, quality review, and validation splits."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Same LoRA tradeoffs",
+              "explanation": "They differ in memory, quantization, training cost, and deployment constraints."
+            },
+            {
+              "id": "distractor-3",
+              "label": "No rollback path",
+              "explanation": "Fine-tuned models need rollback, comparison, monitoring, and recovery plans."
+            }
+          ]
+        },
+        {
+          "id": "lora-vs-qlora",
+          "prompt": "Compare LoRA and QLoRA from a practical deployment perspective.",
+          "correctAnswer": "LoRA is simpler and often more stable, while QLoRA reduces memory use through quantization but can introduce quality tradeoffs to watch carefully.",
+          "keywords": [
+            "lora",
+            "qlora",
+            "memory",
+            "quality",
+            "tradeoff"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Stability versus memory savings",
+              "explanation": "LoRA is simpler and often more stable, while QLoRA reduces memory use through quantization but can introduce quality tradeoffs to watch carefully."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Same LoRA tradeoffs",
+              "explanation": "They differ in memory, quantization, training cost, and deployment constraints."
+            },
+            {
+              "id": "distractor-2",
+              "label": "No rollback path",
+              "explanation": "Fine-tuned models need rollback, comparison, monitoring, and recovery plans."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Training-set evaluation",
+              "explanation": "Validation data must be separate to detect memorization and weak generalization."
+            }
+          ]
+        },
+        {
+          "id": "rollback-plan",
+          "prompt": "What should a rollback plan include after model adaptation?",
+          "correctAnswer": "A rollback plan needs a baseline version, clear trigger thresholds, automatic fallback path, and a validated re-deployment checklist.",
+          "keywords": [
+            "baseline",
+            "triggers",
+            "fallback",
+            "rollback",
+            "checklist"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "No rollback path",
+              "explanation": "Fine-tuned models need rollback, comparison, monitoring, and recovery plans."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Training-set evaluation",
+              "explanation": "Validation data must be separate to detect memorization and weak generalization."
+            },
+            {
+              "id": "correct",
+              "label": "Baseline, thresholds, rollback",
+              "explanation": "A rollback plan needs a baseline version, clear trigger thresholds, automatic fallback path, and a validated re-deployment checklist."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Fine-tune changing facts",
+              "explanation": "Changing facts are usually better handled with retrieval or tools."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

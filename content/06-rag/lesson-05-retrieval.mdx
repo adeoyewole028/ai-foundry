@@ -1,0 +1,68 @@
+# Retrieval
+
+## Objective
+
+By the end of this lesson, you will retrieve passages that align to intent.
+
+## Prerequisites
+
+Before this lesson, you should understand vector databases.
+
+## Plain-English Explanation
+
+Retrieval is picking the most relevant chunks for a query.
+
+## Key Terms
+
+### Top-k
+
+Simple meaning:
+Number of candidate passages returned.
+
+Real-world analogy:
+Showing top 5 matching products.
+
+Technical meaning:
+k nearest results by similarity score.
+
+Example:
+Returning top 4 policy rules for an FAQ query.
+
+Why it matters:
+Top-k determines both quality and cost.
+
+## Mental Model
+
+Balance broad recall with concise context.
+
+## Example
+
+Compare top-3 and top-10 on the same user query.
+
+## Code Walkthrough
+
+Run retrieval queries and plot score decay.
+
+## Common Mistakes
+
+- Returning too many low-signal chunks.
+- Ignoring metadata filters.
+- Treating top-k score as absolute quality.
+
+## Exercise
+
+Set a top-k and define one rejection threshold.
+
+## Reflection
+
+How do you know retrieval fails before generation fails?
+
+## Further Reading
+
+- [Retrieval quality](https://weaviate.io/blog/top-k)
+
+## Completion Checklist
+
+- [ ] I can tune top-k for quality.
+- [ ] I can inspect score quality.
+- [ ] I can define retrieval fallback rules.

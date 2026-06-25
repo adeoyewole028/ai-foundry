@@ -1,0 +1,68 @@
+# Function Calling
+
+## Objective
+
+By the end of this lesson, you will route model intent to typed tool actions.
+
+## Prerequisites
+
+Before this lesson, you should understand structured output principles.
+
+## Plain-English Explanation
+
+Function calling lets models propose a safe action instead of raw text.
+
+## Key Terms
+
+### Tool contract
+
+Simple meaning:
+An agreed input/output for each function.
+
+Real-world analogy:
+A receptionist taking a form with required fields.
+
+Technical meaning:
+Schema-driven function invocation with typed arguments.
+
+Example:
+`lookup_candidate_score(candidate_id)`.
+
+Why it matters:
+You control what the model can execute.
+
+## Mental Model
+
+Model suggests action + args; platform validates before execution.
+
+## Example
+
+Use one readonly scoring tool and one write action with role checks.
+
+## Code Walkthrough
+
+Define tools, add validation, and log request/response for each invocation.
+
+## Common Mistakes
+
+- Not validating arguments.
+- Allowing unrestricted actions.
+- Missing audit trails.
+
+## Exercise
+
+Write a failing tool-call example and fix it.
+
+## Reflection
+
+How do tool contracts reduce model risk?
+
+## Further Reading
+
+- [Function calling with OpenAI](https://platform.openai.com/docs/guides/function-calling)
+
+## Completion Checklist
+
+- [ ] I can define safe tool inputs.
+- [ ] I can validate arguments before executing.
+- [ ] I can log tool invocations clearly.

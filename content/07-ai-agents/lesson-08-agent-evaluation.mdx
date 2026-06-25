@@ -1,0 +1,68 @@
+# Agent Evaluation
+
+## Objective
+
+By the end of this lesson, you can evaluate agent quality across completion, safety, and cost.
+
+## Prerequisites
+
+Before this lesson, you should complete Lessons 01–07 in this module.
+
+## Plain-English Explanation
+
+Evaluation proves the agent works, not just once, but consistently.
+
+## Key Terms
+
+### Evaluation KPI
+
+Simple meaning:
+A measurable signal of performance.
+
+Real-world analogy:
+Customer support SLA: first response time and resolution rate.
+
+Technical meaning:
+Tracked metrics aligned to outcomes, safety, and cost.
+
+Example:
+Track completion rate, approvals, escalation frequency.
+
+Why it matters:
+No one can manage what they cannot measure.
+
+## Mental Model
+
+Think in three dimensions: task success, trust, and operational cost.
+
+## Example
+
+An agent with high success but high manual approvals might need better routing.
+
+## Code Walkthrough
+
+Create a weekly dashboard with `task_success_rate`, `unsafe_blocks`, `avg_turns`, and `fallback_rate`.
+
+## Common Mistakes
+
+- Optimizing one metric while ignoring user trust.
+- No benchmark dataset.
+- Weak regression checks after updates.
+
+## Exercise
+
+Define three KPIs and a minimum pass threshold for your own agent.
+
+## Reflection
+
+Which metric most directly protects users?
+
+## Further Reading
+
+- [Agent evaluation playbook](https://www.microsoft.com/en-us/research/publication/agent-evaluation/)
+
+## Completion Checklist
+
+- [ ] I can define meaningful KPIs for safety.
+- [ ] I can monitor failures by step and action.
+- [ ] I can interpret one KPI change as a risk indicator.

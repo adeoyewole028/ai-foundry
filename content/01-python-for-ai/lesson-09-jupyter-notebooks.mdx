@@ -1,0 +1,79 @@
+# Jupyter Notebooks
+
+## Objective
+
+By the end of this lesson, you will run experiments in notebooks and keep outputs reusable.
+
+## Prerequisites
+
+APIs and virtual environments lessons.
+
+## Plain-English Explanation
+
+Notebooks are great for trying ideas quickly, especially when testing prompts, parsing inputs, and comparing outputs.
+
+## Key Terms
+
+### Notebook Cell
+
+Simple meaning:
+One executable block.
+
+Real-world analogy:
+Like a page where you write one step at a time.
+
+Technical meaning:
+Ordered, interactive code or markdown block in a notebook runtime.
+
+Example:
+Cell order determines variable availability.
+
+Why it matters:
+Order-dependent execution can hide bugs when moving to scripts.
+
+## Mental Model
+
+```text
+Explore -> validate assumption -> refactor into script -> test again
+```
+
+## Example
+
+```python
+sample = "prompt engineering basics"
+sample.split()
+```
+
+## Code Walkthrough
+
+```python
+def run_prompt_variants(values):
+    results = []
+    for value in values:
+        results.append(value[:10])
+    return results
+```
+
+## Common Mistakes
+
+- Running cells out of order and assuming deterministic state.
+- Using notebooks as final deployment artifacts.
+
+## Exercise
+
+Write three cells: input, transform, summarize output. Then rerun in clean order.
+
+## Reflection
+
+What do you move out of notebooks first when shipping a feature?
+
+## Further Reading
+
+- [Jupyter documentation](https://jupyter.readthedocs.io/en/stable/)
+- [Best practices for clean notebooks](https://realpython.com/jupyter-notebook-introduction/)
+
+## Completion Checklist
+
+- [ ] I can define and run cells consistently.
+- [ ] I can document assumptions in markdown cells.
+- [ ] I can convert a notebook workflow into scripts.

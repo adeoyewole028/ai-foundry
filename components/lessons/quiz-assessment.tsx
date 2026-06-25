@@ -1,0 +1,539 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  CircleAlert,
+  CircleCheck,
+  ClipboardCheck,
+  Eye,
+  Lightbulb,
+  X
+} from "lucide-react";
+import { submitQuizAttemptAction } from "@/app/progress/actions";
+import type { QuizOption, QuizQuestion } from "@/lib/content";
+import { gradeQuizAnswer, resolveQuizCorrectOptionId } from "@/lib/quiz-grading";
+import {
+  isLessonCompleted,
+  lessonActivityStorageKey,
+  lessonProgressEventName,
+  lessonProgressKey,
+  readLessonProgress,
+  setLessonCompleted
+} from "@/lib/lesson-progress";
+
+type QuizAssessmentProps = {
+  moduleSlug: string;
+  lessonSlug: string;
+  questions: QuizQuestion[];
+  initialCompleted?: boolean;
+  initialAnswers?: Record<string, string>;
+  initialSubmitted?: boolean;
+};
+
+type QuizAnswerState = {
+  answers: Record<string, string>;
+  submitted: boolean;
+};
+
+type DisplayOption = QuizOption & {
+  isGenerated?: boolean;
+};
+
+const optionLetters = ["A", "B", "C", "D", "E", "F"];
+
+const fallbackDistractors = [
+  {
+    id: "rule-based",
+    label: "Use exact hand-written rules for every case",
+    explanation:
+      "Rules are useful when logic is stable, but this answer misses the learned-pattern behavior being checked here."
+  },
+  {
+    id: "database-lookup",
+    label: "Look up a stored answer from a database",
+    explanation:
+      "A database can retrieve known records, but it does not explain the model or AI concept in this question."
+  },
+  {
+    id: "interface-change",
+    label: "Change the interface layout or visual styling",
+    explanation:
+      "Interface changes can improve usability, but they are not the underlying AI concept being tested."
+  }
+];
+
+function shuffleBySeed(items: DisplayOption[], seed: string) {
+  if (items.length <= 1) {
+    return items;
+  }
+
+  let state = Array.from(seed).reduce((accumulator, character) => {
+    return ((accumulator * 1315423911) ^ character.charCodeAt(0)) >>> 0;
+  }, 2166136261);
+
+  const next = () => {
+    state = (state * 1664525 + 1013904223) >>> 0;
+    return state / 4294967296;
+  };
+
+  const shuffled = [...items];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(next() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+
+  return shuffled;
+}
+
+function getStableOptionIndex(questionId: string, optionCount: number) {
+  if (optionCount <= 1) {
+    return 0;
+  }
+
+  const total = Array.from(questionId).reduce((sum, character) => sum + character.charCodeAt(0), 0);
+
+  return total % optionCount;
+}
+
+function readQuizActivity(
+  key: string,
+  initialAnswers: Record<string, string>,
+  initialSubmitted: boolean
+): QuizAnswerState {
+  if (typeof window === "undefined") {
+    return { answers: initialAnswers, submitted: initialSubmitted };
+  }
+
+  try {
+    const raw = window.localStorage.getItem(lessonActivityStorageKey);
+
+    if (!raw) {
+      return { answers: initialAnswers, submitted: initialSubmitted };
+    }
+
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    const value = parsed[key];
+
+    if (!value || typeof value !== "object" || Array.isArray(value)) {
+      return { answers: initialAnswers, submitted: initialSubmitted };
+    }
+
+    const candidate = value as { quizAnswers?: unknown; quizSubmitted?: unknown };
+    const quizAnswers = candidate.quizAnswers;
+
+    if (!quizAnswers || typeof quizAnswers !== "object" || Array.isArray(quizAnswers)) {
+      return {
+        answers: initialAnswers,
+        submitted: initialSubmitted || candidate.quizSubmitted === true
+      };
+    }
+
+    return {
+      submitted: initialSubmitted || candidate.quizSubmitted === true,
+      answers: Object.entries(quizAnswers).reduce<Record<string, string>>(
+        (acc, [answerKey, answer]) => {
+          if (typeof answer === "string") {
+            acc[answerKey] = answer;
+          }
+
+          return acc;
+        },
+        { ...initialAnswers }
+      )
+    };
+  } catch {
+    return { answers: initialAnswers, submitted: initialSubmitted };
+  }
+}
+
+function writeQuizActivity(key: string, state: QuizAnswerState) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  let parsed: Record<string, unknown> = {};
+
+  try {
+    const raw = window.localStorage.getItem(lessonActivityStorageKey);
+    parsed = raw ? (JSON.parse(raw) as Record<string, unknown>) : {};
+  } catch {
+    parsed = {};
+  }
+
+  const current = parsed[key] && typeof parsed[key] === "object" && !Array.isArray(parsed[key])
+    ? (parsed[key] as Record<string, unknown>)
+    : {};
+
+  window.localStorage.setItem(
+    lessonActivityStorageKey,
+    JSON.stringify({
+      ...parsed,
+      [key]: {
+        ...current,
+        quizAnswers: state.answers,
+        quizSubmitted: state.submitted
+      }
+    })
+  );
+}
+
+function getQuestionOptions(question: QuizQuestion): DisplayOption[] {
+  if (question.options.length > 0) {
+    return shuffleBySeed(question.options, `${question.id}::${question.prompt}`);
+  }
+
+  const options = [
+    {
+      id: "correct",
+      label: question.correctAnswer,
+      explanation: question.correctAnswer,
+      isGenerated: true
+    },
+    ...fallbackDistractors
+  ];
+  const correctIndex = getStableOptionIndex(question.id, options.length);
+  const [correctOption] = options.splice(0, 1);
+
+  options.splice(correctIndex, 0, correctOption);
+
+  return shuffleBySeed(options, `${question.id}::generated`);
+}
+
+function getCorrectOptionId(question: QuizQuestion) {
+  const resolvedCorrectOptionId = resolveQuizCorrectOptionId(question);
+
+  if (resolvedCorrectOptionId) {
+    return resolvedCorrectOptionId;
+  }
+
+  return question.options.length > 0 ? question.options[0]?.id ?? "correct" : "correct";
+}
+
+function getSelectedOption(
+  options: DisplayOption[],
+  selectedOptionId: string | undefined
+) {
+  return options.find((option) => option.id === selectedOptionId) ?? null;
+}
+
+export function QuizAssessment({
+  moduleSlug,
+  lessonSlug,
+  questions,
+  initialCompleted = false,
+  initialAnswers = {},
+  initialSubmitted = false
+}: QuizAssessmentProps) {
+  const lessonKey = lessonProgressKey({ moduleSlug, lessonSlug });
+  const [state, setState] = useState<QuizAnswerState>({ answers: {}, submitted: false });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isCompleted, setIsCompleted] = useState(initialCompleted);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverMessage, setServerMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    setState(readQuizActivity(lessonKey, initialAnswers, initialSubmitted));
+    const localCompletion = isLessonCompleted(readLessonProgress(), {
+      moduleSlug,
+      lessonSlug
+    });
+    setIsCompleted(initialCompleted || localCompletion);
+
+    const refresh = () => {
+      const localCompleted = isLessonCompleted(readLessonProgress(), {
+        moduleSlug,
+        lessonSlug
+      });
+      setIsCompleted(initialCompleted || localCompleted);
+    };
+
+    window.addEventListener("storage", refresh);
+    window.addEventListener(lessonProgressEventName, refresh);
+
+    return () => {
+      window.removeEventListener("storage", refresh);
+      window.removeEventListener(lessonProgressEventName, refresh);
+    };
+  }, [lessonKey, lessonSlug, moduleSlug, initialCompleted, initialAnswers, initialSubmitted]);
+
+  const displayQuestions = useMemo(
+    () =>
+      questions.map((question) => ({
+        ...question,
+        options: getQuestionOptions(question),
+        correctOptionId: getCorrectOptionId(question)
+      })),
+    [questions]
+  );
+  const currentQuestion = displayQuestions[currentIndex];
+  const selectedOptionId = currentQuestion ? state.answers[currentQuestion.id] : undefined;
+  const currentResult = currentQuestion
+    ? gradeQuizAnswer(currentQuestion, selectedOptionId ?? "")
+    : null;
+  const selectedOption = currentQuestion
+    ? getSelectedOption(currentQuestion.options, selectedOptionId)
+    : null;
+  const correctOption = currentQuestion
+    ? getSelectedOption(currentQuestion.options, currentQuestion.correctOptionId)
+    : null;
+  const answeredCount = displayQuestions.filter((question) => state.answers[question.id]).length;
+  const passedCount = displayQuestions.filter((question) => {
+    return gradeQuizAnswer(question, state.answers[question.id] ?? "").passed;
+  }).length;
+  const isPassing = displayQuestions.length > 0 && passedCount === displayQuestions.length;
+  const hasAnsweredCurrent = !!selectedOptionId;
+  const isLastQuestion = currentIndex === displayQuestions.length - 1;
+  const progressWidth = displayQuestions.length > 0
+    ? `${Math.round((answeredCount / displayQuestions.length) * 100)}%`
+    : "0%";
+
+  const setAnswer = (questionId: string, value: string) => {
+    const next = {
+      answers: {
+        ...state.answers,
+        [questionId]: value
+      },
+      submitted: false
+    };
+
+    setState(next);
+    writeQuizActivity(lessonKey, next);
+    setServerMessage(null);
+  };
+
+  const submitQuiz = async (answers = state.answers) => {
+    const next = { answers, submitted: true };
+    setState(next);
+    writeQuizActivity(lessonKey, next);
+    setIsSubmitting(true);
+    setServerMessage(null);
+
+    let result: { ok: false; error: string } | ({ ok: true } & { [key: string]: unknown }) | null = null;
+
+    try {
+      result = await submitQuizAttemptAction({
+        moduleSlug,
+        lessonSlug,
+        questions: displayQuestions,
+        answers: next.answers
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+
+    const hasPassed = typeof result === "object" && result !== null && "ok" in result && result.ok && "passed" in result
+      ? typeof result.passed === "boolean"
+        ? result.passed
+        : isPassing
+      : isPassing;
+
+    if (result && "ok" in result && !result.ok) {
+      if (result.error === "not_authenticated") {
+        setServerMessage(
+          "You're not signed in, so this quiz is tracked locally. Sign in to save it to your account."
+        );
+      } else if (result.error === "supabase_not_configured") {
+        setServerMessage("Progress sync is currently unavailable. Quiz progress is saved locally.");
+      } else {
+        setServerMessage(`Could not save quiz result yet: ${result.error}`);
+      }
+    } else {
+      setServerMessage(null);
+    }
+
+    if (hasPassed) {
+      setLessonCompleted({
+        moduleSlug,
+        lessonSlug,
+        completed: true
+      });
+    }
+
+    setIsCompleted(hasPassed || initialCompleted);
+  };
+
+  const goNext = () => {
+    if (!hasAnsweredCurrent) {
+      return;
+    }
+
+    if (isLastQuestion) {
+      void submitQuiz();
+      return;
+    }
+
+    setCurrentIndex((index) => Math.min(index + 1, displayQuestions.length - 1));
+  };
+
+  if (!currentQuestion) {
+    return (
+      <section className="mt-8 rounded-xl border border-rule bg-paper p-5">
+        <p className="text-sm text-ink-soft">No quiz questions are available for this lesson yet.</p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="mt-8 overflow-hidden rounded-xl border border-rule bg-paper">
+      <div className="border-b border-rule bg-surface px-4 py-4 sm:px-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-ink">
+              <ClipboardCheck className="size-4 text-accent" aria-hidden="true" />
+              Interactive Quiz
+            </div>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-soft">
+              Choose the best answer, review the explanation, then move to the next question.
+            </p>
+          </div>
+          <span className="rounded-full border border-rule bg-paper px-3 py-1 text-sm font-semibold text-ink-soft">
+            {passedCount} / {displayQuestions.length} correct
+          </span>
+        </div>
+        <div className="mt-4 h-2 overflow-hidden rounded-full bg-rule" aria-hidden="true">
+          <div className="h-full rounded-full bg-accent transition-all duration-300" style={{ width: progressWidth }} />
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:py-10">
+        <div className="flex items-center justify-between gap-4">
+          <p className="text-sm font-semibold text-ink-soft">
+            {currentIndex + 1} / {displayQuestions.length}
+          </p>
+          <details className="group relative">
+            <summary className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-rule bg-surface px-3 py-2 text-xs font-semibold text-ink transition hover:border-accent/50">
+              <Eye className="size-3.5" aria-hidden="true" />
+              View answer source
+            </summary>
+            <div className="absolute right-0 z-10 mt-2 w-80 rounded-lg border border-rule bg-surface p-4 text-sm leading-6 text-ink-soft shadow-[var(--shadow-soft)]">
+              {currentQuestion.correctAnswer}
+            </div>
+          </details>
+        </div>
+
+        <h3 className="mt-8 text-2xl font-bold leading-10 text-ink">
+          {currentQuestion.prompt}
+        </h3>
+
+        <div className="mt-8 grid gap-3">
+          {currentQuestion.options.map((option, index) => {
+            const isSelected = selectedOptionId === option.id;
+            const isCorrect = option.id === currentQuestion.correctOptionId;
+            const showFeedback = hasAnsweredCurrent;
+            const isIncorrectSelection = showFeedback && isSelected && !isCorrect;
+            const optionStateClass =
+              showFeedback && isCorrect
+                ? "border-accent/40 bg-accent-soft text-ink"
+                : isIncorrectSelection
+                  ? "border-red-300 bg-red-50 text-ink"
+                  : isSelected
+                    ? "border-accent/40 bg-surface text-ink"
+                    : "border-transparent bg-surface text-ink-soft hover:border-accent/40 hover:text-ink";
+
+            return (
+              <button
+                className={`w-full rounded-lg border px-4 py-4 text-left transition ${optionStateClass}`}
+                disabled={isSubmitting}
+                key={option.id}
+                onClick={() => setAnswer(currentQuestion.id, option.id)}
+                type="button"
+              >
+                <span className="flex items-start gap-4">
+                  <span className="mt-0.5 font-mono text-sm font-semibold text-ink">
+                    {optionLetters[index] ?? index + 1}.
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-base font-semibold leading-7">
+                      {option.label}
+                    </span>
+                    {showFeedback && (isSelected || isCorrect) ? (
+                      <span className="mt-3 flex gap-2 text-sm leading-6">
+                        {isCorrect ? (
+                          <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
+                        ) : (
+                          <X className="mt-0.5 size-4 shrink-0 text-red-600" aria-hidden="true" />
+                        )}
+                        <span>
+                          <strong className="text-ink">
+                            {isCorrect ? "That's right." : "Not quite."}
+                          </strong>{" "}
+                          {option.explanation || (isCorrect ? currentQuestion.correctAnswer : "Review the correct answer before moving on.")}
+                        </span>
+                      </span>
+                    ) : null}
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {hasAnsweredCurrent && currentResult ? (
+          <div
+            className={`mt-5 rounded-lg border p-4 text-sm leading-6 ${
+              currentResult.passed
+                ? "border-accent/40 bg-accent-soft text-ink"
+                : "border-rule bg-surface text-ink-soft"
+            }`}
+          >
+            <p className="flex items-center gap-2 font-semibold text-ink">
+              {currentResult.passed ? (
+                <CheckCircle2 className="size-4 text-accent" aria-hidden="true" />
+              ) : (
+                <CircleAlert className="size-4 text-accent" aria-hidden="true" />
+              )}
+              {currentResult.passed ? "That's right." : "Review this one."}
+            </p>
+            <p className="mt-2">
+              {currentResult.passed
+                ? correctOption?.explanation || currentQuestion.correctAnswer
+                : selectedOption?.explanation || "Compare your choice with the highlighted correct answer."}
+            </p>
+          </div>
+        ) : (
+          <div className="mt-5 flex items-center gap-2 rounded-lg border border-rule bg-surface p-4 text-sm text-ink-soft">
+            <Lightbulb className="size-4 text-accent" aria-hidden="true" />
+            Pick an answer to reveal feedback.
+          </div>
+        )}
+
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-rule pt-5">
+          <button
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-rule bg-surface px-4 text-sm font-semibold text-ink transition hover:border-accent/50 disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={currentIndex === 0 || isSubmitting}
+            onClick={() => setCurrentIndex((index) => Math.max(index - 1, 0))}
+            type="button"
+          >
+            <ArrowLeft className="size-4" aria-hidden="true" />
+            Back
+          </button>
+          <div className="text-sm text-ink-soft" aria-live="polite">
+            {isCompleted
+              ? "Quiz passed. The next unit is unlocked."
+              : state.submitted && !isPassing
+                ? "Review missed answers, then finish again."
+                : `${answeredCount} of ${displayQuestions.length} answered`}
+            {serverMessage ? <span className="ml-2 text-accent">{serverMessage}</span> : null}
+          </div>
+          <button
+            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-4 text-sm font-semibold text-surface transition hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-60"
+            disabled={!hasAnsweredCurrent || isSubmitting}
+            onClick={goNext}
+            type="button"
+          >
+            {isSubmitting ? "Saving..." : isLastQuestion ? "Finish quiz" : "Next"}
+            {isLastQuestion ? (
+              <CircleCheck className="size-4" aria-hidden="true" />
+            ) : (
+              <ArrowRight className="size-4" aria-hidden="true" />
+            )}
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}

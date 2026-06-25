@@ -1,0 +1,68 @@
+# Evaluation
+
+## Objective
+
+By the end of this lesson, you can run recurring evaluation and detect regressions.
+
+## Prerequisites
+
+Before this lesson, complete Lesson 03 in this module.
+
+## Plain-English Explanation
+
+Evaluation protects users and roadmap decisions by measuring real behavior over time.
+
+## Key Terms
+
+### Regression Test
+
+Simple meaning:
+Checks that old behavior still works.
+
+Real-world analogy:
+After a software update, core flows are re-run.
+
+Technical meaning:
+A fixed benchmark used across model and workflow changes.
+
+Example:
+Run shared prompts after each deployment.
+
+Why it matters:
+Prevents silent breakage after updates.
+
+## Mental Model
+
+Think of tests as a guardrail before and after each change.
+
+## Example
+
+A drift score and pass rate alert when quality drops.
+
+## Code Walkthrough
+
+Set baseline, target, tolerance, and CI integration points.
+
+## Common Mistakes
+
+- Overfitting to internal benchmarks.
+- Stale eval datasets.
+- No ownership for failing tests.
+
+## Exercise
+
+Create a weekly eval run plan with owners and remediation steps.
+
+## Reflection
+
+Which metric tells you to pause deployment?
+
+## Further Reading
+
+- [Responsible AI evaluation](https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai)
+
+## Completion Checklist
+
+- [ ] I can set repeatable eval sets.
+- [ ] I can detect quality regressions early.
+- [ ] I can escalate based on clear thresholds.

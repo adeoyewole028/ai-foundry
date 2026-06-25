@@ -1,0 +1,83 @@
+# Python for AI Starter API
+
+## Objective
+
+Define and explain a minimal API that exposes AI-friendly endpoints and safe response behavior.
+
+## Prerequisites
+
+Finish the full module including the mini project.
+
+## Plain-English Explanation
+
+This portfolio project turns everything into a deployable shape: a small backend with clear contracts and guarded behavior.
+
+## Key Terms
+
+### Contract
+
+Simple meaning:
+The agreed format between client and server.
+
+Real-world analogy:
+A service agreement: input format and output format.
+
+Technical meaning:
+JSON schema and endpoint semantics that remain stable over time.
+
+Example:
+`/analyze` expects `{ "text": "..." }` and returns `{ "ok": true, "meta": ... }`.
+
+Why it matters:
+Changes become deliberate, and clients avoid breaking unexpectedly.
+
+## Mental Model
+
+```text
+Request schema -> validation -> business logic -> response schema -> monitoring
+```
+
+## Example
+
+Document your API map:
+
+```txt
+POST /analyze -> receive text -> normalize -> score length -> return meta
+```
+
+## Code Walkthrough
+
+You should define:
+
+- endpoints
+- error codes
+- validation rules
+- fallback responses
+
+## Common Mistakes
+
+- Returning raw exceptions to clients.
+- No timeout policy for upstream calls.
+
+## Exercise
+
+Write an API design doc with:
+1. endpoints
+2. request/response
+3. validation rules
+4. security considerations
+
+## Reflection
+
+What part of this API would you lock down first for a real product?
+
+## Further Reading
+
+- [FastAPI deployment guide](https://fastapi.tiangolo.com/deployment/)
+- [OpenAPI basics](https://swagger.io/docs/specification/about/)
+
+## Completion Checklist
+
+- [ ] I mapped each endpoint with request and response.
+- [ ] I defined validation and error behavior.
+- [ ] I identified at least one production concern (latency, security, privacy).

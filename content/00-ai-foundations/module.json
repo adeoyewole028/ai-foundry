@@ -1,0 +1,595 @@
+{
+  "title": "AI Foundations",
+  "slug": "ai-foundations",
+  "order": 0,
+  "description": "Understand AI, machine learning, deep learning, LLMs, RAG, agents, and AI product thinking in plain English.",
+  "level": "Beginner",
+  "estimatedHours": 9,
+  "outcomes": [
+    "Explain what AI is without relying on buzzwords.",
+    "Distinguish rules-based software, machine learning, deep learning, and LLMs.",
+    "Describe how data shapes model behavior.",
+    "Explain models, tokens, embeddings, RAG, and agents in plain English.",
+    "Identify practical AI opportunities in real products.",
+    "Describe common AI limitations and safety risks before shipping."
+  ],
+  "lessons": [
+    {
+      "title": "What is AI?",
+      "slug": "what-is-ai",
+      "file": "lesson-01-what-is-ai.mdx",
+      "order": 1,
+      "type": "lesson",
+      "description": "Learn a practical definition of AI and where it appears in modern software.",
+      "estimatedMinutes": 25,
+      "checklist": [
+        "I can explain AI in one simple sentence.",
+        "I can name one software product that uses AI.",
+        "I can distinguish AI from a rules-based feature."
+      ],
+      "questions": [
+        "What is one concrete AI behavior you have used this week?",
+        "Why is data quality important for AI results?"
+      ]
+    },
+    {
+      "title": "Machine Learning vs Deep Learning vs LLMs",
+      "slug": "machine-learning-vs-deep-learning-vs-llms",
+      "file": "lesson-02-machine-learning-vs-deep-learning-vs-llms.mdx",
+      "order": 2,
+      "type": "lesson",
+      "description": "Separate the major AI categories and learn when each one is useful.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can describe rule-based, ML, DL, and LLM systems.",
+        "I can pick the right approach for one product example.",
+        "I can explain one tradeoff of each category."
+      ],
+      "questions": [
+        "Choose a domain you work in: which approach fits best and why?",
+        "Where would an LLM be a poor fit compared to a simpler model?"
+      ]
+    },
+    {
+      "title": "How AI Learns from Data",
+      "slug": "how-ai-learns-from-data",
+      "file": "lesson-03-how-ai-learns-from-data.mdx",
+      "order": 3,
+      "type": "lesson",
+      "description": "Understand examples, patterns, training, evaluation, and why data quality matters.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can explain why training data needs diversity.",
+        "I can describe overfitting in plain language.",
+        "I can suggest one way to validate model quality."
+      ],
+      "questions": [
+        "What would happen if your data is noisy or biased?",
+        "Give one example of how you would evaluate a model before release."
+      ]
+    },
+    {
+      "title": "What Are Models?",
+      "slug": "what-are-models",
+      "file": "lesson-04-what-are-models.mdx",
+      "order": 4,
+      "type": "lesson",
+      "description": "Learn what an AI model is, what it stores, and why model behavior is not the same as human understanding.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can explain a model as a learned pattern system.",
+        "I can distinguish a model from the app that uses it.",
+        "I can name one way model quality can fail."
+      ],
+      "questions": [
+        "What does a model learn from training data?",
+        "Why is it risky to treat a model like a database of facts?"
+      ]
+    },
+    {
+      "title": "What Are Tokens?",
+      "slug": "what-are-tokens",
+      "file": "lesson-05-what-are-tokens.mdx",
+      "order": 5,
+      "type": "lesson",
+      "description": "Understand how language models split text into tokens and why token budgets shape AI product design.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can explain tokens in plain English.",
+        "I can describe why long prompts cost more.",
+        "I can identify one product constraint caused by token limits."
+      ],
+      "questions": [
+        "How would token limits affect a document analysis feature?",
+        "Why should product teams care about tokens before building an LLM feature?"
+      ]
+    },
+    {
+      "title": "What Are Embeddings?",
+      "slug": "what-are-embeddings",
+      "file": "lesson-06-what-are-embeddings.mdx",
+      "order": 6,
+      "type": "lesson",
+      "description": "Learn how embeddings represent meaning so software can search by similarity instead of exact keywords.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can explain embeddings as meaning coordinates.",
+        "I can describe semantic search.",
+        "I can identify one use case where embeddings beat keyword search."
+      ],
+      "questions": [
+        "What kind of product problem becomes easier with embeddings?",
+        "What can go wrong if similar text is not actually useful text?"
+      ]
+    },
+    {
+      "title": "What is RAG?",
+      "slug": "what-is-rag",
+      "file": "lesson-07-what-is-rag.mdx",
+      "order": 7,
+      "type": "lesson",
+      "description": "Understand retrieval augmented generation and how it grounds LLM answers in external information.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can explain retrieval augmented generation.",
+        "I can describe the retrieve-read-answer flow.",
+        "I can identify one risk in a RAG pipeline."
+      ],
+      "questions": [
+        "Why might RAG be better than fine-tuning for product documentation?",
+        "What should you check before trusting a RAG answer?"
+      ]
+    },
+    {
+      "title": "What is an AI Agent?",
+      "slug": "what-is-an-ai-agent",
+      "file": "lesson-08-what-is-an-ai-agent.mdx",
+      "order": 8,
+      "type": "lesson",
+      "description": "Learn what makes an AI agent different from a chatbot and why tools, goals, and guardrails matter.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can explain what an agent is.",
+        "I can distinguish a tool-using agent from a chatbot.",
+        "I can name one guardrail an agent needs."
+      ],
+      "questions": [
+        "What task in a product might need an agent instead of a single answer?",
+        "What tool permission would you avoid giving an agent too early?"
+      ]
+    },
+    {
+      "title": "AI Product Thinking",
+      "slug": "ai-product-thinking",
+      "file": "lesson-09-ai-product-thinking.mdx",
+      "order": 9,
+      "type": "lesson",
+      "description": "Learn how to decide whether AI is useful for a real user problem and how to frame a responsible first version.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can start with the user problem before the model.",
+        "I can choose an AI technique for one product idea.",
+        "I can define a useful success signal."
+      ],
+      "questions": [
+        "What user pain would make AI worth trying?",
+        "What would prove the feature is helping instead of merely feeling impressive?"
+      ]
+    },
+    {
+      "title": "AI Limitations and Safety",
+      "slug": "ai-limitations-and-safety",
+      "file": "lesson-10-ai-limitations-and-safety.mdx",
+      "order": 10,
+      "type": "lesson",
+      "description": "Learn the common ways AI systems fail and the product guardrails that make them safer to ship.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can explain hallucination, bias, and privacy risk.",
+        "I can name one guardrail for an AI feature.",
+        "I can decide when a human review step is needed."
+      ],
+      "questions": [
+        "Which AI failure mode would matter most in a product you use?",
+        "What safety check would you add before launch?"
+      ]
+    },
+    {
+      "title": "AI Foundations Quiz",
+      "slug": "ai-foundations-quiz",
+      "file": "quiz.mdx",
+      "order": 11,
+      "type": "quiz",
+      "description": "Check your understanding before moving into the module projects.",
+      "estimatedMinutes": 25,
+      "checklist": [
+        "I have answered at least one reflection per lesson topic.",
+        "I can answer the quiz prompt in complete sentences.",
+        "I can explain the difference between models, tokens, embeddings, RAG, and agents."
+      ],
+      "questions": [
+        "What are the three hardest concepts in this module so far?",
+        "What is one thing you still want to verify with another example?"
+      ],
+      "quizQuestions": [
+        {
+          "id": "practical-ai",
+          "prompt": "What is AI in practical software terms?",
+          "correctAnswer": "AI is software that uses learned patterns or model-based reasoning to make predictions, classify information, generate content, or support decisions instead of only following exact hand-written rules.",
+          "keywords": [
+            "software",
+            "patterns",
+            "predictions",
+            "rules"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "AI for novelty",
+              "explanation": "Novelty is not enough. AI should be chosen because it solves a user problem better than a simpler approach."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Static database lookup",
+              "explanation": "Databases are useful for known records, but this misses learned patterns, generation, retrieval, and uncertainty."
+            },
+            {
+              "id": "correct",
+              "label": "Pattern-based software behavior",
+              "explanation": "AI is software that uses learned patterns or model-based reasoning to make predictions, classify information, generate content, or support decisions instead of only following exact hand-written rules."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Reactive evaluation",
+              "explanation": "AI behavior must be evaluated before release because failures can be subtle, costly, or unsafe."
+            }
+          ]
+        },
+        {
+          "id": "rules-vs-ai",
+          "prompt": "When should a product use exact rules instead of AI?",
+          "correctAnswer": "Use exact rules when the logic is clear, stable, auditable, and high precision matters more than flexibility, such as eligibility checks, required fields, pricing rules, or permission gates.",
+          "keywords": [
+            "clear",
+            "stable",
+            "precision",
+            "permission"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Clear deterministic logic",
+              "explanation": "Use exact rules when the logic is clear, stable, auditable, and high precision matters more than flexibility, such as eligibility checks, required fields, pricing rules, or permission gates."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Static database lookup",
+              "explanation": "Databases are useful for known records, but this misses learned patterns, generation, retrieval, and uncertainty."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Reactive evaluation",
+              "explanation": "AI behavior must be evaluated before release because failures can be subtle, costly, or unsafe."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Model as source of truth",
+              "explanation": "Models can be wrong or outdated, so product systems need grounding, checks, and fallbacks."
+            }
+          ]
+        },
+        {
+          "id": "ml-dl-llm",
+          "prompt": "What is the relationship between machine learning, deep learning, and LLMs?",
+          "correctAnswer": "Machine learning is the broad category of systems that learn patterns from data. Deep learning is a machine learning approach based on neural networks. LLMs are large deep learning models trained on text to understand and generate language.",
+          "keywords": [
+            "machine learning",
+            "deep learning",
+            "neural",
+            "language"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Nested AI categories",
+              "explanation": "Machine learning is the broad category of systems that learn patterns from data. Deep learning is a machine learning approach based on neural networks. LLMs are large deep learning models trained on text to understand and generate language."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Reactive evaluation",
+              "explanation": "AI behavior must be evaluated before release because failures can be subtle, costly, or unsafe."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Model as source of truth",
+              "explanation": "Models can be wrong or outdated, so product systems need grounding, checks, and fallbacks."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Model size first",
+              "explanation": "Model size is only one factor. Data quality, workflow fit, latency, cost, and safety also matter."
+            }
+          ]
+        },
+        {
+          "id": "models",
+          "prompt": "What is a model, and how is it different from the app around it?",
+          "correctAnswer": "A model is the trained pattern system that turns inputs into outputs. The app around it includes the interface, data flow, permissions, prompts, logging, review, and fallback behavior.",
+          "keywords": [
+            "trained",
+            "inputs",
+            "outputs",
+            "app"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Trained input-output pattern system",
+              "explanation": "A model is the trained pattern system that turns inputs into outputs. The app around it includes the interface, data flow, permissions, prompts, logging, review, and fallback behavior."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Model as source of truth",
+              "explanation": "Models can be wrong or outdated, so product systems need grounding, checks, and fallbacks."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Model size first",
+              "explanation": "Model size is only one factor. Data quality, workflow fit, latency, cost, and safety also matter."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Full autonomy by default",
+              "explanation": "Autonomy should be introduced carefully with scoped tools, permissions, and human review where needed."
+            }
+          ]
+        },
+        {
+          "id": "tokens",
+          "prompt": "What are tokens, and why do token limits matter?",
+          "correctAnswer": "Tokens are chunks of text that a language model reads and writes. Token limits matter because they control how much context fits, how much the feature costs, and how fast the model can respond.",
+          "keywords": [
+            "chunks",
+            "context",
+            "cost",
+            "respond"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Text chunks and context limits",
+              "explanation": "Tokens are chunks of text that a language model reads and writes. Token limits matter because they control how much context fits, how much the feature costs, and how fast the model can respond."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Model size first",
+              "explanation": "Model size is only one factor. Data quality, workflow fit, latency, cost, and safety also matter."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Full autonomy by default",
+              "explanation": "Autonomy should be introduced carefully with scoped tools, permissions, and human review where needed."
+            },
+            {
+              "id": "distractor-3",
+              "label": "AI for novelty",
+              "explanation": "Novelty is not enough. AI should be chosen because it solves a user problem better than a simpler approach."
+            }
+          ]
+        },
+        {
+          "id": "embeddings",
+          "prompt": "What are embeddings, and how do they enable semantic search?",
+          "correctAnswer": "Embeddings are numeric representations of meaning. Semantic search compares those representations so similar ideas can match even when the exact words are different.",
+          "keywords": [
+            "numeric",
+            "meaning",
+            "similar",
+            "search"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Full autonomy by default",
+              "explanation": "Autonomy should be introduced carefully with scoped tools, permissions, and human review where needed."
+            },
+            {
+              "id": "distractor-2",
+              "label": "AI for novelty",
+              "explanation": "Novelty is not enough. AI should be chosen because it solves a user problem better than a simpler approach."
+            },
+            {
+              "id": "correct",
+              "label": "Meaning vectors for similarity",
+              "explanation": "Embeddings are numeric representations of meaning. Semantic search compares those representations so similar ideas can match even when the exact words are different."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Static database lookup",
+              "explanation": "Databases are useful for known records, but this misses learned patterns, generation, retrieval, and uncertainty."
+            }
+          ]
+        },
+        {
+          "id": "rag",
+          "prompt": "What is RAG, and when is it useful?",
+          "correctAnswer": "RAG retrieves relevant source material and gives it to a language model before generation. It is useful when answers should be grounded in current documents, policies, support content, or private product knowledge.",
+          "keywords": [
+            "retrieves",
+            "source",
+            "grounded",
+            "documents"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "AI for novelty",
+              "explanation": "Novelty is not enough. AI should be chosen because it solves a user problem better than a simpler approach."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Static database lookup",
+              "explanation": "Databases are useful for known records, but this misses learned patterns, generation, retrieval, and uncertainty."
+            },
+            {
+              "id": "correct",
+              "label": "Retrieval-grounded generation",
+              "explanation": "RAG retrieves relevant source material and gives it to a language model before generation. It is useful when answers should be grounded in current documents, policies, support content, or private product knowledge."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Reactive evaluation",
+              "explanation": "AI behavior must be evaluated before release because failures can be subtle, costly, or unsafe."
+            }
+          ]
+        },
+        {
+          "id": "agents",
+          "prompt": "What makes an AI agent different from a chatbot?",
+          "correctAnswer": "A chatbot usually responds to messages, while an agent can pursue a goal across steps, choose actions, and use tools such as search, APIs, or drafting workflows within guardrails.",
+          "keywords": [
+            "goal",
+            "steps",
+            "tools",
+            "guardrails"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Static database lookup",
+              "explanation": "Databases are useful for known records, but this misses learned patterns, generation, retrieval, and uncertainty."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Reactive evaluation",
+              "explanation": "AI behavior must be evaluated before release because failures can be subtle, costly, or unsafe."
+            },
+            {
+              "id": "correct",
+              "label": "Goal-driven tool use",
+              "explanation": "A chatbot usually responds to messages, while an agent can pursue a goal across steps, choose actions, and use tools such as search, APIs, or drafting workflows within guardrails."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Model as source of truth",
+              "explanation": "Models can be wrong or outdated, so product systems need grounding, checks, and fallbacks."
+            }
+          ]
+        },
+        {
+          "id": "product-thinking",
+          "prompt": "How would you decide whether an AI feature is worth building?",
+          "correctAnswer": "Start with the user problem, compare AI with simpler alternatives, choose a technique that fits the workflow, define a success signal, and identify cost, latency, reliability, privacy, and safety risks.",
+          "keywords": [
+            "user problem",
+            "alternatives",
+            "success",
+            "risks"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Reactive evaluation",
+              "explanation": "AI behavior must be evaluated before release because failures can be subtle, costly, or unsafe."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Model as source of truth",
+              "explanation": "Models can be wrong or outdated, so product systems need grounding, checks, and fallbacks."
+            },
+            {
+              "id": "correct",
+              "label": "Problem-first AI fit",
+              "explanation": "Start with the user problem, compare AI with simpler alternatives, choose a technique that fits the workflow, define a success signal, and identify cost, latency, reliability, privacy, and safety risks."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Model size first",
+              "explanation": "Model size is only one factor. Data quality, workflow fit, latency, cost, and safety also matter."
+            }
+          ]
+        },
+        {
+          "id": "safety",
+          "prompt": "Name two AI safety risks and one guardrail for each.",
+          "correctAnswer": "Examples include hallucination handled with source grounding and review, bias handled with evaluation across diverse examples, privacy risk handled with permission checks and data minimization, and unsafe action handled with human approval.",
+          "keywords": [
+            "hallucination",
+            "bias",
+            "privacy",
+            "review"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Risks with matching guardrails",
+              "explanation": "Examples include hallucination handled with source grounding and review, bias handled with evaluation across diverse examples, privacy risk handled with permission checks and data minimization, and unsafe action handled with human approval."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Model as source of truth",
+              "explanation": "Models can be wrong or outdated, so product systems need grounding, checks, and fallbacks."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Model size first",
+              "explanation": "Model size is only one factor. Data quality, workflow fit, latency, cost, and safety also matter."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Full autonomy by default",
+              "explanation": "Autonomy should be introduced carefully with scoped tools, permissions, and human review where needed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mini Project: AI Opportunity Scan",
+      "slug": "ai-opportunity-scan",
+      "file": "mini-project-ai-opportunity-scan.mdx",
+      "order": 12,
+      "type": "project",
+      "description": "Audit a real workflow and identify where AI might help, where it should not be used, and what evidence would prove value.",
+      "estimatedMinutes": 45,
+      "checklist": [
+        "I picked one real workflow.",
+        "I identified one useful AI opportunity and one non-AI alternative.",
+        "I named one risk and one success signal."
+      ],
+      "questions": [
+        "Where does the workflow create delay, repetition, or uncertainty?",
+        "What would make AI the wrong tool for this workflow?"
+      ]
+    },
+    {
+      "title": "AI Product Idea Document",
+      "slug": "ai-product-idea-document",
+      "file": "project.mdx",
+      "order": 13,
+      "type": "project",
+      "description": "Write a portfolio-ready AI product idea and explain which AI technique it uses.",
+      "estimatedMinutes": 75,
+      "checklist": [
+        "I picked one problem people actually face.",
+        "I linked it to a concrete AI technique.",
+        "I wrote who will use the solution and what success means.",
+        "I included limitations, safety risks, and a first evaluation plan."
+      ],
+      "questions": [
+        "What is the user problem and why is it painful?",
+        "Which AI method would solve it and what risk does it carry?"
+      ]
+    }
+  ]
+}

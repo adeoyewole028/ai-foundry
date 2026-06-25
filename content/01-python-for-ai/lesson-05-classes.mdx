@@ -1,0 +1,78 @@
+# Classes
+
+## Objective
+
+By the end of this lesson, you will model small domains with simple classes.
+
+## Prerequisites
+
+Variables, functions, and lists/dictionaries lessons.
+
+## Plain-English Explanation
+
+Classes help group related data and behavior. In AI work this keeps prompt builders, request options, and service clients organized.
+
+## Key Terms
+
+### Class
+
+Simple meaning:
+A custom type for related data and actions.
+
+Real-world analogy:
+Like a template for building many similar profile cards.
+
+Technical meaning:
+Blueprint for objects with attributes and methods.
+
+Example:
+A `PromptPayload` class can standardize request fields.
+
+Why it matters:
+Clear structure helps teams avoid “stringly-typed” chaos.
+
+## Mental Model
+
+```text
+Class -> instance fields -> methods -> predictable behavior
+```
+
+## Example
+
+```python
+class PromptPayload:
+    def __init__(self, text: str, max_tokens: int):
+        self.text = text
+        self.max_tokens = max_tokens
+```
+
+## Code Walkthrough
+
+```python
+def short_preview(payload: PromptPayload) -> str:
+    return payload.text[:40]
+```
+
+## Common Mistakes
+
+- Using classes for very small one-off utilities.
+- Making mutable defaults inside `__init__` incorrectly.
+
+## Exercise
+
+Create a class for an API response containing status, body, and runtime metadata.
+
+## Reflection
+
+When would a class make your project cleaner than passing dictionaries everywhere?
+
+## Further Reading
+
+- [Python Classes and OOP](https://docs.python.org/3/tutorial/classes.html)
+- [Dataclass basics](https://docs.python.org/3/library/dataclasses.html)
+
+## Completion Checklist
+
+- [ ] I can define a class with attributes.
+- [ ] I can instantiate and use an object.
+- [ ] I can explain when simple functions are enough.

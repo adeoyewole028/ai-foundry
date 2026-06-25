@@ -1,0 +1,78 @@
+# Lists and Dictionaries
+
+## Objective
+
+By the end of this lesson, you will work with ordered and key-based collections confidently.
+
+## Prerequisites
+
+Variables and types lesson.
+
+## Plain-English Explanation
+
+Lists keep ordered items. Dictionaries map keys to values. Together they represent most AI data shapes during prototyping.
+
+## Key Terms
+
+### List
+
+Simple meaning:
+An ordered list of items.
+
+Real-world analogy:
+A row of sticky notes in order.
+
+Technical meaning:
+Mutable sequence data structure.
+
+Example:
+`["ai", "python", "api"]`
+
+Why it matters:
+API payloads and prompts often start as lists.
+
+## Mental Model
+
+```text
+Raw data -> List for order -> Dict for labels -> Structured object for model calls
+```
+
+## Example
+
+```python
+items = ["rule", "data", "evaluation"]
+record = {"module": "python", "difficulty": "beginner"}
+```
+
+## Code Walkthrough
+
+```python
+def summarize(record):
+    return f"{record['module']} ({record['difficulty']})"
+
+print(summarize({"module": "python", "difficulty": "beginner"}))
+```
+
+## Common Mistakes
+
+- Using dictionaries when order is required.
+- Mutating shared lists without copying.
+
+## Exercise
+
+Create a list of prompts and a dictionary of metadata, then print one summary line.
+
+## Reflection
+
+How would you choose between list and dict for a dataset of user profiles?
+
+## Further Reading
+
+- [Python Sequence Types](https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range)
+- [Python Mapping Types](https://docs.python.org/3/library/stdtypes.html#mapping-types-dict)
+
+## Completion Checklist
+
+- [ ] I can add/remove list items.
+- [ ] I can access dict keys safely.
+- [ ] I can transform list+dict data into a readable summary.

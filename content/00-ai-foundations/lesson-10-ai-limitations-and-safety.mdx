@@ -1,0 +1,82 @@
+# AI Limitations and Safety
+
+## Objective
+
+By the end of this lesson, you will be able to name common AI failure modes and propose basic guardrails for safer AI product launches.
+
+## Prerequisites
+
+Before this lesson, you should understand the main AI techniques in this module and how they appear in product workflows.
+
+## Plain-English Explanation
+
+AI systems can be useful without being fully reliable. They can hallucinate, reflect bias, misunderstand context, expose sensitive data, follow malicious instructions, or produce confident answers that are wrong. Safety is not a separate layer added at the end. It is part of product design.
+
+Good AI products define what the system can and cannot do. They also add review steps, source display, evaluation, logging, permission boundaries, and clear fallbacks when confidence is low.
+
+## Key Terms
+
+### Hallucination
+
+A hallucination is an AI output that sounds plausible but is false, unsupported, or invented.
+
+### Bias
+
+Bias is a pattern of unfair or skewed behavior caused by data, design choices, or deployment context.
+
+### Evaluation
+
+Evaluation is the process of testing whether an AI system performs well enough for its intended use.
+
+## Mental Model
+
+Treat AI like a helpful but fallible assistant. You can delegate drafts, search, summaries, and suggestions, but you still need review for high-stakes decisions.
+
+## Example
+
+In FurOrbit, an AI assistant might summarize symptoms before a vet visit. It should not diagnose a pet, prescribe medication, or hide uncertainty. A safer product would show sources, flag urgent symptoms, and route serious cases to a professional.
+
+## Code Walkthrough
+
+Here is a simple guardrail pattern:
+
+```ts
+type AIResult = {
+  answer: string;
+  confidence: "low" | "medium" | "high";
+  sources: string[];
+};
+
+function shouldRequireReview(result: AIResult) {
+  return result.confidence !== "high" || result.sources.length === 0;
+}
+```
+
+This is not enough by itself, but it shows a product habit: decide when AI output needs human review.
+
+## Common Mistakes
+
+- Shipping without testing real user examples.
+- Hiding uncertainty from the user.
+- Letting AI make high-stakes decisions alone.
+- Forgetting privacy and permission boundaries.
+
+## Exercise
+
+Pick one AI feature idea. Write three possible failure modes and one guardrail for each.
+
+## Reflection
+
+Where would you require a human review step before an AI output affects a real person?
+
+## Further Reading
+
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
+- [Google Responsible AI Practices](https://ai.google/responsibility/responsible-ai-practices/)
+- [OpenAI Safety and security](https://openai.com/safety/)
+
+## Completion Checklist
+
+- [ ] I can explain hallucination, bias, and privacy risk.
+- [ ] I can name one guardrail for an AI feature.
+- [ ] I can decide when a human review step is needed.

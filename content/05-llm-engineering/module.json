@@ -1,0 +1,499 @@
+{
+  "title": "LLM Engineering",
+  "slug": "llm-engineering",
+  "order": 5,
+  "description": "Build reliable language-model applications with prompts, structured output, and tools.",
+  "level": "Intermediate",
+  "estimatedHours": 18,
+  "outcomes": [
+    "Explain how LLMs fit into AI products versus full models.",
+    "Write prompt patterns aligned to user intent.",
+    "Generate structured responses that are stable and parseable.",
+    "Use function calling and tool composition safely.",
+    "Evaluate prompts and model behavior with repeatable checks."
+  ],
+  "lessons": [
+    {
+      "title": "What is an LLM?",
+      "slug": "what-is-an-llm",
+      "file": "lesson-01-what-is-an-llm.mdx",
+      "order": 1,
+      "type": "lesson",
+      "description": "Frame where LLMs help and where they are the wrong tool.",
+      "estimatedMinutes": 32,
+      "checklist": [
+        "I can explain LLM strengths and limits in one paragraph.",
+        "I can compare LLMs with smaller ML models.",
+        "I can identify one unsuitable use case."
+      ],
+      "questions": [
+        "When is an LLM overkill for a problem?",
+        "What role should product intent play in model choice?"
+      ]
+    },
+    {
+      "title": "Tokens",
+      "slug": "tokens",
+      "file": "lesson-02-tokens.mdx",
+      "order": 2,
+      "type": "lesson",
+      "description": "Understand token budgets, length, and cost-aware design.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can estimate token impact of prompts.",
+        "I can reduce prompt verbosity.",
+        "I can plan around context constraints."
+      ],
+      "questions": [
+        "Why do token budgets matter in production?",
+        "How do you cut prompt noise without losing clarity?"
+      ]
+    },
+    {
+      "title": "Context Windows",
+      "slug": "context-windows",
+      "file": "lesson-03-context-windows.mdx",
+      "order": 3,
+      "type": "lesson",
+      "description": "Use context windows to keep inputs relevant and safe.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can summarize long inputs into compact context.",
+        "I can prioritize signals by freshness and trust.",
+        "I can manage truncation fallback."
+      ],
+      "questions": [
+        "What goes wrong when context exceeds limits?",
+        "How do you choose what to drop first?"
+      ]
+    },
+    {
+      "title": "Prompt Engineering",
+      "slug": "prompt-engineering",
+      "file": "lesson-04-prompt-engineering.mdx",
+      "order": 4,
+      "type": "lesson",
+      "description": "Build prompt patterns with stable and controllable outputs.",
+      "estimatedMinutes": 42,
+      "checklist": [
+        "I can write a role + goal + constraints prompt.",
+        "I can include format guidance without over-constraining.",
+        "I can test at least two prompt variants."
+      ],
+      "questions": [
+        "How do you prevent instruction drift in prompts?",
+        "What prompt component reduces ambiguity most?"
+      ]
+    },
+    {
+      "title": "Structured Outputs",
+      "slug": "structured-outputs",
+      "file": "lesson-05-structured-outputs.mdx",
+      "order": 5,
+      "type": "lesson",
+      "description": "Return typed, machine-readable outputs for product workflows.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can define a schema for response shape.",
+        "I can parse and validate model output.",
+        "I can handle invalid outputs gracefully."
+      ],
+      "questions": [
+        "Why are plain-text responses risky for automation?",
+        "How do you design a schema before generation?"
+      ]
+    },
+    {
+      "title": "Function Calling",
+      "slug": "function-calling",
+      "file": "lesson-06-function-calling.mdx",
+      "order": 6,
+      "type": "lesson",
+      "description": "Let the model trigger safe, typed backend capabilities.",
+      "estimatedMinutes": 45,
+      "checklist": [
+        "I can define simple tool signatures.",
+        "I can reject unsafe invocations.",
+        "I can log tool requests and errors."
+      ],
+      "questions": [
+        "Why is schema validation critical in tool calls?",
+        "When should tool calls be disabled?"
+      ]
+    },
+    {
+      "title": "Tool Use",
+      "slug": "tool-use",
+      "file": "lesson-07-tool-use.mdx",
+      "order": 7,
+      "type": "lesson",
+      "description": "Compose multiple tools into meaningful multi-step flows.",
+      "estimatedMinutes": 45,
+      "checklist": [
+        "I can design tool selection logic.",
+        "I can chain tools in safe order.",
+        "I can recover from tool failures."
+      ],
+      "questions": [
+        "What makes tool orchestration more reliable than hardcoded logic?",
+        "How do you stop tool loops in production?"
+      ]
+    },
+    {
+      "title": "Evaluation",
+      "slug": "evaluation",
+      "file": "lesson-08-evaluation.mdx",
+      "order": 8,
+      "type": "lesson",
+      "description": "Create objective checks for prompt and behavior quality.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can define measurable grading criteria.",
+        "I can track cost, latency, and quality.",
+        "I can set regression tests for behavior."
+      ],
+      "questions": [
+        "What metric matters more: latency or quality?",
+        "How do you reduce hallucinations operationally?"
+      ]
+    },
+    {
+      "title": "Mini Project: LLM Routing Checker",
+      "slug": "mini-llm-routing-checker",
+      "file": "mini-project-llm-routing-checker.mdx",
+      "order": 9,
+      "type": "project",
+      "description": "Build an end-to-end prompt + tool routing mini workflow.",
+      "estimatedMinutes": 90,
+      "checklist": [
+        "I can route input to intent-based actions.",
+        "I can return structured outputs reliably.",
+        "I can explain failure fallbacks."
+      ],
+      "questions": [
+        "How would routing reduce model error?",
+        "What is your fallback policy when tools fail?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Portfolio Project: Resume Analyzer",
+      "slug": "resume-analyzer",
+      "file": "project.mdx",
+      "order": 10,
+      "type": "project",
+      "description": "Build an LLM-powered resume analyzer with structure and guardrails.",
+      "estimatedMinutes": 150,
+      "checklist": [
+        "I can design prompt contracts with schemas.",
+        "I can implement tool-based checks.",
+        "I can evaluate behavior across edge inputs."
+      ],
+      "questions": [
+        "How do you ensure output consistency at scale?",
+        "Which constraints keep the feature trustworthy?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "LLM Engineering Quiz",
+      "slug": "llm-engineering-quiz",
+      "file": "quiz.mdx",
+      "order": 11,
+      "type": "quiz",
+      "description": "Validate LLM engineering fundamentals before moving to agent workflows.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can explain LLM limits in production.",
+        "I can use structured output with confidence.",
+        "I can justify tooling and evaluation choices."
+      ],
+      "questions": [
+        "How do you design LLM flows that can fail safely?",
+        "What evaluation habits prevent regression drift?"
+      ],
+      "quizQuestions": [
+        {
+          "id": "llm-vs-model",
+          "prompt": "In your own words, explain when an LLM should be chosen over a smaller model.",
+          "correctAnswer": "Choose an LLM when the task needs flexible natural language understanding or generation, while smaller models are preferred for deterministic, constrained prediction tasks.",
+          "keywords": [
+            "flexible",
+            "natural language",
+            "deterministic",
+            "generation",
+            "prediction"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "One giant prompt",
+              "explanation": "Long prompts can waste tokens, increase cost, and still fail without structure and evaluation."
+            },
+            {
+              "id": "correct",
+              "label": "Flexible language tasks",
+              "explanation": "Choose an LLM when the task needs flexible natural language understanding or generation, while smaller models are preferred for deterministic, constrained prediction tasks."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Trust requested tools",
+              "explanation": "Tool calls need validation, permissions, and error handling before execution."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Free-form integrations",
+              "explanation": "Automated systems need schemas and validation so outputs can be parsed reliably."
+            }
+          ]
+        },
+        {
+          "id": "token-strategy",
+          "prompt": "How does token budget influence prompt and product design?",
+          "correctAnswer": "Token limits force prioritization and concise prompts so responses stay within context while preserving relevant product intent.",
+          "keywords": [
+            "token",
+            "prioritization",
+            "concise",
+            "context",
+            "intent"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Trust requested tools",
+              "explanation": "Tool calls need validation, permissions, and error handling before execution."
+            },
+            {
+              "id": "correct",
+              "label": "Budgeted context design",
+              "explanation": "Token limits force prioritization and concise prompts so responses stay within context while preserving relevant product intent."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Free-form integrations",
+              "explanation": "Automated systems need schemas and validation so outputs can be parsed reliably."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Keep all context",
+              "explanation": "Context should be summarized, filtered, and constrained to reduce noise, cost, and privacy risk."
+            }
+          ]
+        },
+        {
+          "id": "context-management",
+          "prompt": "How would you keep long conversation context useful and safe?",
+          "correctAnswer": "Summarize older turns, keep high-signal data, and drop stale details while retaining constraints and action-relevant context.",
+          "keywords": [
+            "summarize",
+            "high-signal",
+            "constraints",
+            "action-relevant",
+            "context"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Free-form integrations",
+              "explanation": "Automated systems need schemas and validation so outputs can be parsed reliably."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Keep all context",
+              "explanation": "Context should be summarized, filtered, and constrained to reduce noise, cost, and privacy risk."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Fluency-only evaluation",
+              "explanation": "LLM evaluation should track correctness, usefulness, safety, latency, and cost."
+            },
+            {
+              "id": "correct",
+              "label": "Summarize and filter context",
+              "explanation": "Summarize older turns, keep high-signal data, and drop stale details while retaining constraints and action-relevant context."
+            }
+          ]
+        },
+        {
+          "id": "prompt-pattern",
+          "prompt": "Describe a prompt pattern that improves consistency.",
+          "correctAnswer": "Use a fixed role, objective, format contract, few-shot examples, and explicit constraints.",
+          "keywords": [
+            "role",
+            "objective",
+            "format",
+            "examples",
+            "constraints"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Keep all context",
+              "explanation": "Context should be summarized, filtered, and constrained to reduce noise, cost, and privacy risk."
+            },
+            {
+              "id": "correct",
+              "label": "Role, format, examples, constraints",
+              "explanation": "Use a fixed role, objective, format contract, few-shot examples, and explicit constraints."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Fluency-only evaluation",
+              "explanation": "LLM evaluation should track correctness, usefulness, safety, latency, and cost."
+            },
+            {
+              "id": "distractor-3",
+              "label": "LLM for every task",
+              "explanation": "Smaller deterministic or ML systems can be cheaper, faster, and easier to control."
+            }
+          ]
+        },
+        {
+          "id": "structured-output",
+          "prompt": "Why is schema-first design important for automated systems?",
+          "correctAnswer": "Structured outputs make downstream systems parse safely and reduce manual interpretation errors from model responses.",
+          "keywords": [
+            "schema",
+            "automated",
+            "parse",
+            "downstream",
+            "safely"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Fluency-only evaluation",
+              "explanation": "LLM evaluation should track correctness, usefulness, safety, latency, and cost."
+            },
+            {
+              "id": "distractor-2",
+              "label": "LLM for every task",
+              "explanation": "Smaller deterministic or ML systems can be cheaper, faster, and easier to control."
+            },
+            {
+              "id": "distractor-3",
+              "label": "One giant prompt",
+              "explanation": "Long prompts can waste tokens, increase cost, and still fail without structure and evaluation."
+            },
+            {
+              "id": "correct",
+              "label": "Schema-first parsing",
+              "explanation": "Structured outputs make downstream systems parse safely and reduce manual interpretation errors from model responses."
+            }
+          ]
+        },
+        {
+          "id": "tool-calls",
+          "prompt": "Explain why tool call validation is a reliability concern.",
+          "correctAnswer": "Tool validation prevents unsafe or malformed calls and gives the system an explicit control surface when the model suggests actions.",
+          "keywords": [
+            "validation",
+            "safety",
+            "malformed",
+            "control",
+            "reliability"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "LLM for every task",
+              "explanation": "Smaller deterministic or ML systems can be cheaper, faster, and easier to control."
+            },
+            {
+              "id": "distractor-2",
+              "label": "One giant prompt",
+              "explanation": "Long prompts can waste tokens, increase cost, and still fail without structure and evaluation."
+            },
+            {
+              "id": "correct",
+              "label": "Validate tool execution",
+              "explanation": "Tool validation prevents unsafe or malformed calls and gives the system an explicit control surface when the model suggests actions."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Trust requested tools",
+              "explanation": "Tool calls need validation, permissions, and error handling before execution."
+            }
+          ]
+        },
+        {
+          "id": "tool-orchestration",
+          "prompt": "How do you keep multi-tool flows from becoming unstable?",
+          "correctAnswer": "Use bounded tool policies, deterministic fallbacks, and clear stop conditions with observability on every tool result.",
+          "keywords": [
+            "bounded",
+            "fallbacks",
+            "stop",
+            "observability",
+            "deterministic"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Bounded tools and fallbacks",
+              "explanation": "Use bounded tool policies, deterministic fallbacks, and clear stop conditions with observability on every tool result."
+            },
+            {
+              "id": "distractor-1",
+              "label": "One giant prompt",
+              "explanation": "Long prompts can waste tokens, increase cost, and still fail without structure and evaluation."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Trust requested tools",
+              "explanation": "Tool calls need validation, permissions, and error handling before execution."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Free-form integrations",
+              "explanation": "Automated systems need schemas and validation so outputs can be parsed reliably."
+            }
+          ]
+        },
+        {
+          "id": "evaluation",
+          "prompt": "What are three things you should track to evaluate an LLM feature.",
+          "correctAnswer": "Track quality, latency, cost, and failure rates to decide if prompts and tooling are meeting product expectations.",
+          "keywords": [
+            "quality",
+            "latency",
+            "cost",
+            "failure",
+            "product"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Quality, latency, cost, failures",
+              "explanation": "Track quality, latency, cost, and failure rates to decide if prompts and tooling are meeting product expectations."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Trust requested tools",
+              "explanation": "Tool calls need validation, permissions, and error handling before execution."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Free-form integrations",
+              "explanation": "Automated systems need schemas and validation so outputs can be parsed reliably."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Keep all context",
+              "explanation": "Context should be summarized, filtered, and constrained to reduce noise, cost, and privacy risk."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

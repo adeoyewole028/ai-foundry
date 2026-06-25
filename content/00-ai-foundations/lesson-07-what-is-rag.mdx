@@ -1,0 +1,83 @@
+# What is RAG?
+
+## Objective
+
+By the end of this lesson, you will be able to explain retrieval augmented generation and describe how it helps an LLM answer with product-specific information.
+
+## Prerequisites
+
+Before this lesson, you should understand models, tokens, embeddings, and why LLMs do not automatically know your private business data.
+
+## Plain-English Explanation
+
+RAG means retrieval augmented generation. It is a pattern where the app first retrieves relevant information, then gives that information to a language model, then asks the model to generate an answer using the retrieved context.
+
+RAG is useful when the answer should depend on documents, policies, tickets, product manuals, or knowledge bases that can change over time. Instead of retraining the model every time a document changes, the product retrieves current information and includes it in the prompt.
+
+## Key Terms
+
+### Retrieval
+
+Retrieval is the step where the system finds relevant documents or passages.
+
+### Augmented Generation
+
+Augmented generation means the model generates an answer using extra context supplied by the product.
+
+### Grounding
+
+Grounding means connecting the answer to source material instead of relying only on the model's general training.
+
+## Mental Model
+
+Imagine asking a teammate a question and handing them three relevant pages from the company handbook before they answer. The teammate still writes the answer, but the pages help keep the answer tied to the right source.
+
+## Example
+
+In FurOrbit, a clinic assistant could answer questions using current care instructions, appointment policies, and medication guidance. RAG helps the assistant find the relevant clinic document before drafting the answer.
+
+## Code Walkthrough
+
+This is a simplified RAG flow:
+
+```ts
+async function answerWithSources(question: string) {
+  const matches = await searchKnowledgeBase(question);
+  const context = matches.map((match) => match.content).join("\n\n");
+
+  return generateAnswer({
+    question,
+    context,
+    instruction: "Answer only from the provided context."
+  });
+}
+```
+
+The product still needs citations, permission checks, freshness checks, and fallback behavior when retrieval finds weak sources.
+
+## Common Mistakes
+
+- Assuming RAG prevents every hallucination.
+- Retrieving too much context and confusing the model.
+- Forgetting to show sources.
+- Indexing stale, duplicated, or low-quality documents.
+
+## Exercise
+
+Pick a product with help docs. Write the three steps a RAG feature would follow to answer a user's question from those docs.
+
+## Reflection
+
+Why might RAG be better than fine-tuning for a product knowledge base that changes every week?
+
+## Further Reading
+
+- [OpenAI Cookbook: Question answering using embeddings](https://cookbook.openai.com/examples/question_answering_using_embeddings)
+- [AWS: What is RAG?](https://aws.amazon.com/what-is/retrieval-augmented-generation/)
+- [Pinecone: Retrieval augmented generation](https://www.pinecone.io/learn/retrieval-augmented-generation/)
+
+## Completion Checklist
+
+- [ ] I can explain retrieval augmented generation.
+- [ ] I can describe the retrieve-read-answer flow.
+- [ ] I can identify one risk in a RAG pipeline.

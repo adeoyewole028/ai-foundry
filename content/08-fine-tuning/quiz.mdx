@@ -1,0 +1,68 @@
+# Fine-Tuning Quiz
+
+## Objective
+
+By the end of this quiz, you will show practical judgment on when and how to adapt models.
+
+## Prerequisites
+
+Before this quiz, you should complete all Module 08 lessons.
+
+## Plain-English Explanation
+
+Explain your reasoning around adaptation tradeoffs and governance.
+
+## Key Terms
+
+### Drift
+
+Simple meaning:
+Behavior changing away from intended outcomes.
+
+Real-world analogy:
+Performance changes after repeated coaching without tests.
+
+Technical meaning:
+Distribution shift across data, prompts, and use-cases.
+
+Example:
+Model starts violating tone policy after new examples.
+
+Why it matters:
+Drift can silently erode trust.
+
+## Mental Model
+
+Adaptation is a controlled experiment with monitoring, not one-time training.
+
+## Example
+
+Compare a tuned and untuned response on the same policy prompt.
+
+## Code Walkthrough
+
+No code required. Evaluate and explain likely behavior shifts.
+
+## Common Mistakes
+
+- Treating score gains as proof of safety.
+- Skipping deployment thresholds.
+- Forgetting rollback rehearsal.
+
+## Exercise
+
+Answer all questions using your own adaptation workflow language.
+
+## Reflection
+
+What signal would trigger a training pause?
+
+## Further Reading
+
+- [PEFT and parameter-efficient fine-tuning](https://huggingface.co/blog/peft)
+
+## Completion Checklist
+
+- [ ] I can defend when to skip fine-tuning.
+- [ ] I can justify an evaluation-first strategy.
+- [ ] I can explain governance around updates.

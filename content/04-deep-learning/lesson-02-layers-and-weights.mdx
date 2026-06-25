@@ -1,0 +1,68 @@
+# Layers and Weights
+
+## Objective
+
+By the end of this lesson, you will map layer shapes and understand why weights are learnable.
+
+## Prerequisites
+
+Before this lesson, you should understand why features need transformation.
+
+## Plain-English Explanation
+
+Layers transform inputs step by step, and weights decide how strongly each input matters.
+
+## Key Terms
+
+### Weight matrix
+
+Simple meaning:
+Numbers that tell a network how much to pay attention.
+
+Real-world analogy:
+Like assigning different importance to interview criteria.
+
+Technical meaning:
+A parameter tensor controlling linear projection between layers.
+
+Example:
+Dense layer from 20 to 10 features.
+
+Why it matters:
+Wrong dimensions or initializations cause shape errors and poor convergence.
+
+## Mental Model
+
+Each layer is a translator from one representation space to another.
+
+## Example
+
+Projecting sparse raw indicators into dense latent features can improve expressiveness.
+
+## Code Walkthrough
+
+Inspect shapes after each layer and verify `in_features`/`out_features` compatibility.
+
+## Common Mistakes
+
+- Mismatch in matrix dimensions.
+- Ignoring bias terms where needed.
+- Using too-large layers early.
+
+## Exercise
+
+Draft a 3-layer architecture and list expected tensor shapes.
+
+## Reflection
+
+What does a larger hidden dimension buy you, and what can it cost?
+
+## Further Reading
+
+- [Linear layers and shapes](https://pytorch.org/docs/stable/generated/torch.nn.Linear.html)
+
+## Completion Checklist
+
+- [ ] I can track tensor shapes across layers.
+- [ ] I can explain when weight count grows rapidly.
+- [ ] I can choose sensible dimensions for a small model.
