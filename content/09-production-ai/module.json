@@ -246,6 +246,20 @@
               "label": "Uptime-only monitoring",
               "explanation": "AI production also needs quality, latency, cost, safety, drift, and fallback monitoring."
             }
+          ],
+          "rubric": [
+            {
+              "id": "architecture-boundaries-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "orchestration",
+                "boundaries",
+                "isolate",
+                "policy"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -280,6 +294,20 @@
               "id": "distractor-3",
               "label": "Cache every response",
               "explanation": "Caching can reduce cost, but stale or user-specific responses can harm trust."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "queue-selection-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "async",
+                "retry",
+                "long-running",
+                "tracking"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -316,6 +344,20 @@
               "label": "Prompts are not security",
               "explanation": "AI systems still handle data, tools, permissions, injection risks, and audit requirements."
             }
+          ],
+          "rubric": [
+            {
+              "id": "monitoring-metrics-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "latency",
+                "error",
+                "rejection",
+                "cost"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -351,9 +393,24 @@
               "label": "Cheapest model always",
               "explanation": "Routing should balance quality, latency, risk, and cost for each task."
             }
+          ],
+          "rubric": [
+            {
+              "id": "cost-controls-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "routing",
+                "caching",
+                "cheaper models",
+                "fallback"
+              ],
+              "minMatch": 2
+            }
           ]
         }
-      ]
+      ],
+      "quizMode": "short-answer"
     }
   ]
 }

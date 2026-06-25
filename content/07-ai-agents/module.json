@@ -246,6 +246,20 @@
               "label": "No human review",
               "explanation": "Human approval is important when actions are costly, irreversible, sensitive, or risky."
             }
+          ],
+          "rubric": [
+            {
+              "id": "agent-boundaries-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "plan",
+                "steps",
+                "memory",
+                "state"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -280,6 +294,20 @@
               "id": "distractor-3",
               "label": "Just a longer prompt",
               "explanation": "Agents coordinate goals, steps, tools, state, and guardrails beyond a single response."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "tool-design-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "schema",
+                "safety",
+                "inputs",
+                "outputs"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -316,6 +344,20 @@
               "label": "Stale or noisy memory",
               "explanation": "Noisy or stale memory leads to repeated work, wrong assumptions, or unsafe decisions, while proper pruning and checkpointing preserve context quality."
             }
+          ],
+          "rubric": [
+            {
+              "id": "memory-risk-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "memory",
+                "stale",
+                "pruning",
+                "checkpoint"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -351,9 +393,24 @@
               "label": "Hidden tool behavior",
               "explanation": "Logs are needed to debug decisions, failures, permissions, and outcomes."
             }
+          ],
+          "rubric": [
+            {
+              "id": "human-loop-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "mandatory",
+                "high-risk",
+                "irreversible",
+                "compliance"
+              ],
+              "minMatch": 2
+            }
           ]
         }
-      ]
+      ],
+      "quizMode": "short-answer"
     }
   ]
 }

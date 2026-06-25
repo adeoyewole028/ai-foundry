@@ -244,6 +244,20 @@
               "label": "Reactive evaluation",
               "explanation": "AI behavior must be evaluated before release because failures can be subtle, costly, or unsafe."
             }
+          ],
+          "rubric": [
+            {
+              "id": "practical-ai-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "software",
+                "patterns",
+                "predictions",
+                "rules"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -277,6 +291,20 @@
               "id": "distractor-3",
               "label": "Model as source of truth",
               "explanation": "Models can be wrong or outdated, so product systems need grounding, checks, and fallbacks."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "rules-vs-ai-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "clear",
+                "stable",
+                "precision",
+                "permission"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -312,6 +340,20 @@
               "label": "Model size first",
               "explanation": "Model size is only one factor. Data quality, workflow fit, latency, cost, and safety also matter."
             }
+          ],
+          "rubric": [
+            {
+              "id": "ml-dl-llm-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "machine learning",
+                "deep learning",
+                "neural",
+                "language"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -345,6 +387,20 @@
               "id": "distractor-3",
               "label": "Full autonomy by default",
               "explanation": "Autonomy should be introduced carefully with scoped tools, permissions, and human review where needed."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "models-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "trained",
+                "inputs",
+                "outputs",
+                "app"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -380,6 +436,20 @@
               "label": "AI for novelty",
               "explanation": "Novelty is not enough. AI should be chosen because it solves a user problem better than a simpler approach."
             }
+          ],
+          "rubric": [
+            {
+              "id": "tokens-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "chunks",
+                "context",
+                "cost",
+                "respond"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -413,6 +483,20 @@
               "id": "distractor-3",
               "label": "Static database lookup",
               "explanation": "Databases are useful for known records, but this misses learned patterns, generation, retrieval, and uncertainty."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "embeddings-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "numeric",
+                "meaning",
+                "similar",
+                "search"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -448,6 +532,20 @@
               "label": "Reactive evaluation",
               "explanation": "AI behavior must be evaluated before release because failures can be subtle, costly, or unsafe."
             }
+          ],
+          "rubric": [
+            {
+              "id": "rag-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "retrieves",
+                "source",
+                "grounded",
+                "documents"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -481,6 +579,20 @@
               "id": "distractor-3",
               "label": "Model as source of truth",
               "explanation": "Models can be wrong or outdated, so product systems need grounding, checks, and fallbacks."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "agents-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "goal",
+                "steps",
+                "tools",
+                "guardrails"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -516,6 +628,20 @@
               "label": "Model size first",
               "explanation": "Model size is only one factor. Data quality, workflow fit, latency, cost, and safety also matter."
             }
+          ],
+          "rubric": [
+            {
+              "id": "product-thinking-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "user problem",
+                "alternatives",
+                "success",
+                "risks"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -550,9 +676,24 @@
               "label": "Full autonomy by default",
               "explanation": "Autonomy should be introduced carefully with scoped tools, permissions, and human review where needed."
             }
+          ],
+          "rubric": [
+            {
+              "id": "safety-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "hallucination",
+                "bias",
+                "privacy",
+                "review"
+              ],
+              "minMatch": 2
+            }
           ]
         }
-      ]
+      ],
+      "quizMode": "short-answer"
     },
     {
       "title": "Mini Project: AI Opportunity Scan",

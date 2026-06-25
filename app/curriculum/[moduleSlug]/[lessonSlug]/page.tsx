@@ -156,6 +156,7 @@ export default async function LessonPage({
           <QuizAssessment
             moduleSlug={lesson.module.slug}
             lessonSlug={lesson.slug}
+            quizMode={lesson.quizMode}
             questions={lesson.quizQuestions}
             initialCompleted={lessonProgress}
             initialAnswers={quizAttempt?.answers}

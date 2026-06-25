@@ -83,8 +83,28 @@ Implement in this order:
 - Add progress percentage.
 - Add continue learning logic.
 - Add dashboard.
-- Replace local quiz keyword checks with backend rubric-based grading for short-answer quizzes.
-- Store quiz attempts, pass/fail status, expected-answer comparison, and feedback.
+- Replace local quiz checks with backend rubric-based grading for short-answer quizzes.
+- Use the same evaluator logic used in `lib/quiz-grading.ts` on both client and server.
+- Store quiz attempts with per-question rubric feedback and pass/fail status.
+- Mark lesson complete only when all quiz questions pass (`passed === true`).
+- Keep short-answer flow rubric-based; preserve deterministic MCQ fallback behavior when options are present.
+
+#### Rubric Grading Rule (must follow)
+
+- Grade mode is short-answer when `quizMode === "short-answer"` and by default for lessons with rubric metadata.
+- `rubric` entries are structured as:
+  - `terms` → normalized concept terms to match.
+  - `required: true` → all terms must match.
+  - `required: false` → at least `minMatch` terms match (`minMatch` defaults to 1).
+- A question passes when:
+  - all required criteria pass, and
+  - total passing criteria >= `passingScore`.
+  - if `passingScore` is missing, use half of criteria, rounded up.
+- If no rubric exists, use keyword matching/length rules as in current evaluator until rubric is provided.
+- Return and persist:
+  - `score`, `totalQuestions`, `matchedCount`, `passed`,
+  - detailed criterion pass state + matched terms (for user feedback),
+  - and the selected answer/response used for grading.
 
 ### Step 6 — Project Submissions
 

@@ -280,6 +280,20 @@
               "label": "Trust successful responses",
               "explanation": "A successful request can still return malformed, incomplete, stale, or unsafe data."
             }
+          ],
+          "rubric": [
+            {
+              "id": "python-setup-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "isolated",
+                "dependencies",
+                "reproducible",
+                "project"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -314,6 +328,20 @@
               "id": "distractor-3",
               "label": "Everything as strings",
               "explanation": "String-only data hides type mistakes and makes validation harder before AI inputs are sent downstream."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "types-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "validate",
+                "input",
+                "shape",
+                "format"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -350,6 +378,20 @@
               "label": "Write before validation",
               "explanation": "File output from user data needs validation to avoid overwrites, leaks, or unsafe paths."
             }
+          ],
+          "rubric": [
+            {
+              "id": "lists-vs-dict-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "dictionary",
+                "key",
+                "metadata",
+                "lookup"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -383,6 +425,20 @@
               "id": "distractor-3",
               "label": "Model call first",
               "explanation": "The API shape should define validation, errors, observability, and reliability boundaries."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "functions-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "focused",
+                "separate",
+                "testable",
+                "maintenance"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -419,6 +475,20 @@
               "label": "Global package installs",
               "explanation": "Global installs make projects harder to reproduce and can create dependency conflicts across teams."
             }
+          ],
+          "rubric": [
+            {
+              "id": "classes-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "fields",
+                "behavior",
+                "reusable",
+                "structured"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -453,6 +523,20 @@
               "id": "distractor-3",
               "label": "One-cell prototypes",
               "explanation": "Notebooks are useful for exploration, but reliable AI workflows need reusable, testable code."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "file-handling-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "validate",
+                "normalize",
+                "encoding",
+                "atomic"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -489,6 +573,20 @@
               "label": "Trust successful responses",
               "explanation": "A successful request can still return malformed, incomplete, stale, or unsafe data."
             }
+          ],
+          "rubric": [
+            {
+              "id": "api-calls-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "status",
+                "schema",
+                "retry",
+                "fallback"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -523,6 +621,20 @@
               "id": "correct",
               "label": "Reproducible dependency isolation",
               "explanation": "Global installs mix libraries across projects, causing version conflicts and non-reproducible behavior between dev machines and deployments."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "venv-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "global",
+                "conflicts",
+                "reproducible",
+                "version"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -559,6 +671,20 @@
               "label": "Write before validation",
               "explanation": "File output from user data needs validation to avoid overwrites, leaks, or unsafe paths."
             }
+          ],
+          "rubric": [
+            {
+              "id": "notebooks-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "version",
+                "test",
+                "deploy",
+                "exploration"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -594,9 +720,24 @@
               "label": "Model call first",
               "explanation": "The API shape should define validation, errors, observability, and reliability boundaries."
             }
+          ],
+          "rubric": [
+            {
+              "id": "fastapi-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "contract",
+                "reliability",
+                "debug",
+                "monitor"
+              ],
+              "minMatch": 2
+            }
           ]
         }
-      ]
+      ],
+      "quizMode": "short-answer"
     }
   ]
 }

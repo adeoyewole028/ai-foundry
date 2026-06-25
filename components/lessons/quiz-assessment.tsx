@@ -9,6 +9,7 @@ import {
   CircleCheck,
   ClipboardCheck,
   Eye,
+  PenLine,
   Lightbulb,
   X
 } from "lucide-react";
@@ -28,6 +29,7 @@ type QuizAssessmentProps = {
   moduleSlug: string;
   lessonSlug: string;
   questions: QuizQuestion[];
+  quizMode?: "multiple-choice" | "short-answer";
   initialCompleted?: boolean;
   initialAnswers?: Record<string, string>;
   initialSubmitted?: boolean;
@@ -224,6 +226,7 @@ export function QuizAssessment({
   moduleSlug,
   lessonSlug,
   questions,
+  quizMode = "multiple-choice",
   initialCompleted = false,
   initialAnswers = {},
   initialSubmitted = false
@@ -264,15 +267,19 @@ export function QuizAssessment({
     () =>
       questions.map((question) => ({
         ...question,
-        options: getQuestionOptions(question),
+        options: quizMode === "short-answer" ? [] : getQuestionOptions(question),
         correctOptionId: getCorrectOptionId(question)
       })),
-    [questions]
+    [questions, quizMode]
   );
   const currentQuestion = displayQuestions[currentIndex];
   const selectedOptionId = currentQuestion ? state.answers[currentQuestion.id] : undefined;
+  const currentAnswer = currentQuestion ? (state.answers[currentQuestion.id] ?? "") : "";
+  const hasShortAnswerMode = currentQuestion
+    ? quizMode === "short-answer" || currentQuestion.options.length === 0
+    : false;
   const currentResult = currentQuestion
-    ? gradeQuizAnswer(currentQuestion, selectedOptionId ?? "")
+    ? gradeQuizAnswer(currentQuestion, currentAnswer)
     : null;
   const selectedOption = currentQuestion
     ? getSelectedOption(currentQuestion.options, selectedOptionId)
@@ -280,12 +287,16 @@ export function QuizAssessment({
   const correctOption = currentQuestion
     ? getSelectedOption(currentQuestion.options, currentQuestion.correctOptionId)
     : null;
-  const answeredCount = displayQuestions.filter((question) => state.answers[question.id]).length;
+  const answeredCount = displayQuestions.filter((question) => {
+    const answer = state.answers[question.id] ?? "";
+
+    return quizMode === "short-answer" || question.options.length === 0 ? answer.trim().length >= 6 : !!answer;
+  }).length;
   const passedCount = displayQuestions.filter((question) => {
     return gradeQuizAnswer(question, state.answers[question.id] ?? "").passed;
   }).length;
   const isPassing = displayQuestions.length > 0 && passedCount === displayQuestions.length;
-  const hasAnsweredCurrent = !!selectedOptionId;
+  const hasAnsweredCurrent = hasShortAnswerMode ? currentAnswer.trim().length >= 6 : !!selectedOptionId;
   const isLastQuestion = currentIndex === displayQuestions.length - 1;
   const progressWidth = displayQuestions.length > 0
     ? `${Math.round((answeredCount / displayQuestions.length) * 100)}%`
@@ -387,7 +398,9 @@ export function QuizAssessment({
               Interactive Quiz
             </div>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-soft">
-              Choose the best answer, review the explanation, then move to the next question.
+              {quizMode === "short-answer"
+                ? "Answer in your own words, then review your rubric feedback before moving on."
+                : "Choose the best answer, review the explanation, then move to the next question."}
             </p>
           </div>
           <span className="rounded-full border border-rule bg-paper px-3 py-1 text-sm font-semibold text-ink-soft">
@@ -419,58 +432,74 @@ export function QuizAssessment({
           {currentQuestion.prompt}
         </h3>
 
-        <div className="mt-8 grid gap-3">
-          {currentQuestion.options.map((option, index) => {
-            const isSelected = selectedOptionId === option.id;
-            const isCorrect = option.id === currentQuestion.correctOptionId;
-            const showFeedback = hasAnsweredCurrent;
-            const isIncorrectSelection = showFeedback && isSelected && !isCorrect;
-            const optionStateClass =
-              showFeedback && isCorrect
-                ? "border-accent/40 bg-accent-soft text-ink"
-                : isIncorrectSelection
-                  ? "border-red-300 bg-red-50 text-ink"
-                  : isSelected
-                    ? "border-accent/40 bg-surface text-ink"
-                    : "border-transparent bg-surface text-ink-soft hover:border-accent/40 hover:text-ink";
+        {hasShortAnswerMode ? (
+          <div className="mt-8 grid gap-3">
+            <label className="grid gap-2 text-sm">
+              <span className="font-semibold text-ink">Write your answer</span>
+              <textarea
+                aria-label={`Answer for ${currentQuestion.prompt}`}
+                className="min-h-40 rounded-lg border border-rule bg-surface p-4 text-sm text-ink outline-none transition focus-visible:ring-2 focus-visible:ring-accent"
+                placeholder="Type your response..."
+                value={currentAnswer}
+                onChange={(event) => setAnswer(currentQuestion.id, event.target.value)}
+              />
+            </label>
+            <p className="text-xs text-ink-soft">{currentAnswer.trim().length} characters</p>
+          </div>
+        ) : (
+          <div className="mt-8 grid gap-3">
+            {currentQuestion.options.map((option, index) => {
+              const isSelected = selectedOptionId === option.id;
+              const isCorrect = option.id === currentQuestion.correctOptionId;
+              const showFeedback = hasAnsweredCurrent;
+              const isIncorrectSelection = showFeedback && isSelected && !isCorrect;
+              const optionStateClass =
+                showFeedback && isCorrect
+                  ? "border-accent/40 bg-accent-soft text-ink"
+                  : isIncorrectSelection
+                    ? "border-red-300 bg-red-50 text-ink"
+                    : isSelected
+                      ? "border-accent/40 bg-surface text-ink"
+                      : "border-transparent bg-surface text-ink-soft hover:border-accent/40 hover:text-ink";
 
-            return (
-              <button
-                className={`w-full rounded-lg border px-4 py-4 text-left transition ${optionStateClass}`}
-                disabled={isSubmitting}
-                key={option.id}
-                onClick={() => setAnswer(currentQuestion.id, option.id)}
-                type="button"
-              >
-                <span className="flex items-start gap-4">
-                  <span className="mt-0.5 font-mono text-sm font-semibold text-ink">
-                    {optionLetters[index] ?? index + 1}.
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-base font-semibold leading-7">
-                      {option.label}
+              return (
+                <button
+                  className={`w-full rounded-lg border px-4 py-4 text-left transition ${optionStateClass}`}
+                  disabled={isSubmitting}
+                  key={option.id}
+                  onClick={() => setAnswer(currentQuestion.id, option.id)}
+                  type="button"
+                >
+                  <span className="flex items-start gap-4">
+                    <span className="mt-0.5 font-mono text-sm font-semibold text-ink">
+                      {optionLetters[index] ?? index + 1}.
                     </span>
-                    {showFeedback && (isSelected || isCorrect) ? (
-                      <span className="mt-3 flex gap-2 text-sm leading-6">
-                        {isCorrect ? (
-                          <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
-                        ) : (
-                          <X className="mt-0.5 size-4 shrink-0 text-red-600" aria-hidden="true" />
-                        )}
-                        <span>
-                          <strong className="text-ink">
-                            {isCorrect ? "That's right." : "Not quite."}
-                          </strong>{" "}
-                          {option.explanation || (isCorrect ? currentQuestion.correctAnswer : "Review the correct answer before moving on.")}
-                        </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-base font-semibold leading-7">
+                        {option.label}
                       </span>
-                    ) : null}
+                      {showFeedback && (isSelected || isCorrect) ? (
+                        <span className="mt-3 flex gap-2 text-sm leading-6">
+                          {isCorrect ? (
+                            <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
+                          ) : (
+                            <X className="mt-0.5 size-4 shrink-0 text-red-600" aria-hidden="true" />
+                          )}
+                          <span>
+                            <strong className="text-ink">
+                              {isCorrect ? "That's right." : "Not quite."}
+                            </strong>{" "}
+                            {option.explanation || (isCorrect ? currentQuestion.correctAnswer : "Review the correct answer before moving on.")}
+                          </span>
+                        </span>
+                      ) : null}
+                    </span>
                   </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {hasAnsweredCurrent && currentResult ? (
           <div
@@ -489,15 +518,39 @@ export function QuizAssessment({
               {currentResult.passed ? "That's right." : "Review this one."}
             </p>
             <p className="mt-2">
-              {currentResult.passed
-                ? correctOption?.explanation || currentQuestion.correctAnswer
-                : selectedOption?.explanation || "Compare your choice with the highlighted correct answer."}
+              {hasShortAnswerMode
+                ? "Use your own words, and make sure you address the rubric points shown above."
+                : currentResult.passed
+                  ? correctOption?.explanation || currentQuestion.correctAnswer
+                  : selectedOption?.explanation || "Compare your choice with the highlighted correct answer."}
             </p>
+            {hasShortAnswerMode && currentResult.criterionResults.length > 0 ? (
+              <ul className="mt-3 space-y-1 text-sm text-ink-soft">
+                {currentResult.criterionResults.map((criterion) => (
+                  <li key={criterion.criterionId}>
+                    <span className={criterion.passed ? "text-accent" : "text-ink-soft"}>
+                      {criterion.passed ? "✓" : "•"}
+                    </span>{" "}
+                    <span className="font-semibold">{criterion.label}</span>{" "}
+                    <span>
+                      {criterion.passed ? "met" : "not met"}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         ) : (
           <div className="mt-5 flex items-center gap-2 rounded-lg border border-rule bg-surface p-4 text-sm text-ink-soft">
             <Lightbulb className="size-4 text-accent" aria-hidden="true" />
-            Pick an answer to reveal feedback.
+            {hasShortAnswerMode ? (
+              <>
+                <PenLine className="size-4 text-accent" aria-hidden="true" />
+                <span>Answer in your own words, then move on for feedback.</span>
+              </>
+            ) : (
+              "Pick an answer to reveal feedback."
+            )}
           </div>
         )}
 

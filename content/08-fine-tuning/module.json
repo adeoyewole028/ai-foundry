@@ -228,6 +228,20 @@
               "label": "Same LoRA tradeoffs",
               "explanation": "They differ in memory, quantization, training cost, and deployment constraints."
             }
+          ],
+          "rubric": [
+            {
+              "id": "need-fine-tuning-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "style",
+                "policy",
+                "domain",
+                "consistent"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -262,6 +276,20 @@
               "id": "distractor-3",
               "label": "No rollback path",
               "explanation": "Fine-tuned models need rollback, comparison, monitoring, and recovery plans."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "dataset-quality-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "instruction",
+                "validation",
+                "overfitting",
+                "drift"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -298,6 +326,20 @@
               "label": "Training-set evaluation",
               "explanation": "Validation data must be separate to detect memorization and weak generalization."
             }
+          ],
+          "rubric": [
+            {
+              "id": "lora-vs-qlora-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "lora",
+                "qlora",
+                "memory",
+                "quality"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -333,9 +375,24 @@
               "label": "Fine-tune changing facts",
               "explanation": "Changing facts are usually better handled with retrieval or tools."
             }
+          ],
+          "rubric": [
+            {
+              "id": "rollback-plan-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "baseline",
+                "triggers",
+                "fallback",
+                "rollback"
+              ],
+              "minMatch": 2
+            }
           ]
         }
-      ]
+      ],
+      "quizMode": "short-answer"
     }
   ]
 }

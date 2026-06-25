@@ -247,6 +247,20 @@
               "label": "Loss as vanity metric",
               "explanation": "Loss drives training updates and helps diagnose whether learning is improving."
             }
+          ],
+          "rubric": [
+            {
+              "id": "nn-intuition-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "transforms",
+                "layers",
+                "weighted",
+                "hierarchical"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -281,6 +295,20 @@
               "id": "correct",
               "label": "Learned adjustable parameters",
               "explanation": "Weights are parameters that the model adjusts to reduce error, and they encode learned patterns linking inputs to outputs."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "weights-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "parameters",
+                "adjust",
+                "error",
+                "learn"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -317,6 +345,20 @@
               "label": "Trust sample predictions",
               "explanation": "Image models can fail on class imbalance, artifacts, lighting, leakage, and unseen conditions."
             }
+          ],
+          "rubric": [
+            {
+              "id": "activation-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "non-linear",
+                "linear",
+                "stacked",
+                "complex"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -351,6 +393,20 @@
               "id": "distractor-3",
               "label": "Optimizer as guarantee",
               "explanation": "Optimizers help update weights, but data, architecture, learning rate, and evaluation still matter."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "loss-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "quantifies",
+                "error",
+                "improving",
+                "targets"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -387,6 +443,20 @@
               "label": "More layers first",
               "explanation": "More layers cannot fix unclear targets, poor data, or weak evaluation."
             }
+          ],
+          "rubric": [
+            {
+              "id": "backprop-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "trace",
+                "correction",
+                "weights",
+                "output"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -421,6 +491,20 @@
               "id": "correct",
               "label": "Gradient update control",
               "explanation": "The optimizer controls how aggressively weights are updated from gradients, influencing stability, convergence speed, and final model performance."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "optimizer-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "update",
+                "gradients",
+                "stability",
+                "convergence"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -458,6 +542,20 @@
               "label": "Loss as vanity metric",
               "explanation": "Loss drives training updates and helps diagnose whether learning is improving."
             }
+          ],
+          "rubric": [
+            {
+              "id": "pytorch-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "reproduce",
+                "compare",
+                "debug",
+                "modeling"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -493,9 +591,24 @@
               "label": "Skip reproducibility",
               "explanation": "Without reproducibility practices, experiments become difficult to compare or debug."
             }
+          ],
+          "rubric": [
+            {
+              "id": "image-classification-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "class-level",
+                "confusion",
+                "distribution",
+                "overconfidence"
+              ],
+              "minMatch": 2
+            }
           ]
         }
-      ]
+      ],
+      "quizMode": "short-answer"
     }
   ]
 }

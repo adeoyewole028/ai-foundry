@@ -248,6 +248,20 @@
               "label": "Inputs versus prediction target",
               "explanation": "Features are the inputs used to make a prediction, while the label is the target value the model is trying to predict."
             }
+          ],
+          "rubric": [
+            {
+              "id": "features-labels-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "feature",
+                "input",
+                "label",
+                "target"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -282,6 +296,20 @@
               "id": "correct",
               "label": "Honest unseen-data evaluation",
               "explanation": "Correct splitting creates an honest evaluation by keeping unseen data separate, so performance reflects behavior in new cases and avoids leakage-driven optimism."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "train-test-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "honest",
+                "unseen",
+                "separate",
+                "evaluation"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -318,6 +346,20 @@
               "label": "Labels as metadata",
               "explanation": "Labels define the target a supervised model learns to predict."
             }
+          ],
+          "rubric": [
+            {
+              "id": "regression-vs-classification-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "continuous",
+                "category",
+                "classification",
+                "regression"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -352,6 +394,20 @@
               "id": "distractor-3",
               "label": "Ignore validation trends",
               "explanation": "Validation and monitoring trends help detect overfitting, drift, and degraded performance."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "tree-explainability-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "rules",
+                "features",
+                "conditional",
+                "simple"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -388,6 +444,20 @@
               "label": "Model before task",
               "explanation": "The learning task must be clear before model choice can be meaningful."
             }
+          ],
+          "rubric": [
+            {
+              "id": "forest-benefit-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "many trees",
+                "average",
+                "variance",
+                "stability"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -422,6 +492,20 @@
               "id": "distractor-3",
               "label": "Accuracy for everything",
               "explanation": "Accuracy can hide poor performance when classes are imbalanced or error costs differ."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "metric-choice-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "imbalanced",
+                "precision",
+                "recall",
+                "accuracy"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -458,9 +542,24 @@
               "label": "Training-only evaluation",
               "explanation": "Training performance alone cannot show whether the model generalizes to new examples."
             }
+          ],
+          "rubric": [
+            {
+              "id": "overfitting-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "training",
+                "validation",
+                "generalize",
+                "memorized"
+              ],
+              "minMatch": 2
+            }
           ]
         }
-      ]
+      ],
+      "quizMode": "short-answer"
     }
   ]
 }

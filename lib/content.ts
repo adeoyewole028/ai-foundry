@@ -13,6 +13,7 @@ export type LessonMeta = {
   type: LessonType;
   description: string;
   estimatedMinutes: number;
+  quizMode?: "multiple-choice" | "short-answer";
   checklist: string[];
   questions: string[];
   quizQuestions: QuizQuestion[];
@@ -107,6 +108,10 @@ function parseLesson(value: unknown, moduleSlug: string): LessonMeta {
       value.estimatedMinutes,
       `${moduleSlug}.lesson.estimatedMinutes`
     ),
+    quizMode:
+      value.quizMode === "short-answer" || value.quizMode === "multiple-choice"
+        ? value.quizMode
+        : undefined,
     checklist: parseStringArray(value.checklist, `${moduleSlug}.lesson.checklist`),
     questions: parseStringArray(value.questions, `${moduleSlug}.lesson.questions`),
     quizQuestions: parseQuizQuestions(value.quizQuestions, `${moduleSlug}.lesson.quizQuestions`)

@@ -160,11 +160,21 @@ Tracks quiz attempts.
 | passed | boolean | Whether the learner passed the quiz |
 | created_at | timestamptz | Default now |
 
-Backend quiz grading should use rubric-based evaluation for short-answer questions. The
-content-first app may use deterministic keyword/concept matching, but the authenticated
-backend flow should compare the learner's answer to the stored rubric and expected answer,
-return per-question pass/fail feedback, and only mark quiz progress complete when the quiz
-passes.
+Backend quiz grading must use the rubric evaluator contract:
+
+- For short-answer grading, evaluate learner text against question `rubric` criteria in `lib/quiz-grading.ts`.
+- Criterion rules:
+  - `required: true` criteria pass only when all `terms` are matched.
+  - non-required criteria pass when `minMatch` terms are matched (default `1`).
+- A question passes when all required criteria pass and the question score meets `passingScore`.
+- If `passingScore` is not set, default to `ceil(criteria.length / 2)`.
+- Persist per-question feedback, including:
+  - criterion pass state,
+  - matched terms,
+  - expected minimum for each question,
+  - and overall `score`, `totalQuestions`, and `matchedCount`.
+- Mark quiz completion only when every question in the quiz is passed.
+- Keep evaluator behavior identical between anonymous client-side grading and authenticated server grading.
 
 ### project_submissions
 

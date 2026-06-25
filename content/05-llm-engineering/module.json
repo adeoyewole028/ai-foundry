@@ -246,6 +246,20 @@
               "label": "Free-form integrations",
               "explanation": "Automated systems need schemas and validation so outputs can be parsed reliably."
             }
+          ],
+          "rubric": [
+            {
+              "id": "llm-vs-model-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "flexible",
+                "natural language",
+                "deterministic",
+                "generation"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -280,6 +294,20 @@
               "id": "distractor-3",
               "label": "Keep all context",
               "explanation": "Context should be summarized, filtered, and constrained to reduce noise, cost, and privacy risk."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "token-strategy-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "token",
+                "prioritization",
+                "concise",
+                "context"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -316,6 +344,20 @@
               "label": "Summarize and filter context",
               "explanation": "Summarize older turns, keep high-signal data, and drop stale details while retaining constraints and action-relevant context."
             }
+          ],
+          "rubric": [
+            {
+              "id": "context-management-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "summarize",
+                "high-signal",
+                "constraints",
+                "action-relevant"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -350,6 +392,20 @@
               "id": "distractor-3",
               "label": "LLM for every task",
               "explanation": "Smaller deterministic or ML systems can be cheaper, faster, and easier to control."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "prompt-pattern-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "role",
+                "objective",
+                "format",
+                "examples"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -386,6 +442,20 @@
               "label": "Schema-first parsing",
               "explanation": "Structured outputs make downstream systems parse safely and reduce manual interpretation errors from model responses."
             }
+          ],
+          "rubric": [
+            {
+              "id": "structured-output-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "schema",
+                "automated",
+                "parse",
+                "downstream"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -420,6 +490,20 @@
               "id": "distractor-3",
               "label": "Trust requested tools",
               "explanation": "Tool calls need validation, permissions, and error handling before execution."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "tool-calls-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "validation",
+                "safety",
+                "malformed",
+                "control"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -456,6 +540,20 @@
               "label": "Free-form integrations",
               "explanation": "Automated systems need schemas and validation so outputs can be parsed reliably."
             }
+          ],
+          "rubric": [
+            {
+              "id": "tool-orchestration-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "bounded",
+                "fallbacks",
+                "stop",
+                "observability"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -491,9 +589,24 @@
               "label": "Keep all context",
               "explanation": "Context should be summarized, filtered, and constrained to reduce noise, cost, and privacy risk."
             }
+          ],
+          "rubric": [
+            {
+              "id": "evaluation-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "quality",
+                "latency",
+                "cost",
+                "failure"
+              ],
+              "minMatch": 2
+            }
           ]
         }
-      ]
+      ],
+      "quizMode": "short-answer"
     }
   ]
 }

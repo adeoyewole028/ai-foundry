@@ -247,6 +247,20 @@
               "label": "Skip visual checks",
               "explanation": "A model can train on flawed data, so charts help reveal outliers, imbalance, and leakage early."
             }
+          ],
+          "rubric": [
+            {
+              "id": "what-is-data-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "complete",
+                "consistent",
+                "suitable",
+                "noise"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -283,6 +297,20 @@
               "label": "Reuse training data",
               "explanation": "Reusing the same examples for training and evaluation creates misleading performance estimates."
             }
+          ],
+          "rubric": [
+            {
+              "id": "csv-basics-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "columns",
+                "null",
+                "types",
+                "delimiter"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -318,6 +346,20 @@
               "label": "Silent cleaning",
               "explanation": "Unrecorded cleaning makes results hard to debug, explain, or reproduce."
             }
+          ],
+          "rubric": [
+            {
+              "id": "numpy-vector-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "efficient",
+                "vectorized",
+                "numeric",
+                "transform"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -352,6 +394,20 @@
               "id": "correct",
               "label": "Traceable transformation steps",
               "explanation": "You can define clear transformations in named steps, inspect intermediate outputs, and reduce ambiguity before modeling."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "pandas-workflow-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "explicit",
+                "transform",
+                "intermediate",
+                "inspect"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -389,6 +445,20 @@
               "label": "Raw data by default",
               "explanation": "Raw data often includes duplicates, missing values, bias, inconsistent formats, and noise."
             }
+          ],
+          "rubric": [
+            {
+              "id": "cleaning-process-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "normalize",
+                "types",
+                "duplicates",
+                "missing"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -423,6 +493,20 @@
               "id": "correct",
               "label": "Preserve signal and reduce bias",
               "explanation": "Avoid dropping all missing rows when missingness is high or carries signal, because you may lose representativeness and introduce hidden bias."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "missing-values-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "representativeness",
+                "bias",
+                "signal",
+                "high"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -459,6 +543,20 @@
               "label": "Charts reveal data problems",
               "explanation": "Charts reveal skew, outliers, imbalance, and anomalies quickly, allowing you to detect issues before feature engineering or training."
             }
+          ],
+          "rubric": [
+            {
+              "id": "visual-diagnose-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "skew",
+                "outliers",
+                "imbalance",
+                "anomalies"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -494,9 +592,24 @@
               "label": "Prevent leakage in evaluation",
               "explanation": "A clean split prevents leakage, gives realistic performance estimates, and keeps model behavior evaluation honest."
             }
+          ],
+          "rubric": [
+            {
+              "id": "train-test-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "leakage",
+                "realistic",
+                "evaluation",
+                "performance"
+              ],
+              "minMatch": 2
+            }
           ]
         }
-      ]
+      ],
+      "quizMode": "short-answer"
     }
   ]
 }

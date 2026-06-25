@@ -246,6 +246,20 @@
               "label": "Keyword search only",
               "explanation": "Keyword search can miss semantically similar content that uses different wording."
             }
+          ],
+          "rubric": [
+            {
+              "id": "rag-core-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "retrieval",
+                "grounded",
+                "sources",
+                "auditable"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -280,6 +294,20 @@
               "id": "correct",
               "label": "Balanced context chunks",
               "explanation": "Chunk size controls context granularity: too large can dilute signals, while too small fragments meaning and coherence; overlap helps preserve continuity."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "chunking-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "chunk",
+                "overlap",
+                "coherence",
+                "granularity"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -316,6 +344,20 @@
               "label": "Retrieval equals reranking",
               "explanation": "Retrieval finds candidates; reranking reorders them for relevance before generation."
             }
+          ],
+          "rubric": [
+            {
+              "id": "embeddings-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "meaning",
+                "vector",
+                "semantic",
+                "concept"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -350,6 +392,20 @@
               "id": "distractor-3",
               "label": "Answer length metric",
               "explanation": "RAG quality depends on retrieval relevance, groundedness, citation quality, and user success."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "vector-db-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "index",
+                "update",
+                "monitoring",
+                "scale"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -386,6 +442,20 @@
               "label": "Relevance refinement step",
               "explanation": "Reranking refines initial candidates with stronger relevance signals before prompt injection, improving final context quality."
             }
+          ],
+          "rubric": [
+            {
+              "id": "rerank-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "rerank",
+                "refine",
+                "relevance",
+                "context"
+              ],
+              "minMatch": 2
+            }
           ]
         },
         {
@@ -420,6 +490,20 @@
               "id": "distractor-3",
               "label": "Maximum chunk size",
               "explanation": "Huge chunks can dilute relevance, increase cost, and reduce answer quality."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "citations-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "citations",
+                "evidence",
+                "audit",
+                "unsupported"
+              ],
+              "minMatch": 2
             }
           ]
         },
@@ -456,9 +540,24 @@
               "label": "Keyword search only",
               "explanation": "Keyword search can miss semantically similar content that uses different wording."
             }
+          ],
+          "rubric": [
+            {
+              "id": "evaluation-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "grounding",
+                "precision",
+                "recall",
+                "latency"
+              ],
+              "minMatch": 2
+            }
           ]
         }
-      ]
+      ],
+      "quizMode": "short-answer"
     }
   ]
 }
