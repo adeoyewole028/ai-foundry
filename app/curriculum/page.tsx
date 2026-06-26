@@ -159,8 +159,8 @@ export default async function CurriculumPage() {
           Build your AI engineering quest one {stageLabel.toLowerCase()} at a time.
         </h1>
         <p className="mt-5 text-lg leading-8 text-ink-soft">
-          Start with plain-English concepts, then move toward Python, data, machine learning, LLMs,
-          RAG, agents, and production systems.
+          Start with plain-English concepts, then move toward Python, Math, data, machine learning,
+          LLMs, RAG, agents, and production systems.
         </p>
       </div>
       <section className="mt-6 rounded-xl border border-rule bg-surface p-5">
