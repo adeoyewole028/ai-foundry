@@ -50,7 +50,7 @@ export function ModuleProgressPanel({
   return (
     <section className="rounded-xl border border-rule bg-surface p-5">
       <div className="mb-3 flex items-center justify-between gap-3">
-        <p className="font-semibold text-ink">Module progress</p>
+        <p className="font-semibold text-ink">Stage progress</p>
         <span className="text-sm font-semibold text-ink-soft">
           {completed} / {total} completed
         </span>
@@ -61,20 +61,20 @@ export function ModuleProgressPanel({
           style={{ width: `${percent}%` }}
         />
       </div>
-      <p className="mt-2 text-sm text-ink-soft">{percent}% complete</p>
+        <p className="mt-2 text-sm text-ink-soft">{percent}% complete</p>
       {nextLesson ? (
         <Link
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-ink transition hover:text-accent"
           href={nextLessonHref}
         >
           <span>
-            {completed === 0 ? "Resume your first lesson" : `Continue with ${nextLesson.title}`}
+            {completed === 0 ? "Resume your first quest" : `Continue with ${nextLesson.title}`}
           </span>
           <ArrowRight className="size-4" />
         </Link>
       ) : (
         <p className="mt-4 flex items-center gap-2 text-sm text-ink-soft">
-          <CircleCheck className="size-4" /> Module complete.
+          <CircleCheck className="size-4" /> Region Cleared.
         </p>
       )}
     </section>

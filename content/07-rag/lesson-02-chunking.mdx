@@ -1,0 +1,68 @@
+# Chunking
+
+## Objective
+
+By the end of this lesson, you will split source material for reliable retrieval.
+
+## Prerequisites
+
+Before this lesson, you should complete Module 07 Lesson 01.
+
+## Plain-English Explanation
+
+Chunking creates manageable pieces for indexing and reuse.
+
+## Key Terms
+
+### Overlap
+
+Simple meaning:
+Shared text between chunks.
+
+Real-world analogy:
+Leaving context in neighboring chapters.
+
+Technical meaning:
+Stride control between adjacent windows.
+
+Example:
+Chunk size 500 with overlap 75.
+
+Why it matters:
+Overlap preserves meaning across boundaries.
+
+## Mental Model
+
+Too small chunks miss context; too big chunks dilute relevance.
+
+## Example
+
+Chunk a policy document so each chunk has one rule family.
+
+## Code Walkthrough
+
+Implement chunking and print topological chunk boundaries.
+
+## Common Mistakes
+
+- Fragmenting related statements.
+- Not storing chunk IDs.
+- Using uniform chunks for variable structure.
+
+## Exercise
+
+Test two chunk settings and compare retrieval hit quality.
+
+## Reflection
+
+Which chunk setting made retrieval more explainable?
+
+## Further Reading
+
+- [Document chunking patterns](https://www.elastic.co/guide/en/elasticsearch/reference/current/indexing-data.html)
+
+## Completion Checklist
+
+- [ ] I can explain chunk-size tradeoffs.
+- [ ] I can tune overlap for continuity.
+- [ ] I can document chunking strategy for maintenance.

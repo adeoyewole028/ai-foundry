@@ -71,10 +71,10 @@ export function ModuleAccessGate({
     return (
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="rounded-lg border border-rule bg-surface p-6">
-          <p className="font-mono text-sm font-semibold uppercase text-accent">Module locked</p>
-          <h1 className="mt-3 text-3xl font-black tracking-[-0.03em] text-ink">Finish earlier modules first</h1>
+          <p className="font-mono text-sm font-semibold uppercase text-accent">Stage locked</p>
+          <h1 className="mt-3 text-3xl font-black tracking-[-0.03em] text-ink">Finish earlier stages first</h1>
           <p className="mt-4 text-sm text-ink-soft">
-            Complete Module {String(accessState.lockedPrerequisiteOrder).padStart(2, "0")} first to unlock
+            Complete Stage {String(accessState.lockedPrerequisiteOrder).padStart(2, "0")} first to unlock
             this section.
           </p>
           <p className="mt-4 text-sm text-ink-soft">
@@ -86,7 +86,7 @@ export function ModuleAccessGate({
                 className="inline-flex rounded-full border border-rule bg-paper px-4 py-2 text-sm font-semibold text-ink transition hover:border-accent/50 hover:text-accent"
                 href={continueHref}
               >
-                Resume module {String(lockedPrerequisite.order).padStart(2, "0")}
+                Resume stage {String(lockedPrerequisite.order).padStart(2, "0")}
               </Link>
             ) : null}
             <Link

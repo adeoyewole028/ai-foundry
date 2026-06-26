@@ -63,7 +63,7 @@ export function LessonNav({
       {nextLocked ? (
         <span className="flex items-center justify-end gap-2 rounded-lg border border-rule bg-surface p-4 text-sm font-semibold text-ink-soft">
           <Lock className="size-4" />
-          <span>Complete this lesson to unlock next.</span>
+          <span>Complete this quest to unlock next.</span>
         </span>
       ) : nextLesson ? (
         <Link

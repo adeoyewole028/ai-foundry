@@ -1,0 +1,78 @@
+# Quest: Vectors in Plain English
+
+## Objective
+
+By the end of this quest, you will be able to explain vectors as numbers that represent meaning or direction.
+
+## Prerequisites
+
+Before this lesson, you should know that Python lists can store multiple values.
+
+## Plain-English Explanation
+
+A vector is a list of numbers. In AI, those numbers can represent a direction, a set of features, or the meaning of something.
+
+Vectors are the reason AI can compare documents, images, users, and products with math.
+
+## Key Terms
+
+### Vector
+
+Simple meaning:
+A list of numbers that points somewhere or represents something.
+
+Real-world analogy:
+A character sheet in a game: strength, speed, defense, and stamina.
+
+Technical meaning:
+An ordered collection of numeric values.
+
+Example:
+`[0.8, 0.1, 0.4]` could represent a short piece of text after an embedding model processes it.
+
+Why it matters:
+AI systems use vectors to compare meaning, behavior, or features.
+
+## Mental Model
+
+Imagine every item as a point on a map. Similar items land near each other. Different items land far apart.
+
+## Example
+
+A pet-care app might represent a symptom report as a vector so it can compare the report to similar historical cases.
+
+## Code Walkthrough
+
+```python
+cat_symptom_vector = [0.9, 0.2, 0.1]
+dog_symptom_vector = [0.8, 0.3, 0.1]
+
+print(cat_symptom_vector)
+print(dog_symptom_vector)
+```
+
+The numbers are not magic. They are a compact representation that the system can compare.
+
+## Common Mistakes
+
+- Thinking every number has an obvious human label.
+- Forgetting that vector quality depends on how the vector was created.
+- Comparing vectors from different systems as if they always mean the same thing.
+
+## Exercise
+
+Create a three-number vector for a movie using action, comedy, and romance as dimensions.
+
+## Reflection
+
+How could vectors help a recommendation system find similar items?
+
+## Further Reading
+
+- [Google Machine Learning Crash Course: Embeddings](https://developers.google.com/machine-learning/crash-course/embeddings)
+
+## Completion Checklist
+
+- [ ] I can define a vector as a list of numbers.
+- [ ] I can explain how vectors can represent meaning or direction.
+- [ ] I can create a tiny vector in Python.

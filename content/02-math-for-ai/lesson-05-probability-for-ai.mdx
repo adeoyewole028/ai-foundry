@@ -1,0 +1,81 @@
+# Quest: Probability for AI
+
+## Objective
+
+By the end of this quest, you will be able to explain probability as how likely something is.
+
+## Prerequisites
+
+Before this lesson, you should understand that AI systems often make predictions from incomplete information.
+
+## Plain-English Explanation
+
+Probability is a way to talk about uncertainty. It helps AI systems say, "This outcome is more likely than that one."
+
+AI rarely knows the future with certainty. It estimates.
+
+## Key Terms
+
+### Probability
+
+Simple meaning:
+How likely something is.
+
+Real-world analogy:
+A weather app saying there is a 70% chance of rain.
+
+Technical meaning:
+A value between 0 and 1 that represents likelihood.
+
+Example:
+A classifier may estimate that an email has `0.92` probability of being spam.
+
+Why it matters:
+AI products need to handle uncertainty honestly.
+
+## Mental Model
+
+Probability is a confidence dial, not a truth stamp.
+
+## Example
+
+A support triage model might predict `billing`, `technical`, or `account` as possible ticket categories and choose the most likely one.
+
+## Code Walkthrough
+
+```python
+probabilities = {
+    "billing": 0.65,
+    "technical": 0.25,
+    "account": 0.10,
+}
+
+prediction = max(probabilities, key=probabilities.get)
+print(prediction)
+```
+
+The selected label is the strongest guess, not a guarantee.
+
+## Common Mistakes
+
+- Treating probability as certainty.
+- Ignoring low-probability but high-risk outcomes.
+- Showing confidence scores to users without explaining what they mean.
+
+## Exercise
+
+Pick an AI prediction and list three possible outcomes with probabilities that add up to 1.
+
+## Reflection
+
+Why should product teams be careful when showing confidence scores?
+
+## Further Reading
+
+- [Google Machine Learning Crash Course: Classification](https://developers.google.com/machine-learning/crash-course/classification)
+
+## Completion Checklist
+
+- [ ] I can explain probability as likelihood.
+- [ ] I can read simple AI confidence scores.
+- [ ] I can describe why probability is not certainty.

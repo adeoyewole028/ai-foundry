@@ -1,0 +1,82 @@
+# Quest: Matrices in Plain English
+
+## Objective
+
+By the end of this quest, you will be able to explain matrices as tables of numbers AI uses for computation.
+
+## Prerequisites
+
+Before this lesson, you should understand vectors as lists of numbers.
+
+## Plain-English Explanation
+
+A matrix is a table of numbers. If a vector is one row of numbers, a matrix can hold many rows and columns.
+
+AI uses matrices to process many examples at once and move numbers through model layers.
+
+## Key Terms
+
+### Matrix
+
+Simple meaning:
+A table of numbers.
+
+Real-world analogy:
+A spreadsheet where every row is one item and every column is one measurement.
+
+Technical meaning:
+A two-dimensional numeric array with rows and columns.
+
+Example:
+Three users and three preference scores can be stored as a `3 x 3` matrix.
+
+Why it matters:
+Most AI computation is built from matrix operations.
+
+## Mental Model
+
+Think of a matrix as a tray in the Math Forge. Each row carries one example through the system, and each column carries one measured feature.
+
+## Example
+
+A job matching product may store each candidate as a row and each skill score as a column.
+
+## Code Walkthrough
+
+```python
+candidates = [
+    [1, 0, 1],
+    [1, 1, 0],
+    [0, 1, 1],
+]
+
+rows = len(candidates)
+columns = len(candidates[0])
+print(rows, columns)
+```
+
+The shape is `3 x 3`: three candidates, three skill signals.
+
+## Common Mistakes
+
+- Mixing up rows and columns.
+- Ignoring shape errors.
+- Treating a matrix as just a bigger list instead of structured data.
+
+## Exercise
+
+Create a small matrix where each row is a product and each column is a feature score.
+
+## Reflection
+
+Why does matrix shape matter when passing data into a model?
+
+## Further Reading
+
+- [NumPy: Array objects](https://numpy.org/doc/stable/reference/arrays.html)
+
+## Completion Checklist
+
+- [ ] I can define a matrix as a table of numbers.
+- [ ] I can identify rows, columns, and shape.
+- [ ] I can explain why matrices matter for AI computation.

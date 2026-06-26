@@ -216,7 +216,34 @@ Lessons:
 Project:
 Build a simple AI-ready API backend.
 
-### Module 02 — Data for AI
+### Module 02 — Math for AI
+
+Goal: Learn the practical and visual math AI uses to measure, compare, and improve.
+
+Story:
+You have entered the Math Forge. Before you can train models, you must learn the hidden language AI uses to measure, compare, and improve.
+
+Ada's mentor note:
+"Don't worry — this is not school math. You only need enough math to understand what AI models are doing under the hood."
+
+Lessons:
+
+1. Why Math Matters in AI
+2. Vectors in Plain English
+3. Matrices in Plain English
+4. Dot Products and Similarity
+5. Probability for AI
+6. Statistics for AI
+7. Derivatives and Gradients
+8. Gradient Descent
+
+Project:
+Build a Math Forge field guide that explains the math behind one AI feature.
+
+Boss Battle:
+Solve practical AI scenarios by matching them to the right math idea.
+
+### Module 03 — Data for AI
 
 Goal: Learn how AI systems use data.
 
@@ -234,7 +261,7 @@ Lessons:
 Project:
 Build a data analysis notebook.
 
-### Module 03 — Machine Learning
+### Module 04 — Machine Learning
 
 Goal: Build basic predictive models.
 
@@ -252,7 +279,7 @@ Lessons:
 Project:
 Build a job match score predictor.
 
-### Module 04 — Deep Learning
+### Module 05 — Deep Learning
 
 Goal: Understand neural networks.
 
@@ -270,7 +297,7 @@ Lessons:
 Project:
 Build an image classifier.
 
-### Module 05 — LLM Engineering
+### Module 06 — LLM Engineering
 
 Goal: Build apps with language models.
 
@@ -288,7 +315,7 @@ Lessons:
 Project:
 Build a resume analyzer.
 
-### Module 06 — RAG
+### Module 07 — RAG
 
 Goal: Build AI that answers from documents.
 
@@ -306,7 +333,7 @@ Lessons:
 Project:
 Build chat with PDF.
 
-### Module 07 — AI Agents
+### Module 08 — AI Agents
 
 Goal: Build AI systems that can use tools.
 
@@ -324,7 +351,7 @@ Lessons:
 Project:
 Build a job application assistant agent.
 
-### Module 08 — Fine-Tuning
+### Module 09 — Fine-Tuning
 
 Goal: Customize models.
 
@@ -341,7 +368,7 @@ Lessons:
 Project:
 Fine-tune a small assistant.
 
-### Module 09 — Production AI
+### Module 10 — Production AI
 
 Goal: Ship reliable AI products.
 

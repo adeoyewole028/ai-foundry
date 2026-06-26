@@ -1,6 +1,6 @@
 import { BookOpen, CheckCircle2, Clock, FileText, ListChecks } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
-import { getModules } from "@/lib/content";
+import { getModules } from "@/lib/content.server";
 import { HomeCta } from "@/components/curriculum/home-cta";
 import { getOrderedModules } from "@/lib/curriculum-prerequisites";
 import { getCurrentUserLessonProgress } from "@/lib/supabase/progress";
@@ -49,7 +49,7 @@ export default async function HomePage() {
           <p className="inline-flex max-w-full items-center gap-2 rounded-full border border-rule bg-surface px-3 py-1 font-mono text-sm font-semibold text-accent">
             <BookOpen className="size-4" aria-hidden="true" />
             <span className="truncate">
-              Milestone 1 <span className="hidden sm:inline">/ learning workbench</span>
+              Learning Journey <span className="hidden sm:inline">/ foundation path</span>
             </span>
           </p>
           <h1 className="mt-6 max-w-3xl text-[var(--text-display)] font-black leading-[0.95] tracking-[-0.035em] text-ink">
@@ -57,7 +57,7 @@ export default async function HomePage() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-soft">
             AI Foundry gives builders a sequenced path through AI concepts, product judgment, and
-            portfolio work. Start with the foundation module, then keep moving lesson by lesson.
+            portfolio work. Start with the foundation module and move one learning step at a time.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <HomeCta modules={orderedModules} initialProgress={initialProgress} />
@@ -114,14 +114,14 @@ export default async function HomePage() {
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <div className="rounded-lg border border-rule bg-paper p-4">
               <Clock className="size-5 text-accent" aria-hidden="true" />
-              <p className="mt-3 text-sm font-semibold text-ink">Designed for sessions</p>
+              <p className="mt-3 text-sm font-semibold text-ink">Designed for steady pace</p>
               <p className="mt-1 text-sm leading-6 text-ink-soft">
                 Lessons stay short enough to complete, review, and explain back.
               </p>
             </div>
             <div className="rounded-lg border border-rule bg-paper p-4">
               <ListChecks className="size-5 text-accent" aria-hidden="true" />
-              <p className="mt-3 text-sm font-semibold text-ink">Every unit closes the loop</p>
+              <p className="mt-3 text-sm font-semibold text-ink">Every lesson follows a clear flow</p>
               <p className="mt-1 text-sm leading-6 text-ink-soft">
                 Objective, example, exercise, reflection, and checklist.
               </p>
@@ -135,8 +135,8 @@ export default async function HomePage() {
           <div>
             <h2 className="text-2xl font-black tracking-[-0.02em] text-ink">The learning loop</h2>
             <p className="mt-3 max-w-xl leading-7 text-ink-soft">
-              Milestone 1 should make the next step obvious, even before accounts and progress
-              tracking exist.
+              The first stage is designed to make the next step obvious, even before optional account
+              tracking is enabled.
             </p>
           </div>
           <ol className="grid gap-3 sm:grid-cols-2">
@@ -154,12 +154,11 @@ export default async function HomePage() {
         <div className="rounded-xl border border-rule bg-surface p-5 sm:p-8">
           <FileText className="size-6 text-accent" aria-hidden="true" />
           <h2 className="mt-5 text-2xl font-black tracking-[-0.02em] text-ink">
-            First milestone stays content-first.
+            Learning stays first.
           </h2>
           <p className="mt-3 max-w-3xl leading-7 text-ink-soft">
-            Authentication, dashboards, and database progress come later. Right now the product
-            should prove the curriculum structure: modules load from files, lessons render cleanly,
-            and learners always know what to read next.
+            The product focus is clear structure first: reliable module loading, consistent lesson pages,
+            and obvious next-step guidance.
           </p>
         </div>
       </section>

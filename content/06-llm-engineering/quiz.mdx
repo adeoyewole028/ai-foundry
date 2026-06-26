@@ -1,0 +1,68 @@
+# LLM Engineering Quiz
+
+## Objective
+
+By the end of this quiz, you will demonstrate practical LLM engineering judgment.
+
+## Prerequisites
+
+Before this quiz, you should complete all Module 06 lessons.
+
+## Plain-English Explanation
+
+Use your own words and examples from your projects.
+
+## Key Terms
+
+### Reliability envelope
+
+Simple meaning:
+The range where your system behaves predictably.
+
+Real-world analogy:
+Running features behind known guardrails before full release.
+
+Technical meaning:
+Defined quality, latency, and safety boundaries for each flow.
+
+Example:
+Reject low-confidence outputs and send them for human review.
+
+Why it matters:
+Reliable systems outperform clever prompts when failure cost is high.
+
+## Mental Model
+
+Measure behavior with repeatable tests before changing prompts.
+
+## Example
+
+Explain one case where tool gating prevented user harm.
+
+## Code Walkthrough
+
+No code required. Provide applied answers with tradeoffs.
+
+## Common Mistakes
+
+- Giving generic statements without architecture context.
+- Forgetting cost/latency in evaluation.
+- Overfitting prompts without guardrails.
+
+## Exercise
+
+Answer all questions with one concrete example each.
+
+## Reflection
+
+What is your first operational risk triage rule?
+
+## Further Reading
+
+- [LLM application safety](https://platform.openai.com/docs/guides/moderation)
+
+## Completion Checklist
+
+- [ ] I can explain safety tradeoffs clearly.
+- [ ] I can justify tool contracts and evaluation.
+- [ ] I can connect architecture decisions to business outcomes.

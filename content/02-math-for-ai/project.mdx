@@ -1,0 +1,84 @@
+# Build Mission: Math Forge Field Guide
+
+## Objective
+
+By the end of this Build Mission, you will create a beginner-friendly guide that explains the math behind one AI feature.
+
+## Prerequisites
+
+Before this mission, you should complete the Math for AI quests on vectors, matrices, similarity, probability, statistics, gradients, and gradient descent.
+
+## Plain-English Explanation
+
+Your mission is to make invisible AI math visible. Pick one AI feature and explain which numbers it uses, what those numbers mean, and how the system uses them to make a decision or improve.
+
+## Key Terms
+
+### Field guide
+
+Simple meaning:
+A clear reference someone can use in the real world.
+
+Real-world analogy:
+A pocket guide that helps hikers identify plants on a trail.
+
+Technical meaning:
+A practical explanatory artifact that maps concepts to concrete examples.
+
+Example:
+A one-page guide showing how a search engine compares a query vector with document vectors.
+
+Why it matters:
+If you can explain the math clearly, you understand it well enough to build with it.
+
+## Mental Model
+
+You are crafting a tool for the next learner entering the Math Forge.
+
+## Example
+
+Feature: resume search.
+
+Math ideas: vectors represent resumes and jobs, dot products compare similarity, probability can express confidence, statistics can summarize dataset quality.
+
+## Code Walkthrough
+
+```python
+job = [0.9, 0.6, 0.2]
+resume = [0.8, 0.7, 0.1]
+
+similarity = sum(a * b for a, b in zip(job, resume))
+print(similarity)
+```
+
+Include a small example like this in your guide.
+
+## Common Mistakes
+
+- Explaining every math topic instead of focusing on one AI feature.
+- Using formulas without plain-English meaning.
+- Forgetting to show where the numbers come from.
+
+## Exercise
+
+Create a short guide with:
+
+1. One AI feature.
+2. The math concepts involved.
+3. A diagram or table.
+4. One tiny code example.
+5. A short reflection on limits or risks.
+
+## Reflection
+
+Which math idea made the AI feature easiest to understand?
+
+## Further Reading
+
+- [Google People + AI Guidebook](https://pair.withgoogle.com/guidebook/)
+
+## Completion Checklist
+
+- [ ] I chose one AI feature.
+- [ ] I explained the relevant math in plain English.
+- [ ] I included one visual structure and one tiny code example.

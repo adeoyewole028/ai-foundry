@@ -1,0 +1,72 @@
+# Portfolio Project: Fine-Tune a Small Assistant
+
+## Objective
+
+By the end of this project, you can produce a full adaptation proposal and implementation plan.
+
+## Prerequisites
+
+Before this project, complete all Module 09 lessons and mini project.
+
+## Plain-English Explanation
+
+Deliver a polished plan for tuning, evaluating, monitoring, and operating a small assistant.
+
+## Key Terms
+
+### Experiment Registry
+
+Simple meaning:
+Log of all adaptation trials.
+
+Real-world analogy:
+Research notebook for clinical protocol changes.
+
+Technical meaning:
+Track config, dataset version, metrics, and rollout status.
+
+Example:
+Storing each tuning run with pass/fail metadata.
+
+Why it matters:
+Auditability and reproducibility keep teams safe.
+
+## Mental Model
+
+Input data + config -> training -> validation -> rollout decision -> monitoring.
+
+## Example
+
+Fine-tune a concise support assistant and monitor for style drift.
+
+## Code Walkthrough
+
+Document:
+- dataset schema
+- training config
+- eval criteria
+- rollback strategy
+
+## Common Mistakes
+
+- No run IDs for reproducibility.
+- Ignoring evaluation scope.
+- Missing human oversight on post-change behavior.
+
+## Exercise
+
+Draft a portfolio write-up with deployment and monitoring sections.
+
+## Reflection
+
+How will you communicate model adaptation risk to non-technical stakeholders?
+
+## Further Reading
+
+- [PEFT documentation](https://huggingface.co/docs/peft/index)
+
+## Completion Checklist
+
+- [ ] I can present an end-to-end adaptation approach.
+- [ ] I can monitor for quality and cost regressions.
+- [ ] I can describe a clear rollback process.

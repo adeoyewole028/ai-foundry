@@ -1,0 +1,77 @@
+# Math Forge Exercises
+
+## Objective
+
+By the end of these exercises, you will be able to use practical math language to explain how AI systems measure, compare, and improve.
+
+## Prerequisites
+
+Before this exercise set, you should complete the Math for AI lessons or be able to explain the core ideas in your own words.
+
+## Plain-English Explanation
+
+These drills help you turn abstract math into product thinking. Each exercise asks you to identify what the AI system is measuring and why that measurement matters.
+
+## Key Terms
+
+### Measurement
+
+Simple meaning:
+Turning something into numbers so it can be compared.
+
+Real-world analogy:
+Using a ruler before cutting wood.
+
+Technical meaning:
+A numeric representation of a property, signal, or feature.
+
+Example:
+Representing a user preference as a vector.
+
+Why it matters:
+AI systems need numeric signals before they can rank, predict, or improve.
+
+## Mental Model
+
+Think of these exercises as hammer strikes in the Math Forge. Each strike turns a vague AI idea into a clearer numeric tool.
+
+## Example
+
+If a search system compares two document embeddings, ask: "What is being represented, what is being compared, and what score decides the winner?"
+
+## Code Walkthrough
+
+```python
+user_vector = [0.9, 0.1, 0.4]
+doc_vector = [0.8, 0.2, 0.5]
+
+score = sum(a * b for a, b in zip(user_vector, doc_vector))
+print(score)
+```
+
+## Common Mistakes
+
+- Treating a score as a perfect truth.
+- Forgetting that vectors are created from choices and data.
+- Memorizing formulas without asking what the numbers mean.
+
+## Exercise
+
+1. Pick one AI feature: search, recommendation, classification, or training.
+2. Write down the numbers it might use.
+3. Explain which math idea helps the feature work.
+4. Add one tiny Python snippet.
+
+## Reflection
+
+Which math idea makes AI feel less mysterious, and why?
+
+## Further Reading
+
+- [Google Machine Learning Crash Course: Foundational math](https://developers.google.com/machine-learning/crash-course)
+
+## Completion Checklist
+
+- [ ] I connected one AI feature to one math idea.
+- [ ] I wrote a small numeric example.
+- [ ] I explained the example without school-style math language.

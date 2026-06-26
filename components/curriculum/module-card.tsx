@@ -17,6 +17,7 @@ import {
   readLessonProgress
 } from "@/lib/lesson-progress";
 import { ButtonLink } from "@/components/ui/button";
+import { XP_REWARDS } from "@/lib/gamification";
 
 export function ModuleCard({
   module,
@@ -115,12 +116,21 @@ export function ModuleCard({
       }),
     [isUnlocked, moduleProgress.percent]
   );
+  const lessonDisplayLabel = lessonCount === 1 ? "1 Quest" : `${lessonCount} Quests`;
+  const quizDisplayLabel = quizCount === 1 ? "1 Knowledge Trial" : `${quizCount} Knowledge Trials`;
+  const projectDisplayLabel = projectCount === 1 ? "1 Build Mission" : `${projectCount} Build Missions`;
+  const modulePotentialXp =
+    lessonCount * XP_REWARDS.LESSON_COMPLETE +
+    quizCount * XP_REWARDS.QUIZ_COMPLETE +
+    projectCount * XP_REWARDS.PROJECT_SUBMITTED +
+    XP_REWARDS.MODULE_COMPLETE;
+  const moduleDisplayLabel = "Region / Stage";
 
   return (
     <article className="group rounded-lg border border-rule bg-surface p-5 shadow-sm transition duration-150 ease-out hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-[var(--shadow-soft)]">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="font-mono text-sm font-semibold text-accent">Module {String(module.order).padStart(2, "0")}</p>
+          <p className="font-mono text-sm font-semibold text-accent">{moduleDisplayLabel} {String(module.order).padStart(2, "0")}</p>
           <h2 className="mt-2 text-xl font-bold text-ink">{module.title}</h2>
         </div>
         <div className="inline-flex items-center gap-2 rounded-full border border-rule bg-paper px-2.5 py-1 text-xs font-semibold text-ink-soft">
@@ -130,7 +140,7 @@ export function ModuleCard({
       <p className="mt-3 text-sm leading-6 text-ink-soft">{module.description}</p>
       {!isUnlocked && isAuthenticated && lockedModuleTitle ? (
         <p className="mt-3 text-xs font-semibold text-ink-soft">
-          Complete <span className="text-ink">“{lockedModuleTitle}”</span> first to unlock this module.
+          Complete <span className="text-ink">“{lockedModuleTitle}”</span> first to unlock this stage.
         </p>
       ) : null}
       <div className="mt-4">
@@ -155,13 +165,16 @@ export function ModuleCard({
           {module.estimatedHours} hours
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-ink-soft">
-          {lessonCount} lesson{lessonCount === 1 ? "" : "s"}
+          {lessonDisplayLabel}
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-ink-soft">
-          {quizCount} quiz{quizCount === 1 ? "" : "zes"}
+          {quizDisplayLabel}
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-ink-soft">
-          {projectCount} project{projectCount === 1 ? "" : "s"}
+          {projectDisplayLabel}
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-ink-soft">
+          {modulePotentialXp} XP to clear stage
         </span>
         {projectCount > 0 ? (
           <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-ink-soft">
@@ -175,7 +188,7 @@ export function ModuleCard({
             className="inline-flex items-center gap-2 rounded-full border border-rule bg-paper px-3 py-2 text-xs font-semibold text-ink transition hover:border-accent/50 hover:text-accent"
             href={`/curriculum/${module.slug}`}
           >
-            Open module
+            Enter stage
           </Link>
         ) : (
           <button
@@ -183,7 +196,7 @@ export function ModuleCard({
             className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-rule bg-paper px-3 py-2 text-xs font-semibold text-ink-soft disabled:opacity-60"
             disabled
           >
-            Open module
+            Enter stage
           </button>
         )}
         {isUnlocked ? (
@@ -193,10 +206,10 @@ export function ModuleCard({
           >
             <Play className="size-3.5" />
             {moduleProgress.percent === 100
-              ? "Review module"
+              ? "Review stage record"
               : moduleProgress.completed === 0
-                ? "Start module"
-                : `Resume module`}
+                ? "Start stage quest"
+                : `Resume ${moduleDisplayLabel.toLowerCase()} quest`}
           </ButtonLink>
         ) : (
           isAuthenticated ? (
@@ -206,8 +219,8 @@ export function ModuleCard({
             >
               <Play className="size-3.5" />
               {lockedPrerequisite
-                ? `Resume module ${String(lockedPrerequisite.order).padStart(2, "0")}`
-                : "Open prerequisites"}
+                ? `Resume region ${String(lockedPrerequisite.order).padStart(2, "0")}`
+                : "Open prerequisite region"}
             </ButtonLink>
           ) : (
             <button
@@ -216,7 +229,7 @@ export function ModuleCard({
               disabled
             >
               <Play className="size-3.5" />
-              Finish previous module first
+              Complete previous stage first
             </button>
           )
         )}

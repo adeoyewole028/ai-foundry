@@ -1,11 +1,11 @@
 import { ResourceIndexList } from "@/components/curriculum/resource-index-list";
 import { HomeCta } from "@/components/curriculum/home-cta";
-import { getModules } from "@/lib/content";
+import { getModules } from "@/lib/content.server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getCurrentUserLessonProgress } from "@/lib/supabase/progress";
 
 export const metadata = {
-  title: "Quizzes | AI Foundry"
+  title: "Knowledge Trials | AI Foundry"
 };
 
 export default async function QuizzesPage() {
@@ -25,10 +25,10 @@ export default async function QuizzesPage() {
 
   return (
     <main id="main-content" className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
-      <p className="font-mono text-sm font-semibold uppercase text-accent">Quizzes</p>
-      <h1 className="mt-3 text-4xl font-black tracking-[-0.03em] text-ink">Knowledge checks</h1>
+      <p className="font-mono text-sm font-semibold uppercase text-accent">Knowledge Trials</p>
+      <h1 className="mt-3 text-4xl font-black tracking-[-0.03em] text-ink">Knowledge Trials</h1>
       <p className="mt-4 max-w-2xl leading-7 text-ink-soft">
-        Quizzes help you explain each module back in plain language before you move on to a project.
+        Knowledge Trials check your understanding between quests so each stage unlocks cleanly.
       </p>
       <div className="mt-6">
         <HomeCta modules={modules} initialProgress={initialProgress} />
@@ -42,9 +42,9 @@ export default async function QuizzesPage() {
         />
       ) : (
         <div className="mt-8 rounded-lg border border-rule bg-surface p-6">
-          <h2 className="text-xl font-bold text-ink">No quizzes published yet</h2>
+          <h2 className="text-xl font-bold text-ink">No knowledge trials published yet</h2>
           <p className="mt-2 text-ink-soft">
-            Add a lesson with type "quiz" to a module.json file to publish a module check-in.
+            Add a lesson with type "quiz" to a module.json file to publish a knowledge trial.
           </p>
         </div>
       )}

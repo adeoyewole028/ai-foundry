@@ -1,0 +1,68 @@
+# Mini Project: RAG Evidence Router
+
+## Objective
+
+By the end of this mini project, you will build a routed RAG flow with citation checks.
+
+## Prerequisites
+
+Before this project, you should complete all Module 07 lessons.
+
+## Plain-English Explanation
+
+Build routing that decides retrieval settings based on query type.
+
+## Key Terms
+
+### Confidence gating
+
+Simple meaning:
+Only answer when evidence confidence is high enough.
+
+Real-world analogy:
+Escalating difficult requests to senior support.
+
+Technical meaning:
+Threshold-based fallback when retrieval score is insufficient.
+
+Example:
+If top score is weak, ask user to rephrase.
+
+Why it matters:
+Gates lower the blast radius of weak answers.
+
+## Mental Model
+
+Query → classify route → retrieve → rank → answer with evidence or fallback.
+
+## Example
+
+Split high-risk and low-risk queries to different retrieval depths.
+
+## Code Walkthrough
+
+Implement query classifier and threshold checks with explicit fallback payload.
+
+## Common Mistakes
+
+- One-size-fits-all retrieval depth.
+- Never falling back.
+- Unclear evidence failure message.
+
+## Exercise
+
+Build a fallback test for low-confidence cases.
+
+## Reflection
+
+How does confidence gating change user perception?
+
+## Further Reading
+
+- [RAG production checklist](https://www.pinecone.io/learn/rag-production-checklist/)
+
+## Completion Checklist
+
+- [ ] I can set route-specific thresholds.
+- [ ] I can implement explicit fallback behavior.
+- [ ] I can document confidence policy clearly.

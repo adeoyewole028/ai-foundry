@@ -1,0 +1,86 @@
+# Boss Battle: Math Forge
+
+## Objective
+
+By the end of this Boss Battle, you will prove that you can choose the right math idea for common AI situations.
+
+## Prerequisites
+
+Before this battle, you should complete every Math for AI quest.
+
+## Plain-English Explanation
+
+The forge doors open. Ada gives you seven product scenarios. Your job is not to recite formulas. Your job is to name the math idea, explain why it fits, and describe what the AI system does with the numbers.
+
+## Key Terms
+
+### Boss Battle
+
+Simple meaning:
+A final challenge that combines the skills from the module.
+
+Real-world analogy:
+A driving test after practice lessons.
+
+Technical meaning:
+A cumulative assessment artifact that checks transfer across multiple concepts.
+
+Example:
+Explaining why a RAG system needs vectors and similarity scoring.
+
+Why it matters:
+AI work requires choosing the right tool for the situation, not memorizing isolated definitions.
+
+## Mental Model
+
+Each prompt is a locked gate. The right math concept is the key.
+
+## Example
+
+Scenario: "A support bot needs to find the most relevant help article."
+
+Answer: Use vectors to represent the question and articles, then dot product or another similarity score to rank matches.
+
+## Code Walkthrough
+
+```python
+question = [0.7, 0.2, 0.5]
+article = [0.6, 0.1, 0.6]
+
+score = sum(a * b for a, b in zip(question, article))
+print(score)
+```
+
+This tiny score stands in for a larger retrieval step.
+
+## Common Mistakes
+
+- Naming a concept without explaining why it fits.
+- Treating confidence as certainty.
+- Forgetting that training needs feedback from mistakes.
+
+## Exercise
+
+Answer each scenario in 2-4 sentences:
+
+1. A search system needs to compare a user query with documents.
+2. A model needs to process 1,000 examples at once.
+3. A classifier says one label is more likely than another.
+4. A data table has strange extreme values.
+5. A model needs to know how to reduce error.
+6. A model improves by taking repeated small steps.
+7. A recommendation system needs to find similar products.
+
+## Reflection
+
+Which scenario felt most natural, and which one should you review before moving to Data for AI?
+
+## Further Reading
+
+- [Google Machine Learning Crash Course: Intro to ML problem framing](https://developers.google.com/machine-learning/problem-framing)
+
+## Completion Checklist
+
+- [ ] I matched each scenario to a practical math idea.
+- [ ] I explained my reasoning in plain English.
+- [ ] I know which concept to review before the next module.

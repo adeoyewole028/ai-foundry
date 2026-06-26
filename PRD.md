@@ -14,7 +14,7 @@ AI Foundry should help learners:
 
 - Understand AI concepts in simple language.
 - Build AI applications step by step.
-- Learn Python, data, machine learning, deep learning, LLMs, RAG, agents, fine-tuning, and production AI.
+- Learn Python, practical AI math, data, machine learning, deep learning, LLMs, RAG, agents, fine-tuning, and production AI.
 - Create a public portfolio of AI projects.
 - Progress from beginner to AI product engineer.
 

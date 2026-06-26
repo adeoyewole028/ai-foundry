@@ -1,9 +1,47 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-
-const contentDirectory = path.join(process.cwd(), "content");
-
 export type LessonType = "lesson" | "quiz" | "project";
+
+export type CuratedResourceType =
+  | "course"
+  | "video"
+  | "playlist"
+  | "article"
+  | "book"
+  | "github"
+  | "documentation"
+  | "project-library"
+  | "paper"
+  | "guide";
+
+const curatedResourceTypes = [
+  "course",
+  "video",
+  "playlist",
+  "article",
+  "book",
+  "github",
+  "documentation",
+  "project-library",
+  "paper",
+  "guide"
+] as const satisfies readonly CuratedResourceType[];
+
+export function isCuratedResourceType(value: unknown): value is CuratedResourceType {
+  return typeof value === "string" && curatedResourceTypes.includes(value as CuratedResourceType);
+}
+
+export type CuratedResource = {
+  title: string;
+  provider: string;
+  url: string;
+  type: CuratedResourceType;
+  level: string;
+  placement: string;
+  why: string;
+  required: boolean;
+  whenToUse?: string;
+  notes?: string;
+  checkedAt?: string;
+};
 
 export type LessonMeta = {
   title: string;
@@ -17,6 +55,29 @@ export type LessonMeta = {
   checklist: string[];
   questions: string[];
   quizQuestions: QuizQuestion[];
+  mentorNote?: string;
+  curatedResources?: CuratedResource[];
+};
+
+export type BossBattleMeta = {
+  title: string;
+  slug: string;
+  description: string;
+  xpReward?: number;
+  required?: boolean;
+};
+
+export type ModuleStory = {
+  role: string;
+  setting: string;
+  mission: string;
+  mentorNote: string;
+};
+
+export type BossBattleSelection = {
+  lesson: LessonMeta;
+  source: "metadata" | "legacy-slug" | "fallback";
+  meta?: BossBattleMeta;
 };
 
 export type ModuleMeta = {
@@ -27,6 +88,10 @@ export type ModuleMeta = {
   level: string;
   estimatedHours: number;
   outcomes: string[];
+  curatedResources?: CuratedResource[];
+  bossBattle?: BossBattleMeta;
+  mentorNote?: string;
+  story?: ModuleStory;
   lessons: LessonMeta[];
 };
 
@@ -60,17 +125,17 @@ export type QuizRubric = {
   minMatch?: number;
 };
 
-const lessonTypes = ["lesson", "quiz", "project"] as const;
+export const lessonTypes = ["lesson", "quiz", "project"] as const;
 
-function isLessonType(value: string): value is LessonType {
+export function isLessonType(value: string): value is LessonType {
   return lessonTypes.includes(value as LessonType);
 }
 
-function isStringRecord(value: unknown): value is Record<string, unknown> {
+export function isStringRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function assertString(value: unknown, label: string): string {
+export function assertString(value: unknown, label: string): string {
   if (typeof value !== "string" || value.trim().length === 0) {
     throw new Error(`Invalid content: ${label} must be a non-empty string.`);
   }
@@ -78,7 +143,7 @@ function assertString(value: unknown, label: string): string {
   return value;
 }
 
-function assertNumber(value: unknown, label: string): number {
+export function assertNumber(value: unknown, label: string): number {
   if (typeof value !== "number" || !Number.isFinite(value)) {
     throw new Error(`Invalid content: ${label} must be a number.`);
   }
@@ -86,7 +151,7 @@ function assertNumber(value: unknown, label: string): number {
   return value;
 }
 
-function parseLesson(value: unknown, moduleSlug: string): LessonMeta {
+export function parseLesson(value: unknown, moduleSlug: string): LessonMeta {
   if (!isStringRecord(value)) {
     throw new Error(`Invalid content: ${moduleSlug} contains a malformed lesson.`);
   }
@@ -114,11 +179,96 @@ function parseLesson(value: unknown, moduleSlug: string): LessonMeta {
         : undefined,
     checklist: parseStringArray(value.checklist, `${moduleSlug}.lesson.checklist`),
     questions: parseStringArray(value.questions, `${moduleSlug}.lesson.questions`),
-    quizQuestions: parseQuizQuestions(value.quizQuestions, `${moduleSlug}.lesson.quizQuestions`)
+    quizQuestions: parseQuizQuestions(value.quizQuestions, `${moduleSlug}.lesson.quizQuestions`),
+    mentorNote:
+      typeof value.mentorNote === "string" && value.mentorNote.trim().length > 0
+        ? value.mentorNote.trim()
+        : undefined,
+    curatedResources: parseCuratedResources(value.curatedResources, `${moduleSlug}.lesson.curatedResources`)
   };
 }
 
-function parseQuizQuestions(value: unknown, label: string): QuizQuestion[] {
+export function parseModuleStory(value: unknown, label: string): ModuleStory | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (!isStringRecord(value)) {
+    throw new Error(`Invalid content: ${label} must be an object.`);
+  }
+
+  const role = assertString(value.role, `${label}.role`);
+  const setting = assertString(value.setting, `${label}.setting`);
+  const mission = assertString(value.mission, `${label}.mission`);
+  const mentorNote =
+    typeof value.mentorNote === "string" && value.mentorNote.trim().length > 0
+      ? value.mentorNote.trim()
+      : undefined;
+
+  if (mentorNote === undefined || mentorNote.length === 0) {
+    throw new Error(`Invalid content: ${label}.mentorNote must be a non-empty string.`);
+  }
+
+  return {
+    role,
+    setting,
+    mission,
+    mentorNote
+  };
+}
+
+export function parseCuratedResources(value: unknown, label: string): CuratedResource[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  const resources: CuratedResource[] = [];
+
+  value.forEach((item, index) => {
+    if (!isStringRecord(item)) {
+      throw new Error(`Invalid content: ${label}[${index}] must be an object.`);
+    }
+
+    const title = assertString(item.title, `${label}[${index}].title`);
+    const provider = assertString(item.provider, `${label}[${index}].provider`);
+    const url = assertString(item.url, `${label}[${index}].url`);
+    const placement = assertString(item.placement, `${label}[${index}].placement`);
+    const why = assertString(item.why, `${label}[${index}].why`);
+    const level = assertString(item.level, `${label}[${index}].level`);
+    const rawType = assertString(item.type, `${label}[${index}].type`);
+
+    if (!isCuratedResourceType(rawType)) {
+      throw new Error(`Invalid content: ${label}[${index}].type must be one of ${curatedResourceTypes.join(", ")}.`);
+    }
+
+    resources.push({
+      title,
+      provider,
+      url,
+      type: rawType,
+      level,
+      placement,
+      why,
+      required: item.required === true,
+      whenToUse:
+        typeof item.whenToUse === "string" && item.whenToUse.trim().length > 0
+          ? item.whenToUse.trim()
+          : undefined,
+      notes:
+        typeof item.notes === "string" && item.notes.trim().length > 0
+          ? item.notes.trim()
+          : undefined,
+      checkedAt:
+        typeof item.checkedAt === "string" && item.checkedAt.trim().length > 0
+          ? item.checkedAt.trim()
+          : undefined
+    });
+  });
+
+  return resources;
+}
+
+export function parseQuizQuestions(value: unknown, label: string): QuizQuestion[] {
   if (!Array.isArray(value)) {
     return [];
   }
@@ -152,7 +302,7 @@ function parseQuizQuestions(value: unknown, label: string): QuizQuestion[] {
   });
 }
 
-function parseRubric(value: unknown, label: string): QuizRubric[] {
+export function parseRubric(value: unknown, label: string): QuizRubric[] {
   if (!Array.isArray(value)) {
     return [];
   }
@@ -187,7 +337,7 @@ function parseRubric(value: unknown, label: string): QuizRubric[] {
     .filter((item): item is QuizRubric => item !== null);
 }
 
-function parseQuizOptions(value: unknown, label: string): QuizOption[] {
+export function parseQuizOptions(value: unknown, label: string): QuizOption[] {
   if (!Array.isArray(value)) {
     return [];
   }
@@ -208,7 +358,70 @@ function parseQuizOptions(value: unknown, label: string): QuizOption[] {
   });
 }
 
-function parseStringArray(
+export function parseBossBattle(value: unknown, label: string): BossBattleMeta | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (!isStringRecord(value)) {
+    throw new Error(`Invalid content: ${label} must be an object.`);
+  }
+
+  const slug = assertString(value.slug, `${label}.slug`);
+  const title = assertString(value.title, `${label}.title`);
+  const description = assertString(value.description, `${label}.description`);
+  const xpReward =
+    typeof value.xpReward === "number" && Number.isFinite(value.xpReward)
+      ? Math.max(0, Math.floor(value.xpReward))
+      : undefined;
+  const required = value.required === true;
+
+  return {
+    title,
+    slug,
+    description,
+    ...(xpReward === undefined ? undefined : { xpReward }),
+    ...(required ? { required } : {})
+  };
+}
+
+export function isBossBattleLesson(lesson: LessonMeta): boolean {
+  return lesson.type === "project" && lesson.slug.toLowerCase().includes("boss-battle");
+}
+
+export function getBossBattleForModule(module: ModuleMeta): BossBattleSelection | null {
+  if (module.bossBattle) {
+    const configuredLesson = module.lessons.find((lesson) => lesson.slug === module.bossBattle!.slug);
+
+    if (configuredLesson) {
+      return {
+        lesson: configuredLesson,
+        source: "metadata",
+        meta: module.bossBattle
+      };
+    }
+
+    if (module.bossBattle.required) {
+      return null;
+    }
+  }
+
+  const legacyBossBattleLesson = module.lessons.find((lesson) => isBossBattleLesson(lesson));
+
+  if (legacyBossBattleLesson) {
+    return { lesson: legacyBossBattleLesson, source: "legacy-slug" };
+  }
+
+  const projects = module.lessons.filter((lesson) => lesson.type === "project");
+  if (projects.length === 0) {
+    return null;
+  }
+
+  const fallback = [...projects].sort((a, b) => b.order - a.order)[0];
+  return fallback ? { lesson: fallback, source: "fallback" } : null;
+}
+
+export function parseStringArray(
   value: unknown,
   label: string
 ): string[] {
@@ -221,7 +434,7 @@ function parseStringArray(
     .map((item) => item.trim());
 }
 
-function parseModule(value: unknown, folderName: string): ModuleMeta {
+export function parseModule(value: unknown, folderName: string): ModuleMeta {
   if (!isStringRecord(value)) {
     throw new Error(`Invalid content: ${folderName}/module.json is malformed.`);
   }
@@ -246,55 +459,14 @@ function parseModule(value: unknown, folderName: string): ModuleMeta {
     level: assertString(value.level, `${folderName}.level`),
     estimatedHours: assertNumber(value.estimatedHours, `${folderName}.estimatedHours`),
     outcomes,
+    curatedResources: parseCuratedResources(value.curatedResources, `${folderName}.curatedResources`),
+    bossBattle: parseBossBattle(value.bossBattle, `${folderName}.bossBattle`),
+    mentorNote:
+      typeof value.mentorNote === "string" && value.mentorNote.trim().length > 0
+        ? value.mentorNote.trim()
+        : undefined,
+    story: parseModuleStory(value.story, `${folderName}.story`),
     lessons: lessons.map((lesson) => parseLesson(lesson, slug)).sort((a, b) => a.order - b.order)
-  };
-}
-
-async function readModuleFromFolder(folderName: string): Promise<ModuleMeta> {
-  const modulePath = path.join(contentDirectory, folderName, "module.json");
-  const file = await fs.readFile(modulePath, "utf8");
-
-  return parseModule(JSON.parse(file), folderName);
-}
-
-export async function getModules(): Promise<ModuleMeta[]> {
-  const entries = await fs.readdir(contentDirectory, { withFileTypes: true });
-  const modules = await Promise.all(
-    entries.filter((entry) => entry.isDirectory()).map((entry) => readModuleFromFolder(entry.name))
-  );
-
-  return modules.sort((a, b) => a.order - b.order);
-}
-
-export async function getModule(moduleSlug: string): Promise<ModuleMeta | null> {
-  const modules = await getModules();
-
-  return modules.find((module) => module.slug === moduleSlug) ?? null;
-}
-
-export async function getLesson(
-  moduleSlug: string,
-  lessonSlug: string
-): Promise<Lesson | null> {
-  const module = await getModule(moduleSlug);
-
-  if (!module) {
-    return null;
-  }
-
-  const lesson = module.lessons.find((item) => item.slug === lessonSlug);
-
-  if (!lesson) {
-    return null;
-  }
-
-  const moduleFolder = `${String(module.order).padStart(2, "0")}-${module.slug}`;
-  const source = await fs.readFile(path.join(contentDirectory, moduleFolder, lesson.file), "utf8");
-
-  return {
-    ...lesson,
-    module,
-    source
   };
 }
 

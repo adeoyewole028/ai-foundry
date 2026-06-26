@@ -1,0 +1,661 @@
+{
+  "title": "RAG",
+  "slug": "rag",
+  "order": 7,
+  "description": "Build retrieval-augmented systems that ground model outputs with evidence.",
+  "curatedResources": [
+    {
+      "title": "3Blue1Brown Neural Networks / Deep Learning Visual Series",
+      "provider": "3Blue1Brown",
+      "url": "https://www.3blue1brown.com/topics/neural-networks",
+      "type": "playlist",
+      "level": "Intermediate",
+      "placement": "Use for visual intuition for similarity and embeddings contexts.",
+      "why": "Helpful when vector intuition starts feeling abstract during chunking and retrieval design.",
+      "required": false,
+      "whenToUse": "Use while learning retrieval similarity and relevance scoring."
+    },
+    {
+      "title": "AI Engineering Hub",
+      "provider": "patchy631",
+      "url": "https://github.com/patchy631/ai-engineering-hub",
+      "type": "project-library",
+      "level": "Intermediate",
+      "placement": "Explore after guided RAG projects for practical patterns.",
+      "why": "Collection of real-world AI project examples to adapt and rebuild.",
+      "required": false,
+      "whenToUse": "Use when learners are ready for optional open-source implementation references."
+    },
+    {
+      "title": "AI Engineering",
+      "provider": "Chip Huyen",
+      "url": "https://www.oreilly.com/library/view/ai-engineering/9781098177351/",
+      "type": "book",
+      "level": "Advanced",
+      "placement": "Read for end-to-end design perspective around retrieval and production systems.",
+      "why": "Provides architecture-level context that complements practical RAG implementation.",
+      "required": false,
+      "whenToUse": "Use while planning long-term improvements and system hardening."
+    }
+  ],
+  "level": "Intermediate",
+  "estimatedHours": 16,
+  "outcomes": [
+    "Explain retrieval augmented generation end-to-end.",
+    "Implement chunking and embedding workflows.",
+    "Compare vector indexes and retrieval topologies.",
+    "Apply reranking and citation constraints.",
+    "Evaluate grounding quality and hallucination risk."
+  ],
+  "lessons": [
+    {
+      "title": "What is RAG?",
+      "slug": "what-is-rag",
+      "file": "lesson-01-what-is-rag.mdx",
+      "order": 1,
+      "type": "lesson",
+      "description": "Understand how retrieval grounds model responses in data.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can explain RAG in plain language.",
+        "I can identify when to use RAG.",
+        "I can list one common pitfall and fix."
+      ],
+      "questions": [
+        "Why can retrieval reduce hallucinations?",
+        "How does RAG change model trust?"
+      ],
+      "curatedResources": [
+        {
+          "title": "RAG Overview",
+          "provider": "Pinecone",
+          "url": "https://www.pinecone.io/learn/what-is-rag/",
+          "type": "documentation",
+          "level": "Beginner",
+          "placement": "Use before your first retrieval implementation.",
+          "why": "Clear explanation of RAG architecture and where each component fits.",
+          "required": true,
+          "whenToUse": "Review after reading the concept lesson and before building chunking/retrieval."
+        }
+      ]
+    },
+    {
+      "title": "Chunking",
+      "slug": "chunking",
+      "file": "lesson-02-chunking.mdx",
+      "order": 2,
+      "type": "lesson",
+      "description": "Split long documents into useful retrieval units.",
+      "estimatedMinutes": 32,
+      "checklist": [
+        "I can explain chunk size and overlap.",
+        "I can tune chunking for coherence and recall.",
+        "I can justify one chunking choice."
+      ],
+      "questions": [
+        "What happens if chunks are too large?",
+        "When should chunk overlap increase?"
+      ],
+      "curatedResources": [
+        {
+          "title": "Chunking Guidance",
+          "provider": "Pinecone",
+          "url": "https://www.pinecone.io/learn/chunking/",
+          "type": "documentation",
+          "level": "Beginner",
+          "placement": "Use while choosing chunk size and overlap for your corpus.",
+          "why": "Good chunking is the biggest single retrieval quality lever in many RAG systems.",
+          "required": true,
+          "whenToUse": "Apply during document ingestion workflow design."
+        }
+      ]
+    },
+    {
+      "title": "Embeddings",
+      "slug": "embeddings",
+      "file": "lesson-03-embeddings.mdx",
+      "order": 3,
+      "type": "lesson",
+      "description": "Convert semantic meaning into vector search signals.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can define what an embedding captures.",
+        "I can compare cosine and dot-product behavior.",
+        "I can choose embedding updates when data changes."
+      ],
+      "questions": [
+        "Why does embedding drift matter over time?",
+        "How do embeddings impact recall?"
+      ],
+      "curatedResources": [
+        {
+          "title": "Embeddings Guide",
+          "provider": "OpenAI",
+          "url": "https://platform.openai.com/docs/guides/embeddings/overview",
+          "type": "documentation",
+          "level": "Beginner",
+          "placement": "Use when converting chunks into semantic vectors.",
+          "why": "This guide explains how to think about practical embedding behavior and limits.",
+          "required": true,
+          "whenToUse": "Use alongside your first pass on the Embeddings lesson."
+        },
+        {
+          "title": "3Blue1Brown Neural Networks / Deep Learning Visual Series",
+          "provider": "3Blue1Brown",
+          "url": "https://www.3blue1brown.com/topics/neural-networks",
+          "type": "playlist",
+          "level": "Beginner",
+          "placement": "Use to connect geometric similarity and vector direction.",
+          "why": "Makes the idea of semantic comparison intuitive before coding similarity checks.",
+          "required": false,
+          "whenToUse": "Review before implementing dot-product or distance-based retrieval logic."
+        }
+      ]
+    },
+    {
+      "title": "Vector Databases",
+      "slug": "vector-databases",
+      "file": "lesson-04-vector-databases.mdx",
+      "order": 4,
+      "type": "lesson",
+      "description": "Store and query vectors for fast semantic retrieval.",
+      "estimatedMinutes": 38,
+      "checklist": [
+        "I can compare indexing strategies.",
+        "I can measure query quality quickly.",
+        "I can plan refresh and delete operations."
+      ],
+      "questions": [
+        "When is a vector database useful versus a cache?",
+        "What operations need stronger monitoring in production?"
+      ],
+      "curatedResources": [
+        {
+          "title": "Vector Databases Explained",
+          "provider": "Pinecone",
+          "url": "https://www.pinecone.io/learn/vector-search/",
+          "type": "documentation",
+          "level": "Intermediate",
+          "placement": "Use when selecting your vector store technology.",
+          "why": "Gives practical tradeoffs for indexing, recall, and latency decisions.",
+          "required": false,
+          "whenToUse": "Use before choosing your production vector database."
+        }
+      ]
+    },
+    {
+      "title": "Retrieval",
+      "slug": "retrieval",
+      "file": "lesson-05-retrieval.mdx",
+      "order": 5,
+      "type": "lesson",
+      "description": "Select and rank relevant passages for prompt injection.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can explain recall versus precision tradeoff.",
+        "I can inspect top-k quality.",
+        "I can avoid returning irrelevant chunks."
+      ],
+      "questions": [
+        "How do you choose top-k for different applications?",
+        "What signals show poor retrieval quality?"
+      ]
+    },
+    {
+      "title": "Re-ranking",
+      "slug": "reranking",
+      "file": "lesson-06-reranking.mdx",
+      "order": 6,
+      "type": "lesson",
+      "description": "Improve final context quality before generation.",
+      "estimatedMinutes": 36,
+      "checklist": [
+        "I can explain why first-pass retrieval is not always enough.",
+        "I can evaluate rerankers by quality signal.",
+        "I can reduce duplicate context."
+      ],
+      "questions": [
+        "Why does reranking often improve answer quality?",
+        "What is over-retrieval and when is it useful?"
+      ]
+    },
+    {
+      "title": "Citations",
+      "slug": "citations",
+      "file": "lesson-07-citations.mdx",
+      "order": 7,
+      "type": "lesson",
+      "description": "Attach evidence links so outputs become auditable.",
+      "estimatedMinutes": 34,
+      "checklist": [
+        "I can map claims to source snippets.",
+        "I can format stable citation ids.",
+        "I can handle missing evidence gracefully."
+      ],
+      "questions": [
+        "Why do citations improve product trust?",
+        "What should a citation include at minimum?"
+      ]
+    },
+    {
+      "title": "Evaluation",
+      "slug": "evaluation",
+      "file": "lesson-08-evaluation.mdx",
+      "order": 8,
+      "type": "lesson",
+      "description": "Create RAG-specific correctness and grounding checks.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can define retrieval-aware eval sets.",
+        "I can score grounding and citation accuracy.",
+        "I can track latency with quality tradeoffs."
+      ],
+      "questions": [
+        "How do you evaluate grounding quality?",
+        "How do you measure retrieval-induced errors?"
+      ]
+    },
+    {
+      "title": "Mini Project: RAG Evidence Router",
+      "slug": "mini-rag-evidence-router",
+      "file": "mini-project-rag-evidence-router.mdx",
+      "order": 9,
+      "type": "project",
+      "description": "Build a mini retrieval pipeline with explicit fallback behavior.",
+      "estimatedMinutes": 90,
+      "checklist": [
+        "I can demonstrate retrieve-and-rerank flow.",
+        "I can attach minimum evidence to answers.",
+        "I can define a no-evidence fallback."
+      ],
+      "questions": [
+        "What failure happens when retrieval confidence drops?",
+        "How do you protect users from unsupported statements?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Portfolio Project: RAG Q&A",
+      "slug": "rag-question-answering",
+      "file": "project.mdx",
+      "order": 10,
+      "type": "project",
+      "description": "Build a production-style Q&A flow with citations and metrics.",
+      "estimatedMinutes": 140,
+      "checklist": [
+        "I can build full ingest and query flow.",
+        "I can enforce citation requirements.",
+        "I can publish an eval dashboard summary."
+      ],
+      "questions": [
+        "How will you monitor retrieval quality monthly?",
+        "What are your most important failure alerts?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "RAG Quiz",
+      "slug": "rag-quiz",
+      "file": "quiz.mdx",
+      "order": 11,
+      "type": "quiz",
+      "description": "Confirm readiness for grounded-answer applications.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can explain RAG architecture end-to-end.",
+        "I can evaluate evidence quality.",
+        "I can design a safe fallback policy."
+      ],
+      "questions": [
+        "When is retrieval quality the bottleneck?",
+        "How do citations affect user trust?"
+      ],
+      "quizQuestions": [
+        {
+          "id": "rag-core",
+          "prompt": "Explain RAG in your own words and why it improves trust.",
+          "correctAnswer": "RAG adds external retrieval before generation so answers are grounded in sources, making behavior more auditable and reducing hallucinated facts.",
+          "keywords": [
+            "retrieval",
+            "grounded",
+            "sources",
+            "auditable",
+            "hallucination"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Retrieval before generation",
+              "explanation": "RAG adds external retrieval before generation so answers are grounded in sources, making behavior more auditable and reducing hallucinated facts."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Fine-tune first",
+              "explanation": "RAG is often better when answers must use current, private, or changing source material."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Maximum chunk size",
+              "explanation": "Huge chunks can dilute relevance, increase cost, and reduce answer quality."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Keyword search only",
+              "explanation": "Keyword search can miss semantically similar content that uses different wording."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "rag-core-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "retrieval",
+                "grounded",
+                "sources",
+                "auditable"
+              ],
+              "minMatch": 2
+            }
+          ]
+        },
+        {
+          "id": "chunking",
+          "prompt": "How do chunk size and overlap affect retrieval quality?",
+          "correctAnswer": "Chunk size controls context granularity: too large can dilute signals, while too small fragments meaning and coherence; overlap helps preserve continuity.",
+          "keywords": [
+            "chunk",
+            "overlap",
+            "coherence",
+            "granularity",
+            "retrieve"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Maximum chunk size",
+              "explanation": "Huge chunks can dilute relevance, increase cost, and reduce answer quality."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Keyword search only",
+              "explanation": "Keyword search can miss semantically similar content that uses different wording."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Confidence without citations",
+              "explanation": "Citations help users verify claims and reduce unsupported generation."
+            },
+            {
+              "id": "correct",
+              "label": "Balanced context chunks",
+              "explanation": "Chunk size controls context granularity: too large can dilute signals, while too small fragments meaning and coherence; overlap helps preserve continuity."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "chunking-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "chunk",
+                "overlap",
+                "coherence",
+                "granularity"
+              ],
+              "minMatch": 2
+            }
+          ]
+        },
+        {
+          "id": "embeddings",
+          "prompt": "Why do embeddings enable semantic matching over keyword matching?",
+          "correctAnswer": "Embeddings represent meaning in vector space, allowing similar concepts to be matched even when wording differs.",
+          "keywords": [
+            "meaning",
+            "vector",
+            "semantic",
+            "concept",
+            "wording"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Keyword search only",
+              "explanation": "Keyword search can miss semantically similar content that uses different wording."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Confidence without citations",
+              "explanation": "Citations help users verify claims and reduce unsupported generation."
+            },
+            {
+              "id": "correct",
+              "label": "Vector similarity matching",
+              "explanation": "Embeddings represent meaning in vector space, allowing similar concepts to be matched even when wording differs."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Retrieval equals reranking",
+              "explanation": "Retrieval finds candidates; reranking reorders them for relevance before generation."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "embeddings-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "meaning",
+                "vector",
+                "semantic",
+                "concept"
+              ],
+              "minMatch": 2
+            }
+          ]
+        },
+        {
+          "id": "vector-db",
+          "prompt": "What operational concerns come with vector database scale?",
+          "correctAnswer": "At scale, indexing strategy, update pipelines, and monitoring index drift become critical to keep retrieval correct and fast.",
+          "keywords": [
+            "index",
+            "update",
+            "monitoring",
+            "scale",
+            "drift"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Confidence without citations",
+              "explanation": "Citations help users verify claims and reduce unsupported generation."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Retrieval equals reranking",
+              "explanation": "Retrieval finds candidates; reranking reorders them for relevance before generation."
+            },
+            {
+              "id": "correct",
+              "label": "Indexing, updates, drift",
+              "explanation": "At scale, indexing strategy, update pipelines, and monitoring index drift become critical to keep retrieval correct and fast."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Answer length metric",
+              "explanation": "RAG quality depends on retrieval relevance, groundedness, citation quality, and user success."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "vector-db-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "index",
+                "update",
+                "monitoring",
+                "scale"
+              ],
+              "minMatch": 2
+            }
+          ]
+        },
+        {
+          "id": "rerank",
+          "prompt": "Why is reranking a separate step from retrieval?",
+          "correctAnswer": "Reranking refines initial candidates with stronger relevance signals before prompt injection, improving final context quality.",
+          "keywords": [
+            "rerank",
+            "refine",
+            "relevance",
+            "context",
+            "signal"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Retrieval equals reranking",
+              "explanation": "Retrieval finds candidates; reranking reorders them for relevance before generation."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Answer length metric",
+              "explanation": "RAG quality depends on retrieval relevance, groundedness, citation quality, and user success."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Fine-tune first",
+              "explanation": "RAG is often better when answers must use current, private, or changing source material."
+            },
+            {
+              "id": "correct",
+              "label": "Relevance refinement step",
+              "explanation": "Reranking refines initial candidates with stronger relevance signals before prompt injection, improving final context quality."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "rerank-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "rerank",
+                "refine",
+                "relevance",
+                "context"
+              ],
+              "minMatch": 2
+            }
+          ]
+        },
+        {
+          "id": "citations",
+          "prompt": "How do citations reduce hallucination risk?",
+          "correctAnswer": "Citations force outputs to be tied to concrete evidence and make unsupported claims visible and auditable.",
+          "keywords": [
+            "citations",
+            "evidence",
+            "audit",
+            "unsupported",
+            "claim"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "distractor-1",
+              "label": "Answer length metric",
+              "explanation": "RAG quality depends on retrieval relevance, groundedness, citation quality, and user success."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Fine-tune first",
+              "explanation": "RAG is often better when answers must use current, private, or changing source material."
+            },
+            {
+              "id": "correct",
+              "label": "Evidence-backed answers",
+              "explanation": "Citations force outputs to be tied to concrete evidence and make unsupported claims visible and auditable."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Maximum chunk size",
+              "explanation": "Huge chunks can dilute relevance, increase cost, and reduce answer quality."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "citations-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "citations",
+                "evidence",
+                "audit",
+                "unsupported"
+              ],
+              "minMatch": 2
+            }
+          ]
+        },
+        {
+          "id": "evaluation",
+          "prompt": "What metrics should you track for RAG quality?",
+          "correctAnswer": "Track grounding accuracy, retrieval precision/recall, citation validity, and latency because all affect trust and usability.",
+          "keywords": [
+            "grounding",
+            "precision",
+            "recall",
+            "latency",
+            "citations"
+          ],
+          "correctOptionId": "correct",
+          "options": [
+            {
+              "id": "correct",
+              "label": "Grounding and retrieval metrics",
+              "explanation": "Track grounding accuracy, retrieval precision/recall, citation validity, and latency because all affect trust and usability."
+            },
+            {
+              "id": "distractor-1",
+              "label": "Fine-tune first",
+              "explanation": "RAG is often better when answers must use current, private, or changing source material."
+            },
+            {
+              "id": "distractor-2",
+              "label": "Maximum chunk size",
+              "explanation": "Huge chunks can dilute relevance, increase cost, and reduce answer quality."
+            },
+            {
+              "id": "distractor-3",
+              "label": "Keyword search only",
+              "explanation": "Keyword search can miss semantically similar content that uses different wording."
+            }
+          ],
+          "rubric": [
+            {
+              "id": "evaluation-core",
+              "label": "Core concepts",
+              "required": false,
+              "terms": [
+                "grounding",
+                "precision",
+                "recall",
+                "latency"
+              ],
+              "minMatch": 2
+            }
+          ]
+        }
+      ],
+      "quizMode": "short-answer"
+    }
+  ]
+}

@@ -110,6 +110,13 @@ function normalize(value: string): string {
   return value.toLowerCase().replace(/\s+/g, " ").trim();
 }
 
+function normalizeForSearch(value: string): string {
+  return normalize(value)
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function normalizeOption(option: string): string {
   return normalize(option).replace(/[^\w\s]/g, "");
 }
@@ -213,15 +220,42 @@ function evaluateKeywordMatch(
   matchedKeywords: string[];
   expectedMinimum: number;
 } {
-  const normalizedValue = normalize(value);
+  const normalizedValue = normalizeForSearch(value);
+  const normalizedWords = normalizedValue.split(" ").filter(Boolean);
+  const uniqueWords = new Set(normalizedWords);
   const normalizedKeywords = keywords.map((keyword) => normalize(keyword));
+  const normalizedSearchWords = new Set(normalizedValue.split(" ").filter(Boolean));
+
+  const hasTermMatch = (keyword: string) => {
+    if (!keyword) {
+      return false;
+    }
+
+    const normalizedKeyword = normalizeForSearch(keyword);
+
+    if (!normalizedKeyword) {
+      return false;
+    }
+
+    if (normalizedKeyword.includes(" ")) {
+      return normalizedValue.includes(normalizedKeyword);
+    }
+
+    return normalizedSearchWords.has(normalizedKeyword);
+  };
+
   const matchedKeywords = normalizedKeywords.filter(
-    (keyword) => normalizedValue.includes(keyword) && keyword.length > 0
+    (keyword) => hasTermMatch(keyword)
   );
   const expectedMinimum = requiredKeywordMatchCount(normalizedKeywords);
-  const hasReasonableLength = requireReasonableLength
-    ? normalizedValue.length >= 32
-    : normalizedValue.length >= 6;
+  const requiredWords = requireReasonableLength
+    ? Math.max(2, Math.min(4, Math.ceil(normalizedKeywords.length / 3)))
+    : 0;
+  const hasReasonableLength = !requireReasonableLength
+    ? uniqueWords.size >= 1
+    : (normalizedKeywords.length === 0
+      ? uniqueWords.size >= 1
+      : uniqueWords.size >= requiredWords);
 
   return {
     expectedMinimum,

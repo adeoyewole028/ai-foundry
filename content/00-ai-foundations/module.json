@@ -13,6 +13,31 @@
     "Identify practical AI opportunities in real products.",
     "Describe common AI limitations and safety risks before shipping."
   ],
+  "curatedResources": [
+    {
+      "title": "Machine Learning Crash Course",
+      "provider": "Google",
+      "url": "https://developers.google.com/machine-learning/crash-course",
+      "type": "course",
+      "level": "Beginner",
+      "placement": "Use this for a practical first mental model before moving into coding.",
+      "why": "Gives a fast, grounded orientation to how AI systems are built and learned.",
+      "required": true,
+      "whenToUse": "Complete the first few topics before Lesson 01 and revisit anytime a new term appears.",
+      "notes": "Focus on concepts and examples, not the math."
+    },
+    {
+      "title": "Machine Learning for Beginners",
+      "provider": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/training/modules/get-started-with-machine-learning/",
+      "type": "course",
+      "level": "Beginner",
+      "placement": "Use after Lesson 02 to reinforce model and workflow tradeoffs.",
+      "why": "Builds a practical sense of when to choose ML, DL, or LLM approaches.",
+      "required": false,
+      "whenToUse": "Use as reinforcement when comparing approaches in your projects."
+    }
+  ],
   "lessons": [
     {
       "title": "What is AI?",
@@ -30,7 +55,21 @@
       "questions": [
         "What is one concrete AI behavior you have used this week?",
         "Why is data quality important for AI results?"
-      ]
+      ],
+      "curatedResources": [
+        {
+          "title": "AI and Machine Learning in Plain English",
+          "provider": "Google Cloud",
+          "url": "https://cloud.google.com/learn/what-is-artificial-intelligence",
+          "type": "documentation",
+          "level": "Beginner",
+          "placement": "Read before Lesson 01 quiz.",
+          "why": "Offers a simple practical intro for non-specialists.",
+          "required": true,
+          "whenToUse": "Use it when learners need a quick reset of core AI definitions."
+        }
+      ],
+      "mentorNote": "Set your expectation: AI is about observed patterns and tradeoffs, not magic. Use simple examples from your own work."
     },
     {
       "title": "Machine Learning vs Deep Learning vs LLMs",
@@ -48,6 +87,19 @@
       "questions": [
         "Choose a domain you work in: which approach fits best and why?",
         "Where would an LLM be a poor fit compared to a simpler model?"
+      ],
+      "curatedResources": [
+        {
+          "title": "AI for Everyone",
+          "provider": "Coursera",
+          "url": "https://www.coursera.org/learn/ai-for-everyone",
+          "type": "course",
+          "level": "Beginner",
+          "placement": "Use after this lesson to compare ML, DL, and LLM use cases.",
+          "why": "Strong product-oriented framing of where AI shines and where it does not.",
+          "required": false,
+          "whenToUse": "Use when choosing the first AI product build for your portfolio."
+        }
       ]
     },
     {
@@ -192,6 +244,19 @@
       "questions": [
         "Which AI failure mode would matter most in a product you use?",
         "What safety check would you add before launch?"
+      ],
+      "curatedResources": [
+        {
+          "title": "Responsible AI",
+          "provider": "Microsoft Learn",
+          "url": "https://learn.microsoft.com/azure/ai-services/openai/concepts/responsible-ai",
+          "type": "documentation",
+          "level": "Beginner",
+          "placement": "Review before your first production-like project.",
+          "why": "Adds practical guardrails around evaluation, privacy, and misuse.",
+          "required": false,
+          "whenToUse": "Use when defining pre-launch checks and human-in-the-loop plans."
+        }
       ]
     },
     {
@@ -732,5 +797,12 @@
         "Which AI method would solve it and what risk does it carry?"
       ]
     }
-  ]
+  ],
+  "story": {
+    "role": "AI Apprentice",
+    "setting": "AI Foundations Village",
+    "mission": "Learn the language of AI so you can explain it clearly before building.",
+    "mentorNote": "Most learners confuse AI with any automation. Keep outcomes anchored in real product problems, not model novelty."
+  },
+  "mentorNote": "Focus on precision in language first; terminology errors here become product decisions later."
 }

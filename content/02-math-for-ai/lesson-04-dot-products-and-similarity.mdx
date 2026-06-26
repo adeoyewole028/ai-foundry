@@ -1,0 +1,78 @@
+# Quest: Dot Products and Similarity
+
+## Objective
+
+By the end of this quest, you will be able to explain dot products as a way to measure similarity.
+
+## Prerequisites
+
+Before this lesson, you should understand vectors as lists of numbers.
+
+## Plain-English Explanation
+
+A dot product compares two vectors by multiplying matching positions and adding the results.
+
+In plain English: it gives a score that can tell whether two vectors point in a similar direction.
+
+## Key Terms
+
+### Dot product
+
+Simple meaning:
+A similarity score made from two vectors.
+
+Real-world analogy:
+Comparing two shopping lists by checking which categories line up.
+
+Technical meaning:
+The sum of pairwise products from two equal-length vectors.
+
+Example:
+`[1, 2] dot [3, 4]` becomes `(1 * 3) + (2 * 4) = 11`.
+
+Why it matters:
+Search, recommendations, and embedding comparisons often depend on similarity scoring.
+
+## Mental Model
+
+Two arrows pointing in the same direction produce a stronger score. Arrows pointing in different directions produce a weaker score.
+
+## Example
+
+A document search system can compare a question vector with document vectors and rank the closest matches.
+
+## Code Walkthrough
+
+```python
+query = [0.9, 0.1, 0.3]
+document = [0.8, 0.2, 0.4]
+
+score = sum(a * b for a, b in zip(query, document))
+print(score)
+```
+
+Higher scores usually mean stronger alignment, assuming the vectors are prepared correctly.
+
+## Common Mistakes
+
+- Comparing vectors with different meanings.
+- Forgetting that length and scale can affect raw scores.
+- Treating the highest score as guaranteed truth instead of best available match.
+
+## Exercise
+
+Write two three-number vectors and calculate their dot product by hand or in Python.
+
+## Reflection
+
+Where would similarity scoring help in a product you want to build?
+
+## Further Reading
+
+- [Khan Academy: Dot products](https://www.khanacademy.org/math/linear-algebra/vectors-and-spaces/dot-cross-products/v/vector-dot-product-and-vector-length)
+
+## Completion Checklist
+
+- [ ] I can explain a dot product as a similarity signal.
+- [ ] I can calculate a tiny dot product.
+- [ ] I can connect dot products to search or recommendations.

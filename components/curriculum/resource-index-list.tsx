@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, ClipboardList, Lock, X } from "lucide-react";
+import { CheckCircle2, ClipboardList, Lock } from "lucide-react";
 import type { LessonMeta, ModuleMeta } from "@/lib/content";
 import type { LessonProgressState } from "@/lib/lesson-progress-core.js";
 import type { ProjectSubmission } from "@/lib/supabase/project-submissions";
@@ -13,6 +13,7 @@ import {
   readLessonProgress
 } from "@/lib/lesson-progress";
 import { getModulePrerequisiteState } from "@/lib/curriculum-prerequisites";
+import { ProgressInterruptionModal } from "@/components/curriculum/progress-interruption-modal";
 
 type ResourceItem = LessonMeta & {
   moduleTitle: string;
@@ -32,6 +33,7 @@ type PendingRedirect = {
   itemTitle: string;
   moduleTitle: string;
   lockedCopy: string;
+  progressHint?: string;
 };
 
 export function ResourceIndexList({
@@ -71,6 +73,7 @@ export function ResourceIndexList({
     [modules, progress]
   );
   const Icon = type === "quiz" ? CheckCircle2 : ClipboardList;
+  const actionLabel = type === "quiz" ? "Trial" : "Mission";
   const projectSubmissionByLesson = useMemo(() => {
     if (type !== "project" || projectSubmissions.length === 0) {
       return new Map<string, ProjectSubmission>();
@@ -118,7 +121,8 @@ export function ResourceIndexList({
             ? `Locked. Continue your path with "${globalNextLesson.lessonTitle}" first.`
             : requiredLesson
               ? `Locked. Continue with "${requiredLesson.title}" first.`
-              : "Locked. Open the module to continue in order.";
+              : "Locked. Open the stage to continue in order.";
+        const progressHint = "You can still open this page from the home nav, but this quest unlocks later.";
         const cardClassName = `flex w-full gap-4 rounded-lg border p-5 text-left shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
           isUnlocked
             ? "border-rule bg-surface hover:border-accent/50"
@@ -138,7 +142,7 @@ export function ResourceIndexList({
               </span>
               <span className="mt-3 block text-sm leading-6 text-ink-soft">
                 {type === "project" && projectSubmission
-                  ? "Project already submitted. Update your submission in this lesson."
+                  ? "Build mission already submitted. Update your submission in this lesson."
                   : isUnlocked
                     ? item.description
                     : lockedCopy}
@@ -169,7 +173,10 @@ export function ResourceIndexList({
                 href,
                 itemTitle: item.title,
                 moduleTitle: item.moduleTitle,
-                lockedCopy
+                lockedCopy,
+                progressHint: isModuleUnlocked
+                  ? "Complete the required prior quest first to unlock this checkpoint."
+                  : "Finish your current active module before opening future module checkpoints."
               })
             }
             type="button"
@@ -181,58 +188,16 @@ export function ResourceIndexList({
       </div>
 
       {pendingRedirect ? (
-        <div
-          aria-labelledby="locked-resource-title"
-          aria-modal="true"
-          className="fixed inset-0 z-50 grid place-items-center bg-ink/30 px-4 backdrop-blur-sm"
-          role="dialog"
-        >
-          <div className="w-full max-w-md rounded-lg border border-rule bg-surface p-5 shadow-[var(--shadow-soft)]">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-2 text-sm font-semibold text-accent">
-                <Lock className="size-4" aria-hidden="true" />
-                Locked {type}
-              </div>
-              <button
-                aria-label="Close"
-                className="inline-flex size-9 items-center justify-center rounded-full border border-rule bg-paper text-ink-soft transition hover:border-accent/50 hover:text-ink"
-                onClick={() => setPendingRedirect(null)}
-                type="button"
-              >
-                <X className="size-4" aria-hidden="true" />
-              </button>
-            </div>
-            <h2 id="locked-resource-title" className="mt-3 text-2xl font-black tracking-[-0.03em] text-ink">
-              Continue in order
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-ink-soft">
-              <span className="font-semibold text-ink">{pendingRedirect.itemTitle}</span> in{" "}
-              <span className="font-semibold text-ink">{pendingRedirect.moduleTitle}</span> is not unlocked yet.
-            </p>
-            <p className="mt-3 text-sm leading-6 text-ink-soft">{pendingRedirect.lockedCopy}</p>
-            <div className="mt-6 flex flex-wrap justify-end gap-3">
-              <button
-                className="inline-flex min-h-11 items-center rounded-full border border-rule bg-surface px-4 text-sm font-semibold text-ink transition hover:border-accent/50"
-                onClick={() => setPendingRedirect(null)}
-                type="button"
-              >
-                Cancel
-              </button>
-              <Link
-                className="inline-flex min-h-11 min-w-32 items-center justify-center gap-2 rounded-full px-4 text-sm font-semibold transition"
-                href={pendingRedirect.href}
-                style={{
-                  backgroundColor: "var(--color-ink)",
-                  color: "var(--color-surface)"
-                }}
-                onClick={() => setPendingRedirect(null)}
-              >
-                <span>Continue</span>
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
-        </div>
+          <ProgressInterruptionModal
+            continueHref={pendingRedirect.href}
+            continueLabel={`Continue ${actionLabel}`}
+            description={`"${pendingRedirect.itemTitle}" in "${pendingRedirect.moduleTitle}" is not unlocked yet.`}
+            progressHint={pendingRedirect.progressHint}
+            onClose={() => setPendingRedirect(null)}
+            open={Boolean(pendingRedirect)}
+            supportingText={pendingRedirect.lockedCopy}
+            title="Continue your quest path"
+        />
       ) : null}
     </>
   );

@@ -1,0 +1,68 @@
+# Mini Project: LLM Routing Checker
+
+## Objective
+
+By the end of this mini project, you will validate a prompt + routing flow against edge inputs.
+
+## Prerequisites
+
+Before this project, you should complete all Module 06 lessons.
+
+## Plain-English Explanation
+
+You will create safe routing rules and structured results for different intents.
+
+## Key Terms
+
+### Fallback
+
+Simple meaning:
+What happens when the model or tool cannot complete.
+
+Real-world analogy:
+If checkout fails, you ask for manual confirmation.
+
+Technical meaning:
+Deterministic branch when parsing, timeout, or execution fails.
+
+Example:
+Return `human_review_required` when confidence is low.
+
+Why it matters:
+Fallback keeps users informed and systems stable.
+
+## Mental Model
+
+Input → intent classify → tool call → validate → respond with schema or fallback.
+
+## Example
+
+Route product queries, resume check queries, and unknown queries.
+
+## Code Walkthrough
+
+Implement route map with at least two tools and a dead-letter queue log.
+
+## Common Mistakes
+
+- No validation on tool arguments.
+- No confidence threshold.
+- Missing logs for failed route decisions.
+
+## Exercise
+
+Test 10 varied inputs and document observed routing behavior.
+
+## Reflection
+
+Which route needed the clearest guardrail?
+
+## Further Reading
+
+- [Safe and interpretable LLM workflows](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/use-azure-openai)
+
+## Completion Checklist
+
+- [ ] I can route intents reliably.
+- [ ] I can return structured fallback payloads.
+- [ ] I can justify routing edge handling.

@@ -91,14 +91,14 @@ export function LessonAccessGate({
         <section className="rounded-lg border border-rule bg-surface p-6">
           <div className="flex items-center gap-2 text-sm font-semibold text-accent">
             <Lock className="size-4" aria-hidden="true" />
-            Lesson locked
+            Quest locked
           </div>
           <h1 className="mt-3 text-3xl font-black tracking-[-0.03em] text-ink">
-            Finish the current lesson first
+            Finish the current quest first
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-6 text-ink-soft">
-            Lessons, quizzes, and projects unlock in sequence. Continue from your current place in
-            the curriculum first.
+            Quests, knowledge trials, and build missions unlock in sequence. Continue from your
+            current place in the curriculum first.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             {requiredTitle ? (
@@ -106,14 +106,14 @@ export function LessonAccessGate({
                 className="inline-flex min-h-11 items-center rounded-full bg-ink px-4 text-sm font-semibold text-surface transition hover:bg-ink/90"
                 href={requiredHref}
               >
-                Continue with {requiredTitle}
+                Continue {requiredTitle}
               </Link>
             ) : null}
             <Link
               className="inline-flex min-h-11 items-center rounded-full border border-rule bg-surface px-4 text-sm font-semibold text-ink transition hover:border-accent/50"
               href={`/curriculum/${module.slug}`}
             >
-              View module
+              Open stage
             </Link>
           </div>
         </section>

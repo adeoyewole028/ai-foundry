@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { BookOpen, Hammer, LogIn, Menu } from "lucide-react";
+import { BookOpen, Hammer, LogIn } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { ProgressNavButton } from "@/components/layout/progress-nav-button";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserLessonProgress } from "@/lib/supabase/progress";
-import { getModules } from "@/lib/content";
+import { getModules } from "@/lib/content.server";
+import { MobileLearnerNav } from "@/components/layout/mobile-learner-nav";
 
 const navItems = [
   { href: "/curriculum", label: "Curriculum" },
@@ -77,9 +78,12 @@ export async function SiteHeader() {
             Log in
           </ButtonLink>
         )}
-        <ButtonLink aria-label="Open learner area" className="sm:hidden" href={isAuthenticated ? "/dashboard" : "/login"} variant="secondary">
-          <Menu className="size-4" aria-hidden="true" />
-        </ButtonLink>
+        <MobileLearnerNav
+          initialProgress={initialProgress}
+          isAuthenticated={isAuthenticated}
+          modules={modules}
+          navItems={navItems}
+        />
       </div>
     </header>
   );

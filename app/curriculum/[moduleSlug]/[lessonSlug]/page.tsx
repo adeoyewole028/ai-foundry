@@ -1,5 +1,6 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { LessonList } from "@/components/curriculum/lesson-list";
 import { LessonAccessGate } from "@/components/curriculum/lesson-access-gate";
 import { ModuleAccessGate } from "@/components/curriculum/module-access-gate";
@@ -7,10 +8,16 @@ import { ModuleProgressPanel } from "@/components/curriculum/module-progress";
 import { LessonNav } from "@/components/lessons/lesson-nav";
 import { LessonScrollReset } from "@/components/lessons/lesson-scroll-reset";
 import { LessonChecklist } from "@/components/lessons/lesson-checklist";
+import {
+  CuratedResourceList,
+  ExternalResourceWarning
+} from "@/components/curriculum/curated-resources";
 import { ProjectSubmissionForm } from "@/components/lessons/project-submission-form";
 import { QuizAssessment } from "@/components/lessons/quiz-assessment";
+import { MentorNoteCard, MissionBriefCard } from "@/components/gamification/gamification-components";
 import { useMDXComponents } from "@/mdx-components";
-import { getAdjacentLessons, getLesson, getModules } from "@/lib/content";
+import { getAdjacentLessons } from "@/lib/content";
+import { getLesson, getModules } from "@/lib/content.server";
 import { getModulePrerequisiteState, getOrderedModules } from "@/lib/curriculum-prerequisites";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getCurrentUserLessonProgress, getLatestQuizAttemptForCurrentUser } from "@/lib/supabase/progress";
@@ -19,23 +26,37 @@ import {
   getLatestProjectSubmissionForCurrentUser
 } from "@/lib/supabase/project-submissions";
 import { lessonProgressKey } from "@/lib/lesson-progress";
+import { XP_REWARDS } from "@/lib/gamification";
 import { createClient } from "@/lib/supabase/server";
 
 const lessonTypeCopy = {
   lesson: {
-    heading: null,
-    summary: null
+    heading: "Quest briefing",
+    summary:
+      "Complete this quest by applying the core idea, validating your understanding, and preparing for the next mission."
   },
   quiz: {
-    heading: "Module check-in",
+    heading: "Knowledge Trial",
     summary:
-      "Use this quiz to explain the concepts back in your own words before you move into the project."
+      "Use this trial to explain the concepts back in your own words before you move into the mission."
   },
   project: {
-    heading: "Portfolio assignment",
+    heading: "Build Mission",
     summary:
-      "This project is where you turn the module into a concrete artifact you can review, refine, and eventually show."
+      "This mission is where you turn the stage into a concrete artifact you can review, refine, and eventually show."
   }
+} as const;
+
+const lessonTypeLabels = {
+  lesson: "Quest",
+  quiz: "Knowledge Trial",
+  project: "Build Mission"
+} as const;
+
+const lessonRewardLabel = {
+  lesson: XP_REWARDS.LESSON_COMPLETE,
+  quiz: XP_REWARDS.QUIZ_COMPLETE,
+  project: XP_REWARDS.PROJECT_SUBMITTED
 } as const;
 
 export async function generateStaticParams() {
@@ -116,16 +137,26 @@ export default async function LessonPage({
     isSupabaseConfigured() && isAuthenticated
       ? await getCurrentUserProjectSubmissions([lesson.module.slug])
       : [];
+  const lessonMentorNote = lesson.mentorNote
+    ?? lesson.module.story?.mentorNote
+    ?? lesson.module.mentorNote;
+  const lessonMentorRole = lesson.mentorNote
+    ? "Training notes"
+    : lesson.module.story
+      ? lesson.module.story.role
+      : "Module guidance";
 
   const lessonContent = (
     <main
       id="main-content"
       className="mx-auto grid max-w-6xl gap-8 px-4 py-6 sm:px-6 sm:py-10 lg:grid-cols-[300px_1fr] lg:py-10"
     >
-      <LessonScrollReset lessonSlug={lesson.slug} moduleSlug={lesson.module.slug} />
+        <LessonScrollReset lessonSlug={lesson.slug} moduleSlug={lesson.module.slug} />
       <article className="order-1 min-w-0 rounded-xl border border-rule bg-surface px-5 py-8 shadow-sm sm:px-8 lg:order-2 lg:col-start-2 lg:row-start-1">
         <div className="mb-8 flex flex-wrap gap-2 text-xs font-semibold text-ink-soft">
-          <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">{lesson.type}</span>
+          <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">
+            {lessonTypeLabels[lesson.type]}
+          </span>
           <span className="rounded-full bg-muted px-2.5 py-1 text-ink-soft">
             {lesson.estimatedMinutes} min
           </span>
@@ -141,6 +172,45 @@ export default async function LessonPage({
             <p className="mt-2 max-w-2xl text-sm leading-7 text-ink-soft">{typeCopy.summary}</p>
           </section>
         ) : null}
+        <div className="mb-8 lg:hidden">
+          <Link
+            className="inline-flex rounded-full border border-rule bg-surface px-4 py-2 text-sm font-semibold text-ink transition hover:border-accent/60 hover:text-accent"
+            href={`/curriculum/${lesson.module.slug}`}
+          >
+            Open stage map
+          </Link>
+        </div>
+        {lesson.module.story ? (
+          <MissionBriefCard
+            className="mb-4"
+            setting={lesson.module.story.setting}
+            mission={lesson.module.story.mission}
+            mentorNote={lesson.module.story.mentorNote}
+          />
+        ) : null}
+        {lessonMentorNote ? (
+          <MentorNoteCard
+            className="mb-4"
+            mentorName="Ada"
+            role={lessonMentorRole}
+            note={lessonMentorNote}
+          />
+        ) : null}
+        {lesson.curatedResources?.length ? (
+          <>
+            <CuratedResourceList
+              resources={lesson.curatedResources}
+              title="Recommended Resources"
+            />
+            <ExternalResourceWarning />
+          </>
+        ) : null}
+        <section className="mb-6 rounded-xl border border-rule bg-paper px-4 py-4 sm:px-5">
+          <p className="font-mono text-xs font-semibold uppercase text-accent">Reward</p>
+          <p className="mt-2 text-sm text-ink-soft">
+            Completing this {lessonTypeLabels[lesson.type].toLowerCase()} grants {lessonRewardLabel[lesson.type]} XP.
+          </p>
+        </section>
         <div className="prose-foundry max-w-none">
           <MDXRemote source={lesson.source} components={mdxComponents} />
         </div>
@@ -182,31 +252,16 @@ export default async function LessonPage({
           initialProgress={progress}
         />
       </article>
-      <aside className="order-2 lg:order-1 lg:sticky lg:top-28 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto lg:col-start-1 lg:row-start-1">
+      <aside className="order-2 hidden lg:order-1 lg:block lg:sticky lg:top-28 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto lg:col-start-1 lg:row-start-1">
         <ModuleProgressPanel module={lesson.module} initialProgress={progress} />
         <p className="mb-3 font-mono text-sm font-semibold text-accent">{lesson.module.title}</p>
-        <details className="lg:hidden">
-          <summary className="inline-flex cursor-pointer items-center justify-between rounded-md border border-rule bg-surface px-3 py-2 text-sm font-semibold text-ink transition hover:border-accent/40 hover:text-accent">
-            <span>Lesson list</span>
-            <span aria-hidden="true">▾</span>
-          </summary>
-          <div className="mt-3">
-            <LessonList
-              activeLessonSlug={lesson.slug}
-              module={lesson.module}
-              initialProgress={progress}
-              projectSubmissions={projectSubmissions}
-            />
-          </div>
-        </details>
-        <div className="hidden lg:block">
-          <LessonList
-            activeLessonSlug={lesson.slug}
-            module={lesson.module}
-            initialProgress={progress}
-            projectSubmissions={projectSubmissions}
-          />
-        </div>
+        <LessonList
+          activeLessonSlug={lesson.slug}
+          module={lesson.module}
+          initialProgress={progress}
+          projectSubmissions={projectSubmissions}
+          bossBattle={null}
+        />
       </aside>
     </main>
   );

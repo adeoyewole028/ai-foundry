@@ -10,6 +10,9 @@ export type ProjectSubmission = {
   repoUrl: string;
   liveUrl: string | null;
   notes: string | null;
+  skills: string[];
+  technicalWriteup: string | null;
+  reflection: string | null;
   status: string;
   createdAt: string | null;
   updatedAt: string | null;
@@ -23,6 +26,9 @@ type ProjectSubmissionPayload = {
   repo_url: string;
   live_url: string | null;
   notes: string | null;
+  skills: string[];
+  technical_writeup: string | null;
+  reflection: string | null;
   status: string;
 };
 
@@ -32,8 +38,85 @@ type ProjectSubmissionInput = {
   title: string;
   repoUrl: string;
   liveUrl: string | null;
-  notes: string | null;
+  skills: string[];
+  technicalWriteup: string | null;
+  reflection: string | null;
 };
+
+function normalizeLegacyPortfolioNotes(rawNotes: string | null): {
+  skills: string[];
+  technicalWriteup: string | null;
+  reflection: string | null;
+} {
+  if (!rawNotes) {
+    return {
+      skills: [],
+      technicalWriteup: null,
+      reflection: null
+    };
+  }
+
+  const trimmed = rawNotes.trim();
+
+  if (!trimmed.startsWith("{") || !trimmed.endsWith("}")) {
+    return {
+      skills: [],
+      technicalWriteup: null,
+      reflection: trimmed.length > 0 ? trimmed : null
+    };
+  }
+
+  try {
+    const parsed = JSON.parse(trimmed) as {
+      __portfolio?: true;
+      skills?: string[];
+      technicalWriteup?: string | null;
+      reflection?: string | null;
+    };
+
+    if (!parsed.__portfolio) {
+      return {
+        skills: [],
+        technicalWriteup: null,
+        reflection: null
+      };
+    }
+
+    const skills = Array.isArray(parsed.skills)
+      ? parsed.skills
+          .map((skill) => (typeof skill === "string" ? skill.trim() : ""))
+          .filter((skill) => skill.length > 0)
+      : [];
+
+    return {
+      skills,
+      technicalWriteup:
+        typeof parsed.technicalWriteup === "string" && parsed.technicalWriteup.trim().length > 0
+          ? parsed.technicalWriteup.trim()
+          : null,
+      reflection:
+        typeof parsed.reflection === "string" && parsed.reflection.trim().length > 0
+          ? parsed.reflection.trim()
+          : null
+    };
+  } catch {
+    return {
+      skills: [],
+      technicalWriteup: null,
+      reflection: trimmed.length > 0 ? trimmed : null
+    };
+  }
+}
+
+function normalizeStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .map((item) => (typeof item === "string" ? item.trim() : ""))
+    .filter((item) => item.length > 0);
+}
 
 function getUserId(claims: unknown): string | null {
   if (
@@ -57,10 +140,25 @@ function normalizeSubmissionRecord(record: {
   repo_url: string;
   live_url: string | null;
   notes: string | null;
+  skills: string[] | null;
+  technical_writeup: string | null;
+  reflection: string | null;
   status: string;
   created_at?: string | null;
   updated_at?: string | null;
 }): ProjectSubmission {
+  const legacy = normalizeLegacyPortfolioNotes(record.notes);
+  const storedSkills = normalizeStringArray(record.skills);
+
+  const storedReflection =
+    typeof record.reflection === "string" && record.reflection.trim().length > 0
+      ? record.reflection.trim()
+      : null;
+  const storedTechnicalWriteup =
+    typeof record.technical_writeup === "string" && record.technical_writeup.trim().length > 0
+      ? record.technical_writeup.trim()
+      : null;
+
   return {
     id: record.id,
     userId: record.user_id,
@@ -70,6 +168,9 @@ function normalizeSubmissionRecord(record: {
     repoUrl: record.repo_url,
     liveUrl: record.live_url,
     notes: record.notes,
+    skills: storedSkills.length > 0 ? storedSkills : legacy.skills,
+    technicalWriteup: storedTechnicalWriteup ?? legacy.technicalWriteup,
+    reflection: storedReflection ?? legacy.reflection,
     status: record.status,
     createdAt: record.created_at ?? null,
     updatedAt: record.updated_at ?? null
@@ -104,7 +205,7 @@ export async function getCurrentUserProjectSubmissions(
   let query = supabase
     .from("project_submissions")
     .select(
-      "id,user_id,module_slug,lesson_slug,title,repo_url,live_url,notes,status,created_at,updated_at"
+      "id,user_id,module_slug,lesson_slug,title,repo_url,live_url,notes,skills,technical_writeup,reflection,status,created_at,updated_at"
     )
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
@@ -134,6 +235,9 @@ export async function getCurrentUserProjectSubmissions(
         repo_url: string;
         live_url: string | null;
         notes: string | null;
+        skills: string[] | null;
+        technical_writeup: string | null;
+        reflection: string | null;
         status: string;
         created_at?: string | null;
         updated_at?: string | null;
@@ -164,7 +268,7 @@ export async function getLatestProjectSubmissionForCurrentUser({
   const { data: rows, error } = await supabase
     .from("project_submissions")
     .select(
-      "id,user_id,module_slug,lesson_slug,title,repo_url,live_url,notes,status,created_at,updated_at"
+      "id,user_id,module_slug,lesson_slug,title,repo_url,live_url,notes,skills,technical_writeup,reflection,status,created_at,updated_at"
     )
     .eq("user_id", userId)
     .eq("module_slug", moduleSlug)
@@ -185,6 +289,9 @@ export async function getLatestProjectSubmissionForCurrentUser({
     repo_url: string;
     live_url: string | null;
     notes: string | null;
+    skills: string[] | null;
+    technical_writeup: string | null;
+    reflection: string | null;
     status: string;
     created_at?: string | null;
     updated_at?: string | null;
@@ -197,7 +304,9 @@ export async function submitProjectSubmissionForCurrentUser({
   title,
   repoUrl,
   liveUrl,
-  notes
+  skills,
+  technicalWriteup,
+  reflection
 }: ProjectSubmissionInput): Promise<
   | ({ ok: true } & { submission: ProjectSubmission })
   | { ok: false; error: string }
@@ -221,7 +330,10 @@ export async function submitProjectSubmissionForCurrentUser({
     title,
     repo_url: repoUrl,
     live_url: liveUrl,
-    notes,
+    notes: null,
+    skills,
+    technical_writeup: technicalWriteup,
+    reflection,
     status: "submitted"
   };
 
@@ -231,7 +343,7 @@ export async function submitProjectSubmissionForCurrentUser({
       onConflict: "user_id,module_slug,lesson_slug"
     })
     .select(
-      "id,user_id,module_slug,lesson_slug,title,repo_url,live_url,notes,status,created_at,updated_at"
+      "id,user_id,module_slug,lesson_slug,title,repo_url,live_url,notes,skills,technical_writeup,reflection,status,created_at,updated_at"
     );
 
   if (error) {
@@ -248,6 +360,9 @@ export async function submitProjectSubmissionForCurrentUser({
         repo_url: submittedRows[0].repo_url,
         live_url: submittedRows[0].live_url,
         notes: submittedRows[0].notes,
+        skills: submittedRows[0].skills,
+        technical_writeup: submittedRows[0].technical_writeup,
+        reflection: submittedRows[0].reflection,
         status: submittedRows[0].status,
         created_at: submittedRows[0].created_at,
         updated_at: submittedRows[0].updated_at
@@ -272,7 +387,15 @@ export function normalizeProjectSubmissionForm(formData: FormData) {
   const title = toString(formData.get("title")) || "Project submission";
   const repoUrl = toString(formData.get("repoUrl"));
   const liveUrl = toNullableString(formData.get("liveUrl"));
-  const notes = toNullableString(formData.get("notes"));
+  const reflection = toNullableString(formData.get("reflection"));
+  const technicalWriteup = toNullableString(formData.get("technicalWriteup"));
+  const rawSkills = toNullableString(formData.get("skills"));
+  const normalizedSkills = rawSkills
+    ? rawSkills
+        .split(",")
+        .map((skill) => skill.trim())
+        .filter((skill) => skill.length > 0)
+    : [];
 
   if (!moduleSlug || !lessonSlug || !repoUrl || !title) {
     return {
@@ -289,7 +412,9 @@ export function normalizeProjectSubmissionForm(formData: FormData) {
       title,
       repoUrl,
       liveUrl,
-      notes
+      skills: normalizedSkills,
+      technicalWriteup,
+      reflection
     }
   };
 }

@@ -2,11 +2,17 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import type { Lesson } from "@/lib/content";
 import type { LessonProgressState } from "@/lib/lesson-progress-core.js";
-import { getLesson, type QuizQuestion } from "@/lib/content";
+import type { Lesson } from "@/lib/content";
+import type { QuizQuestion } from "@/lib/content";
+import { getLesson } from "@/lib/content.server";
+import { buildEntityId, XP_REWARDS } from "@/lib/gamification";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import {
+  awardXpForCurrentUser,
+  awardModuleCompletionIfReadyForCurrentUser,
+  syncCurrentUserAchievementUnlocksForCurrentUser,
+  markLessonCompletionForCurrentUser,
   syncLessonProgressForCurrentUser,
   submitQuizAttemptForCurrentUser
 } from "@/lib/supabase/progress";
@@ -167,6 +173,8 @@ async function syncPendingQuizProgress(formData: FormData) {
     return;
   }
 
+  let awardedAnyXp = false;
+
   for (const attempt of pendingAttempts) {
     if (!attempt.submitted) {
       continue;
@@ -190,7 +198,59 @@ async function syncPendingQuizProgress(formData: FormData) {
     if (!result.ok) {
       continue;
     }
+
+    if (result.passed) {
+      const entityId = buildEntityId(attempt.moduleSlug, attempt.lessonSlug);
+
+      await markLessonCompletionForCurrentUser({
+        moduleSlug: attempt.moduleSlug,
+        lessonSlug: attempt.lessonSlug,
+        completed: true
+      });
+
+      const quizCompleteResult = await awardXpForCurrentUser({
+        eventType: "QUIZ_COMPLETE",
+        entityType: "quiz",
+        entityId
+      });
+
+      if (quizCompleteResult.ok && quizCompleteResult.awarded) {
+        awardedAnyXp = true;
+      }
+
+      if (result.totalQuestions > 0 && result.score >= result.totalQuestions) {
+        const perfectResult = await awardXpForCurrentUser({
+          eventType: "PERFECT_QUIZ",
+          entityType: "quiz",
+          entityId
+        });
+
+        if (perfectResult.ok && perfectResult.awarded) {
+          awardedAnyXp = true;
+        }
+      }
+
+      await awardModuleCompletionIfReadyForCurrentUser(attempt.moduleSlug);
+    }
   }
+
+  if (awardedAnyXp) {
+    await awardDailyStreak();
+    await syncCurrentUserAchievementUnlocksForCurrentUser();
+  }
+}
+
+function getTodayActivityKey(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+async function awardDailyStreak() {
+  await awardXpForCurrentUser({
+    eventType: "STREAK_DAY",
+    entityType: "streak",
+    entityId: getTodayActivityKey(),
+    xpAmount: XP_REWARDS.STREAK_DAY
+  });
 }
 
 async function syncPendingLessonProgress(formData: FormData) {
@@ -200,7 +260,53 @@ async function syncPendingLessonProgress(formData: FormData) {
     return;
   }
 
-  await syncLessonProgressForCurrentUser(localProgress);
+  const result = await syncLessonProgressForCurrentUser(localProgress);
+
+  if (!result.ok) {
+    return;
+  }
+
+  const syncedEntries = Object.keys(localProgress).filter((lessonKey) => localProgress[lessonKey] === true);
+
+  let awardedAnyXp = false;
+
+  if (syncedEntries.length === 0) {
+    return;
+  }
+
+  const pendingModuleSlugs = new Set<string>();
+
+  for (const lessonKey of syncedEntries) {
+    const separatorIndex = lessonKey.indexOf("::");
+
+    if (separatorIndex <= 0) {
+      continue;
+    }
+
+    const moduleSlug = lessonKey.slice(0, separatorIndex);
+    const lessonSlug = lessonKey.slice(separatorIndex + 2);
+    pendingModuleSlugs.add(moduleSlug);
+
+    const entityId = buildEntityId(moduleSlug, lessonSlug);
+    const xpResult = await awardXpForCurrentUser({
+      eventType: "LESSON_COMPLETE",
+      entityType: "lesson",
+      entityId
+    });
+
+    if (xpResult.ok && xpResult.awarded) {
+      awardedAnyXp = true;
+    }
+  }
+
+  for (const moduleSlug of pendingModuleSlugs) {
+    await awardModuleCompletionIfReadyForCurrentUser(moduleSlug);
+  }
+
+  if (awardedAnyXp) {
+    await awardDailyStreak();
+    await syncCurrentUserAchievementUnlocksForCurrentUser();
+  }
 }
 
 export async function login(formData: FormData) {

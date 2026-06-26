@@ -54,9 +54,9 @@ export function CurriculumProgressPanel({
     <section className="rounded-xl border border-rule bg-surface p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="font-semibold text-ink">Overall progress</p>
+          <p className="font-semibold text-ink">Journey progress</p>
           <p className="mt-1 text-sm text-ink-soft">
-            {curriculumProgress.completed} of {curriculumProgress.total} lessons completed
+            {curriculumProgress.completed} of {curriculumProgress.total} quests completed
           </p>
         </div>
         <p className="text-sm font-semibold text-ink-soft">{curriculumProgress.percent}%</p>
@@ -74,14 +74,14 @@ export function CurriculumProgressPanel({
         >
           <Play className="size-4" />
           <span>
-            Continue: {curriculumProgress.nextLesson.moduleTitle} → {curriculumProgress.nextLesson.lessonTitle}
+            Continue to {curriculumProgress.nextLesson.moduleTitle} → {curriculumProgress.nextLesson.lessonTitle}
           </span>
           <ArrowRight className="size-4" />
         </Link>
       ) : (
         <p className="mt-5 flex items-center gap-2 text-sm text-ink-soft">
           <CircleCheck className="size-4" />
-          All modules complete.
+          All regions cleared.
         </p>
       )}
     </section>

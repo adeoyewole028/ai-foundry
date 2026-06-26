@@ -1,0 +1,79 @@
+# Quest: Gradient Descent
+
+## Objective
+
+By the end of this quest, you will be able to explain gradient descent as how a model reduces mistakes.
+
+## Prerequisites
+
+Before this lesson, you should understand gradients as direction of improvement.
+
+## Plain-English Explanation
+
+Gradient descent is the process of taking small steps in the direction that reduces error.
+
+The model makes a prediction, measures the mistake, uses gradients to find a better direction, then updates itself and tries again.
+
+## Key Terms
+
+### Gradient descent
+
+Simple meaning:
+Step-by-step improvement toward fewer mistakes.
+
+Real-world analogy:
+Adjusting a recipe after each taste until it gets closer to what you want.
+
+Technical meaning:
+An optimization method that updates parameters in the opposite direction of the gradient to minimize a loss function.
+
+Example:
+A model changes weights after each training batch to lower prediction error.
+
+Why it matters:
+Gradient descent is one of the core ideas behind training many machine learning and deep learning models.
+
+## Mental Model
+
+The model is descending a hill of mistakes. Each step should move it lower, but the step size matters.
+
+## Example
+
+If a model predicts `80` when the answer is `100`, training adjusts the model so future predictions move closer.
+
+## Code Walkthrough
+
+```python
+weight = 0.5
+gradient = 0.2
+learning_rate = 0.1
+
+weight = weight - learning_rate * gradient
+print(weight)
+```
+
+The learning rate controls step size. Too large can overshoot. Too small can move painfully slowly.
+
+## Common Mistakes
+
+- Thinking gradient descent always finds the perfect answer.
+- Ignoring learning rate.
+- Forgetting that bad data can still lead to bad learning.
+
+## Exercise
+
+Explain learning rate using an analogy of walking downhill.
+
+## Reflection
+
+What might happen if a model takes training steps that are too large?
+
+## Further Reading
+
+- [Google Machine Learning Crash Course: Gradient descent](https://developers.google.com/machine-learning/crash-course/linear-regression/gradient-descent)
+
+## Completion Checklist
+
+- [ ] I can explain gradient descent as step-by-step error reduction.
+- [ ] I can describe learning rate as step size.
+- [ ] I can explain why step size affects training.

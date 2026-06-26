@@ -12,7 +12,8 @@
     "test:progress": "node --test scripts/check-progress.mjs",
     "test:links": "node --test scripts/check-mdx-links.mjs",
     "test:prerequisites": "node --test scripts/check-prerequisite-locks.mjs",
-    "test:smoke": "npm run test:curriculum && npm run test:progress && npm run test:links && npm run test:prerequisites"
+    "test:smoke": "npm run test:curriculum && npm run test:progress && npm run test:links && npm run test:prerequisites && npm run test:design-tokens",
+    "test:design-tokens": "node scripts/check-design-token-drift.mjs"
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.1",

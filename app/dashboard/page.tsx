@@ -3,14 +3,28 @@ import Link from "next/link";
 import { ArrowRight, BookOpen, CircleCheck, LayoutDashboard } from "lucide-react";
 import { logout } from "@/app/auth/actions";
 import { ButtonLink } from "@/components/ui/button";
+import {
+  AchievementGrid,
+  LevelCard,
+  RecentAchievements,
+  StreakBadge,
+  PortfolioProgress,
+  XPBadge
+} from "@/components/gamification/gamification-components";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
-import { getCurrentUserLessonProgress } from "@/lib/supabase/progress";
-import { getModules } from "@/lib/content";
+import {
+  getCurrentUserGamificationStats,
+  getCurrentUserLessonProgress,
+  getCurrentUserUnlockedAchievementIds,
+  getRecentUnlockedAchievementIds
+} from "@/lib/supabase/progress";
+import { getModules } from "@/lib/content.server";
 import { getCurriculumProgress, getModuleLessonProgress } from "@/lib/lesson-progress-core.js";
 import { formatModuleDisplayLabel } from "@/lib/curriculum-prerequisites";
 import { getCurrentUserProjectSubmissions } from "@/lib/supabase/project-submissions";
 import { getNextLessonHref } from "@/lib/progress-navigation";
+import { BADGES, getLevelProgress } from "@/lib/gamification";
 
 export const metadata = {
   title: "Dashboard | AI Foundry"
@@ -57,6 +71,25 @@ export default async function DashboardPage() {
     )
   );
   const recentProjectSubmissions = recentSubmissions.slice(0, 3);
+  const moduleBuildMissions = modules.flatMap((module) =>
+    module.lessons
+      .filter((lesson) => lesson.type === "project")
+      .map((lesson) => ({
+        moduleSlug: module.slug,
+        lessonSlug: lesson.slug,
+        lessonTitle: lesson.title,
+        moduleTitle: module.title
+      }))
+  );
+  const submissionLookup = new Map(
+    recentSubmissions.map((submission) => [`${submission.moduleSlug}::${submission.lessonSlug}`, submission])
+  );
+  const portfolioCompleteCount = moduleBuildMissions.filter((mission) =>
+    submissionLookup.has(`${mission.moduleSlug}::${mission.lessonSlug}`)
+  ).length;
+  const incompletePortfolioMissions = moduleBuildMissions
+    .filter((mission) => !submissionLookup.has(`${mission.moduleSlug}::${mission.lessonSlug}`))
+    .slice(0, 4);
   const claims = data.claims as Record<string, unknown>;
   const email = getClaimValue(claims, "email") ?? "Learner";
   const fullName = getClaimValue(claims, "full_name") ?? getClaimValue(claims, "name");
@@ -82,6 +115,12 @@ export default async function DashboardPage() {
     : completedModuleCopy && nextModule
       ? `You finished ${completedModuleCopy}, continue with ${nextModuleCopy}.`
       : `Start with ${nextModuleCopy}.`;
+  const unlockedAchievementIds = await getCurrentUserUnlockedAchievementIds();
+  const recentUnlockedAchievementIds = await getRecentUnlockedAchievementIds();
+  const persistedStats = await getCurrentUserGamificationStats();
+  const totalXp = persistedStats?.totalXp ?? 0;
+  const levelProgress = getLevelProgress(totalXp);
+  const currentStreak = persistedStats?.currentStreak ?? 0;
 
   return (
     <main id="main-content" className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
@@ -99,6 +138,10 @@ export default async function DashboardPage() {
             Auth is connected. Lesson completion now persists per user through Supabase-backed
             progress records.
           </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <XPBadge xp={totalXp} />
+            <StreakBadge days={currentStreak} />
+          </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink href={firstIncompleteLessonHref}>
               {hasRemainingLessons ? "Continue learning" : "Browse curriculum"}
@@ -115,6 +158,7 @@ export default async function DashboardPage() {
         </section>
 
         <section className="grid gap-4 sm:grid-cols-2">
+          <LevelCard className="sm:col-span-2" levelProgress={levelProgress} />
           <div className="rounded-xl border border-rule bg-surface p-5">
             <BookOpen className="size-5 text-accent" aria-hidden="true" />
             <p className="mt-4 font-mono text-xs font-semibold uppercase text-ink-soft">
@@ -139,14 +183,21 @@ export default async function DashboardPage() {
               Lesson completion is now persisted for signed-in learners in `lesson_progress`.
             </p>
           </div>
+          <PortfolioProgress
+            completedMissions={portfolioCompleteCount}
+            missingMissions={incompletePortfolioMissions}
+            totalMissions={moduleBuildMissions.length}
+          />
         </section>
+        <AchievementGrid achievements={BADGES} unlockedAchievementIds={unlockedAchievementIds} />
+        <RecentAchievements achievements={BADGES} recentAchievementIds={recentUnlockedAchievementIds} />
         <section className="rounded-xl border border-rule bg-surface p-5">
           <p className="font-mono text-xs font-semibold uppercase text-ink-soft">Next step</p>
-          <h2 className="mt-2 text-xl font-bold text-ink">
-            {hasRemainingLessons
-              ? `${curriculumProgress.nextLesson?.lessonTitle}`
-              : "You’re all caught up"}
-          </h2>
+            <h2 className="mt-2 text-xl font-bold text-ink">
+              {hasRemainingLessons
+                ? `${curriculumProgress.nextLesson?.lessonTitle}`
+                : "You’re all caught up"}
+            </h2>
           <p className="mt-2 text-sm leading-6 text-ink-soft">
             {hasRemainingLessons
               ? `${nextStepCopy}`
@@ -158,7 +209,7 @@ export default async function DashboardPage() {
                 className="inline-flex items-center gap-2 text-sm font-semibold text-ink transition hover:text-accent"
                 href={firstIncompleteLessonHref}
               >
-                Go to next lesson
+                Go to next quest
                 <ArrowRight className="size-4" />
               </Link>
             </p>
@@ -185,6 +236,21 @@ export default async function DashboardPage() {
                       submission.lessonSlug}
                   </p>
                   <p className="text-xs">Status: {submission.status}</p>
+                  {submission.skills.length > 0 ? (
+                    <p className="text-xs text-ink-soft">Skills: {submission.skills.join(", ")}</p>
+                  ) : null}
+                  {submission.technicalWriteup ? (
+                    <p className="text-xs text-ink-soft">
+                      Write-up: {submission.technicalWriteup.slice(0, 120)}
+                      {submission.technicalWriteup.length > 120 ? "..." : ""}
+                    </p>
+                  ) : null}
+                  {submission.reflection ? (
+                    <p className="text-xs text-ink-soft">
+                      Reflection: {submission.reflection.slice(0, 110)}
+                      {submission.reflection.length > 110 ? "..." : ""}
+                    </p>
+                  ) : null}
                   <a
                     className="mt-1 inline-flex items-center gap-2 text-xs font-semibold text-accent underline underline-offset-4"
                     href={submission.repoUrl}

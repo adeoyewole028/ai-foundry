@@ -4,10 +4,10 @@ import { getModuleLessonProgress } from "@/lib/lesson-progress-core.js";
 
 export function formatModuleDisplayLabel(module: ModuleMeta | null): string {
   if (!module) {
-    return "No module published";
+    return "No stage published";
   }
 
-  return `Module ${String(module.order).padStart(2, "0")} — ${module.title}`;
+  return `Stage ${String(module.order).padStart(2, "0")} — ${module.title}`;
 }
 
 export function getModuleStatusLabel(params: {

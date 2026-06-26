@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { submitQuizAttemptAction } from "@/app/progress/actions";
 import type { QuizOption, QuizQuestion } from "@/lib/content";
+import { BADGES } from "@/lib/gamification";
 import { gradeQuizAnswer, resolveQuizCorrectOptionId } from "@/lib/quiz-grading";
 import {
   isLessonCompleted,
@@ -44,6 +45,7 @@ type DisplayOption = QuizOption & {
   isGenerated?: boolean;
 };
 
+const MIN_SHORT_ANSWER_CHARS = 6;
 const optionLetters = ["A", "B", "C", "D", "E", "F"];
 
 const fallbackDistractors = [
@@ -183,9 +185,9 @@ function writeQuizActivity(key: string, state: QuizAnswerState) {
   );
 }
 
-function getQuestionOptions(question: QuizQuestion): DisplayOption[] {
+function getQuestionOptions(question: QuizQuestion, shuffleSeed: string): DisplayOption[] {
   if (question.options.length > 0) {
-    return shuffleBySeed(question.options, `${question.id}::${question.prompt}`);
+    return shuffleBySeed(question.options, `${question.id}::${question.prompt}::${shuffleSeed}`);
   }
 
   const options = [
@@ -202,7 +204,7 @@ function getQuestionOptions(question: QuizQuestion): DisplayOption[] {
 
   options.splice(correctIndex, 0, correctOption);
 
-  return shuffleBySeed(options, `${question.id}::generated`);
+  return shuffleBySeed(options, `${question.id}::generated::${shuffleSeed}`);
 }
 
 function getCorrectOptionId(question: QuizQuestion) {
@@ -232,12 +234,18 @@ export function QuizAssessment({
   initialSubmitted = false
 }: QuizAssessmentProps) {
   const lessonKey = lessonProgressKey({ moduleSlug, lessonSlug });
+  const [shuffleSeed] = useState(() =>
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : Math.random().toString(36).slice(2)
+  );
   const [state, setState] = useState<QuizAnswerState>({ answers: {}, submitted: false });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [questionSubmitted, setQuestionSubmitted] = useState<Record<string, boolean>>({});
   const [isCompleted, setIsCompleted] = useState(initialCompleted);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverMessage, setServerMessage] = useState<string | null>(null);
+  const [achievementMessage, setAchievementMessage] = useState<string | null>(null);
 
   useEffect(() => {
     setState(readQuizActivity(lessonKey, initialAnswers, initialSubmitted));
@@ -277,10 +285,10 @@ export function QuizAssessment({
     () =>
       questions.map((question) => ({
         ...question,
-        options: quizMode === "short-answer" ? [] : getQuestionOptions(question),
+        options: quizMode === "short-answer" ? [] : getQuestionOptions(question, shuffleSeed),
         correctOptionId: getCorrectOptionId(question)
       })),
-    [questions, quizMode]
+    [questions, quizMode, shuffleSeed]
   );
   const currentQuestion = displayQuestions[currentIndex];
   const selectedOptionId = currentQuestion ? state.answers[currentQuestion.id] : undefined;
@@ -303,13 +311,17 @@ export function QuizAssessment({
   const answeredCount = displayQuestions.filter((question) => {
     const answer = state.answers[question.id] ?? "";
 
-    return quizMode === "short-answer" || question.options.length === 0 ? answer.trim().length >= 6 : !!answer;
+    return quizMode === "short-answer" || question.options.length === 0
+      ? answer.trim().length >= MIN_SHORT_ANSWER_CHARS
+      : !!answer;
   }).length;
   const passedCount = displayQuestions.filter((question) => {
     return gradeQuizAnswer(question, state.answers[question.id] ?? "", quizMode).passed;
   }).length;
   const isPassing = displayQuestions.length > 0 && passedCount === displayQuestions.length;
-  const hasAnsweredCurrent = hasShortAnswerMode ? currentAnswer.trim().length >= 6 : !!selectedOptionId;
+  const hasAnsweredCurrent = hasShortAnswerMode
+    ? currentAnswer.trim().length >= MIN_SHORT_ANSWER_CHARS
+    : !!selectedOptionId;
   const isLastQuestion = currentIndex === displayQuestions.length - 1;
   const progressWidth = displayQuestions.length > 0
     ? `${Math.round((answeredCount / displayQuestions.length) * 100)}%`
@@ -371,14 +383,29 @@ export function QuizAssessment({
     if (result && "ok" in result && !result.ok) {
       if (result.error === "not_authenticated") {
         setServerMessage(
-          "You're not signed in, so this quiz is tracked locally. Sign in to save it to your account."
+          "You're not signed in, so this trial is tracked locally. Sign in to save it to your account."
         );
       } else if (result.error === "supabase_not_configured") {
-        setServerMessage("Progress sync is currently unavailable. Quiz progress is saved locally.");
+        setServerMessage("Progress sync is currently unavailable. Trial progress is saved locally.");
       } else {
-        setServerMessage(`Could not save quiz result yet: ${result.error}`);
+        setServerMessage(`Could not save trial result yet: ${result.error}`);
       }
+      setAchievementMessage(null);
     } else {
+      const unlockedAchievementIds = result && "ok" in result && result.ok
+        ? (result as { unlockedAchievementIds?: unknown }).unlockedAchievementIds
+        : null;
+      const unlockedTitleList = Array.isArray(unlockedAchievementIds)
+        ? unlockedAchievementIds
+          .map((id) => (typeof id === "string" ? id : null))
+          .filter((id): id is string => id !== null)
+          .map((id) => BADGES.find((badge) => badge.id === id)?.title)
+          .filter(Boolean) as string[]
+        : [];
+
+      setAchievementMessage(
+        unlockedTitleList.length > 0 ? `Badge unlocked: ${unlockedTitleList.join(", ")}` : null
+      );
       setServerMessage(null);
     }
 
@@ -414,7 +441,9 @@ export function QuizAssessment({
   if (!currentQuestion) {
     return (
       <section className="mt-8 rounded-xl border border-rule bg-paper p-5">
-        <p className="text-sm text-ink-soft">No quiz questions are available for this lesson yet.</p>
+        <p className="text-sm text-ink-soft">
+          No knowledge trial questions are available for this quest yet.
+        </p>
       </section>
     );
   }
@@ -426,7 +455,7 @@ export function QuizAssessment({
           <div>
             <div className="flex items-center gap-2 text-sm font-semibold text-ink">
               <ClipboardCheck className="size-4 text-accent" aria-hidden="true" />
-              Interactive Quiz
+              Knowledge Trial
             </div>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-soft">
               {quizMode === "short-answer"
@@ -479,7 +508,9 @@ export function QuizAssessment({
                 onChange={(event) => setAnswer(currentQuestion.id, event.target.value)}
               />
             </label>
-            <p className="text-xs text-ink-soft">{currentAnswer.trim().length} characters</p>
+            <p className="text-xs text-ink-soft">
+              {currentAnswer.trim().length} characters • minimum {MIN_SHORT_ANSWER_CHARS} to continue
+            </p>
           </div>
         ) : (
           <div className="mt-8 grid gap-3">
@@ -492,7 +523,7 @@ export function QuizAssessment({
                 showFeedback && isCorrect
                   ? "border-accent/40 bg-accent-soft text-ink"
                   : isIncorrectSelection
-                    ? "border-red-300 bg-red-50 text-ink"
+                    ? "border-danger/40 bg-danger/15 text-ink"
                     : isSelected
                       ? "border-accent/40 bg-surface text-ink"
                       : "border-transparent bg-surface text-ink-soft hover:border-accent/40 hover:text-ink";
@@ -518,7 +549,7 @@ export function QuizAssessment({
                           {isCorrect ? (
                             <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
                           ) : (
-                            <X className="mt-0.5 size-4 shrink-0 text-red-600" aria-hidden="true" />
+                            <X className="mt-0.5 size-4 shrink-0 text-danger" aria-hidden="true" />
                           )}
                           <span>
                             <strong className="text-ink">
@@ -567,10 +598,14 @@ export function QuizAssessment({
                   <li key={criterion.criterionId}>
                     <span className={criterion.passed ? "text-accent" : "text-ink-soft"}>
                       {criterion.passed ? "✓" : "•"}
-                    </span>{" "}
-                    <span className="font-semibold">{criterion.label}</span>{" "}
-                    <span>
-                      {criterion.passed ? "met" : "not met"}
+                    </span>
+                    <span className="ml-2 font-semibold">{criterion.label}</span>
+                    <span> — {criterion.passed ? "met" : "not met"}</span>
+                    <span className="text-xs text-ink-soft">
+                      {criterion.matchedTerms.length > 0 ? (
+                        <span className="ml-4 block">Found: {criterion.matchedTerms.join(", ")}</span>
+                      ) : null}
+                      <span className="ml-4 block">Target ideas: {criterion.requiredTerms.join(", ")}</span>
                     </span>
                   </li>
                 ))}
@@ -603,11 +638,12 @@ export function QuizAssessment({
           </button>
           <div className="text-sm text-ink-soft" aria-live="polite">
             {isCompleted
-              ? "Quiz passed. The next unit is unlocked."
+              ? "Knowledge Trial passed. The next unit is unlocked."
               : state.submitted && !isPassing
                 ? "Review missed answers, then finish again."
                 : `${answeredCount} of ${displayQuestions.length} answered`}
             {serverMessage ? <span className="ml-2 text-accent">{serverMessage}</span> : null}
+            {achievementMessage ? <span className="ml-2 text-accent">• {achievementMessage}</span> : null}
           </div>
           <button
             className="inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-4 text-sm font-semibold text-surface transition hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-60"
@@ -615,7 +651,7 @@ export function QuizAssessment({
             onClick={goNext}
             type="button"
           >
-            {isSubmitting ? "Saving..." : isLastQuestion ? "Finish quiz" : "Next"}
+            {isSubmitting ? "Saving..." : isLastQuestion ? "Finish trial" : "Next"}
             {isLastQuestion ? (
               <CircleCheck className="size-4" aria-hidden="true" />
             ) : (

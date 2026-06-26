@@ -13,6 +13,32 @@
     "Use APIs and simple web frameworks to build AI-ready backends.",
     "Run code in notebooks and structure a small app prototype with FastAPI."
   ],
+  "curatedResources": [
+    {
+      "title": "CS50's Introduction to Programming with Python",
+      "provider": "Harvard / CS50",
+      "url": "https://pll.harvard.edu/course/cs50s-introduction-programming-python",
+      "type": "course",
+      "level": "Beginner",
+      "placement": "Primary resource",
+      "why": "Best structured beginner-friendly Python course for strong programming fundamentals.",
+      "required": true,
+      "whenToUse": "Use this before starting Python-specific lessons, especially setup, functions, and API handling.",
+      "notes": "Use CS50P as your main Python foundation. AI engineers who understand real programming fundamentals will always stand out."
+    },
+    {
+      "title": "AI Python for Beginners",
+      "provider": "DeepLearning.AI",
+      "url": "https://www.deeplearning.ai/courses/ai-python-for-beginners/",
+      "type": "course",
+      "level": "Beginner",
+      "placement": "Bridge resource after Python basics before Math/Data.",
+      "why": "This course connects Python fundamentals to realistic AI workflows and small AI projects.",
+      "required": false,
+      "whenToUse": "Use after core Python topics before taking your first math-heavy or model-focused modules.",
+      "notes": "Watch this to see how Python becomes useful in AI workflows."
+    }
+  ],
   "lessons": [
     {
       "title": "Python Setup",
@@ -30,7 +56,21 @@
       "questions": [
         "What problem does a Python virtual environment solve?",
         "How do you verify you are running the expected Python version?"
-      ]
+      ],
+      "curatedResources": [
+        {
+          "title": "CS50's Introduction to Programming with Python",
+          "provider": "Harvard / CS50",
+          "url": "https://pll.harvard.edu/course/cs50s-introduction-programming-python",
+          "type": "course",
+          "level": "Beginner",
+          "placement": "Watch before setup quiz and local environment configuration.",
+          "why": "Clear walkthroughs for project setup, virtual environments, and Python fundamentals.",
+          "required": true,
+          "whenToUse": "Use this before proceeding through all Python lessons."
+        }
+      ],
+      "mentorNote": "A clean environment setup is the first piece of reliability. Reproducibility is your hidden superpower."
     },
     {
       "title": "Variables and Data Types",
@@ -84,6 +124,19 @@
       "questions": [
         "What is the difference between a function and a class method?",
         "How do functions help with AI prompt and API consistency?"
+      ],
+      "curatedResources": [
+        {
+          "title": "CS50's Introduction to Programming with Python",
+          "provider": "Harvard / CS50",
+          "url": "https://pll.harvard.edu/course/cs50s-introduction-programming-python",
+          "type": "course",
+          "level": "Beginner",
+          "placement": "Use with the first pass through functions and return values.",
+          "why": "Functions are the foundation of reusable AI helper logic in this curriculum.",
+          "required": true,
+          "whenToUse": "Watch before implementing reusable prompt/data helpers."
+        }
       ]
     },
     {
@@ -102,6 +155,19 @@
       "questions": [
         "When does a class make code easier to reason about?",
         "Why should AI-facing models stay focused on one responsibility?"
+      ],
+      "curatedResources": [
+        {
+          "title": "CS50's Introduction to Programming with Python",
+          "provider": "Harvard / CS50",
+          "url": "https://pll.harvard.edu/course/cs50s-introduction-programming-python",
+          "type": "course",
+          "level": "Beginner",
+          "placement": "Use during class-based design in Python projects.",
+          "why": "Grounds object-oriented organization for cleaner model-facing abstractions.",
+          "required": true,
+          "whenToUse": "Reference before creating class-based API payload helpers."
+        }
       ]
     },
     {
@@ -120,6 +186,19 @@
       "questions": [
         "Why is context manager syntax important for file handling?",
         "What do you do when input format changes unexpectedly?"
+      ],
+      "curatedResources": [
+        {
+          "title": "CS50's Introduction to Programming with Python",
+          "provider": "Harvard / CS50",
+          "url": "https://pll.harvard.edu/course/cs50s-introduction-programming-python",
+          "type": "course",
+          "level": "Beginner",
+          "placement": "Use when reviewing file handling and path safety topics.",
+          "why": "Reinforces practical file-reading patterns and robust script behavior.",
+          "required": true,
+          "whenToUse": "Use before building data pipelines in later modules."
+        }
       ]
     },
     {
@@ -138,6 +217,19 @@
       "questions": [
         "How do status codes change how you proceed?",
         "How does timeout handling affect production reliability?"
+      ],
+      "curatedResources": [
+        {
+          "title": "CS50's Introduction to Programming with Python",
+          "provider": "Harvard / CS50",
+          "url": "https://pll.harvard.edu/course/cs50s-introduction-programming-python",
+          "type": "course",
+          "level": "Beginner",
+          "placement": "Use with API basics and before building external request helpers.",
+          "why": "Offers practical patterns for request/response handling and error reasoning.",
+          "required": true,
+          "whenToUse": "Use before expanding into tool calls, agents, and production APIs."
+        }
       ]
     },
     {
@@ -739,5 +831,12 @@
       ],
       "quizMode": "short-answer"
     }
-  ]
+  ],
+  "story": {
+    "role": "AI Craftsman",
+    "setting": "Python Forge",
+    "mission": "Learn dependable Python workflows so your AI systems stay maintainable.",
+    "mentorNote": "In AI engineering, clean data handling and predictable APIs prevent most downstream model issues."
+  },
+  "mentorNote": "Every script should be reproducible. If your setup is inconsistent, your model work will be hard to trust."
 }

@@ -1,0 +1,390 @@
+{
+  "title": "Math for AI",
+  "slug": "math-for-ai",
+  "order": 2,
+  "description": "Enter the Math Forge and learn the practical, visual math AI uses to measure, compare, and improve.",
+  "level": "Beginner",
+  "estimatedHours": 10,
+  "outcomes": [
+    "Explain why AI systems need math without turning it into school math.",
+    "Describe vectors, matrices, dot products, probability, statistics, gradients, and gradient descent in plain English.",
+    "Use tiny Python examples to represent similarity, uncertainty, summaries, and improvement direction.",
+    "Connect math ideas to embeddings, recommendations, classifiers, and model training.",
+    "Build a practical Math Forge report that explains an AI system using visual mental models."
+  ],
+  "bossBattle": {
+    "slug": "math-forge-boss-battle",
+    "title": "Mini Project: Boss Battle - Math Forge",
+    "description": "Prove you can connect vectors, matrices, similarity, probability, statistics, and gradients.",
+    "xpReward": 750,
+    "required": true
+  },
+  "curatedResources": [
+    {
+      "title": "3Blue1Brown Neural Networks / Deep Learning Visual Series",
+      "provider": "3Blue1Brown",
+      "url": "https://www.3blue1brown.com/topics/neural-networks",
+      "type": "playlist",
+      "level": "Beginner-Intermediate",
+      "placement": "Use for visual intuition across vectors, matrices, and similarity.",
+      "why": "Watch this when abstract math concepts feel confusing; the visuals make structure and direction clear.",
+      "required": false,
+      "whenToUse": "Use in Math Forge when introducing vectors, matrices, dot products, and gradients."
+    }
+  ],
+  "lessons": [
+    {
+      "title": "Quest: Why Math Matters in AI",
+      "slug": "why-math-matters-in-ai",
+      "file": "lesson-01-why-math-matters-in-ai.mdx",
+      "order": 1,
+      "type": "lesson",
+      "description": "See math as the hidden language AI uses to measure the world.",
+      "estimatedMinutes": 25,
+      "checklist": [
+        "I can explain why AI needs numbers.",
+        "I can connect math to measurement, comparison, and improvement.",
+        "I can name one AI feature where math appears under the hood."
+      ],
+      "questions": [
+        "Why does AI need to turn real-world things into numbers?",
+        "What is one place math appears in an AI product?"
+      ],
+      "curatedResources": [
+        {
+          "title": "3Blue1Brown Neural Networks / Deep Learning Visual Series",
+          "provider": "3Blue1Brown",
+          "url": "https://www.3blue1brown.com/topics/neural-networks",
+          "type": "playlist",
+          "level": "Beginner",
+          "placement": "Use when learning why AI uses numerical representations.",
+          "why": "The series helps connect geometric intuition to practical AI representation choices.",
+          "required": false,
+          "whenToUse": "Before moving from intuition to vectors in lesson 2."
+        }
+      ]
+    },
+    {
+      "title": "Quest: Vectors in Plain English",
+      "slug": "vectors-in-plain-english",
+      "file": "lesson-02-vectors-in-plain-english.mdx",
+      "order": 2,
+      "type": "lesson",
+      "description": "Understand vectors as lists of numbers that represent meaning or direction.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can define a vector in plain English.",
+        "I can explain how vectors can represent meaning.",
+        "I can create a tiny vector in Python."
+      ],
+      "questions": [
+        "What does a vector represent in an AI system?",
+        "Why are embeddings often stored as vectors?"
+      ],
+      "curatedResources": [
+        {
+          "title": "3Blue1Brown Neural Networks / Deep Learning Visual Series",
+          "provider": "3Blue1Brown",
+          "url": "https://www.3blue1brown.com/topics/neural-networks",
+          "type": "playlist",
+          "level": "Beginner",
+          "placement": "Use before writing first vector math examples.",
+          "why": "This resource builds geometric intuition for vectors and embeddings.",
+          "required": false,
+          "whenToUse": "Review before comparing vector examples and similarity concepts."
+        }
+      ]
+    },
+    {
+      "title": "Quest: Matrices in Plain English",
+      "slug": "matrices-in-plain-english",
+      "file": "lesson-03-matrices-in-plain-english.mdx",
+      "order": 3,
+      "type": "lesson",
+      "description": "Use matrices as tables of numbers AI uses for computation.",
+      "estimatedMinutes": 30,
+      "checklist": [
+        "I can define a matrix as a table of numbers.",
+        "I can identify rows, columns, and shape.",
+        "I can explain why shape matters in AI code."
+      ],
+      "questions": [
+        "How is a matrix different from a vector?",
+        "Why does matrix shape matter when working with model inputs?"
+      ],
+      "curatedResources": [
+        {
+          "title": "3Blue1Brown Neural Networks / Deep Learning Visual Series",
+          "provider": "3Blue1Brown",
+          "url": "https://www.3blue1brown.com/topics/neural-networks",
+          "type": "playlist",
+          "level": "Beginner",
+          "placement": "Use before moving from vectors to matrix-style batching and transformations.",
+          "why": "The visuals help connect matrices to AI’s multi-vector computation workflows.",
+          "required": false,
+          "whenToUse": "Review before later matrix examples in embeddings and retrieval."
+        }
+      ]
+    },
+    {
+      "title": "Quest: Dot Products and Similarity",
+      "slug": "dot-products-and-similarity",
+      "file": "lesson-04-dot-products-and-similarity.mdx",
+      "order": 4,
+      "type": "lesson",
+      "description": "Use dot products as a practical way to compare direction and similarity.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can explain dot product as a similarity signal.",
+        "I can calculate a tiny dot product.",
+        "I can connect dot products to search and recommendations."
+      ],
+      "questions": [
+        "Why does direction matter when comparing two vectors?",
+        "Where does similarity scoring appear in AI products?"
+      ],
+      "curatedResources": [
+        {
+          "title": "3Blue1Brown Neural Networks / Deep Learning Visual Series",
+          "provider": "3Blue1Brown",
+          "url": "https://www.3blue1brown.com/topics/neural-networks",
+          "type": "playlist",
+          "level": "Beginner",
+          "placement": "Use before applying dot products to recommendations or retrieval tasks.",
+          "why": "The visuals explain overlap and directional alignment clearly.",
+          "required": false,
+          "whenToUse": "Use before completing similarity drills in this module."
+        }
+      ]
+    },
+    {
+      "title": "Quest: Probability for AI",
+      "slug": "probability-for-ai",
+      "file": "lesson-05-probability-for-ai.mdx",
+      "order": 5,
+      "type": "lesson",
+      "description": "Treat probability as how likely something is, not as abstract formulas.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can explain probability as likelihood.",
+        "I can read simple confidence scores carefully.",
+        "I can name one risk of treating probability as certainty."
+      ],
+      "questions": [
+        "Why is probability useful for AI predictions?",
+        "What can go wrong when a probability score is treated as a guarantee?"
+      ]
+    },
+    {
+      "title": "Quest: Statistics for AI",
+      "slug": "statistics-for-ai",
+      "file": "lesson-06-statistics-for-ai.mdx",
+      "order": 6,
+      "type": "lesson",
+      "description": "Summarize data with practical statistics that help you understand inputs.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can explain mean, median, spread, and outliers.",
+        "I can summarize a small dataset in Python.",
+        "I can connect statistics to data quality."
+      ],
+      "questions": [
+        "How do summary statistics help before training a model?",
+        "Why can an average hide important data problems?"
+      ]
+    },
+    {
+      "title": "Quest: Derivatives and Gradients",
+      "slug": "derivatives-and-gradients",
+      "file": "lesson-07-derivatives-and-gradients.mdx",
+      "order": 7,
+      "type": "lesson",
+      "description": "Understand gradients as direction of improvement.",
+      "estimatedMinutes": 35,
+      "checklist": [
+        "I can define a gradient in plain English.",
+        "I can connect slope to improvement direction.",
+        "I can explain why models need direction, not just a final answer."
+      ],
+      "questions": [
+        "What does a gradient tell a model during training?",
+        "Why is direction useful when trying to reduce errors?"
+      ],
+      "curatedResources": [
+        {
+          "title": "3Blue1Brown Neural Networks / Deep Learning Visual Series",
+          "provider": "3Blue1Brown",
+          "url": "https://www.3blue1brown.com/topics/neural-networks",
+          "type": "playlist",
+          "level": "Beginner",
+          "placement": "Use before your first optimization intuition pass.",
+          "why": "Great visual explanation of direction and optimization flow.",
+          "required": false,
+          "whenToUse": "Review before grading gradient-descent examples."
+        }
+      ]
+    },
+    {
+      "title": "Quest: Gradient Descent",
+      "slug": "gradient-descent",
+      "file": "lesson-08-gradient-descent.mdx",
+      "order": 8,
+      "type": "lesson",
+      "description": "See gradient descent as the step-by-step process models use to reduce mistakes.",
+      "estimatedMinutes": 40,
+      "checklist": [
+        "I can explain gradient descent without formulas.",
+        "I can describe learning rate as step size.",
+        "I can identify why too-large or too-small steps are a problem."
+      ],
+      "questions": [
+        "How does gradient descent help a model improve?",
+        "Why does step size matter?"
+      ]
+    },
+    {
+      "title": "Portfolio Project: Math Forge Field Guide",
+      "slug": "math-forge-field-guide",
+      "file": "project.mdx",
+      "order": 9,
+      "type": "project",
+      "description": "Create a beginner-friendly visual guide that explains the math behind one AI feature.",
+      "estimatedMinutes": 90,
+      "checklist": [
+        "I can explain an AI feature using practical math concepts.",
+        "I can include one small code example.",
+        "I can make the explanation visual and beginner-friendly."
+      ],
+      "questions": [
+        "Which AI feature did you explain?",
+        "Which math concepts did your guide use?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Mini Project: Boss Battle - Math Forge",
+      "slug": "math-forge-boss-battle",
+      "file": "boss-battle.mdx",
+      "order": 10,
+      "type": "project",
+      "description": "Prove you can connect vectors, matrices, similarity, probability, statistics, and gradients.",
+      "estimatedMinutes": 75,
+      "checklist": [
+        "I can solve the Boss Battle prompts in plain English.",
+        "I can justify which math idea fits each AI scenario.",
+        "I can explain my answers without relying on textbook language."
+      ],
+      "questions": [
+        "Which math concept felt most useful for AI?",
+        "Which concept needs another pass before machine learning?"
+      ],
+      "quizQuestions": []
+    },
+    {
+      "title": "Knowledge Trial: Math for AI",
+      "slug": "math-for-ai-knowledge-trial",
+      "file": "quiz.mdx",
+      "order": 11,
+      "type": "quiz",
+      "quizMode": "short-answer",
+      "description": "Check that you can explain practical AI math in your own words.",
+      "estimatedMinutes": 25,
+      "checklist": [
+        "I can explain vectors, matrices, similarity, probability, statistics, and gradients.",
+        "I can connect math ideas to AI product behavior.",
+        "I can move into Data for AI with practical confidence."
+      ],
+      "questions": [
+        "How do vectors and dot products work together in AI search?",
+        "How does gradient descent reduce model mistakes?"
+      ],
+      "quizQuestions": [
+        {
+          "id": "vectors-and-meaning",
+          "prompt": "Explain how vectors can represent meaning in an AI system.",
+          "correctAnswer": "A vector is a list of numbers that represents features, meaning, or direction. AI systems use vectors such as embeddings so similar items can be compared mathematically.",
+          "keywords": ["list of numbers", "meaning", "similar"],
+          "rubric": [
+            {
+              "id": "vector-definition",
+              "label": "Defines a vector as numbers",
+              "required": true,
+              "terms": ["numbers"]
+            },
+            {
+              "id": "meaning-representation",
+              "label": "Connects vectors to meaning or features",
+              "required": true,
+              "terms": ["meaning"]
+            },
+            {
+              "id": "ai-comparison",
+              "label": "Mentions comparison or similarity",
+              "required": false,
+              "terms": ["similar", "compare"],
+              "minMatch": 1
+            }
+          ],
+          "passingScore": 2
+        },
+        {
+          "id": "dot-product-similarity",
+          "prompt": "Why is a dot product useful when comparing two AI vectors?",
+          "correctAnswer": "A dot product combines matching positions in two vectors to produce a similarity signal, so AI systems can rank items that point in a similar direction.",
+          "keywords": ["similarity", "direction", "rank"],
+          "rubric": [
+            {
+              "id": "similarity",
+              "label": "Names similarity as the goal",
+              "required": true,
+              "terms": ["similar"]
+            },
+            {
+              "id": "direction",
+              "label": "Mentions direction or alignment",
+              "required": false,
+              "terms": ["direction", "align"],
+              "minMatch": 1
+            },
+            {
+              "id": "product-use",
+              "label": "Connects to search, ranking, or recommendation",
+              "required": false,
+              "terms": ["search", "rank", "recommend"],
+              "minMatch": 1
+            }
+          ],
+          "passingScore": 2
+        },
+        {
+          "id": "gradient-descent",
+          "prompt": "Explain gradient descent in plain English.",
+          "correctAnswer": "Gradient descent is a step-by-step way for a model to reduce mistakes by moving in the direction that lowers error, using a learning rate as the step size.",
+          "keywords": ["reduce mistakes", "direction", "step size"],
+          "rubric": [
+            {
+              "id": "reduces-error",
+              "label": "Says the model reduces error or mistakes",
+              "required": true,
+              "terms": ["mistake", "error"]
+            },
+            {
+              "id": "direction",
+              "label": "Mentions direction of improvement",
+              "required": true,
+              "terms": ["direction"]
+            },
+            {
+              "id": "step-size",
+              "label": "Mentions step size or learning rate",
+              "required": false,
+              "terms": ["step", "learning rate"],
+              "minMatch": 1
+            }
+          ],
+          "passingScore": 2
+        }
+      ]
+    }
+  ]
+}

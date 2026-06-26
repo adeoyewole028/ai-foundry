@@ -4,12 +4,12 @@ export default function LessonNotFoundPage() {
   return (
     <main id="main-content" className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <section className="rounded-xl border border-rule bg-surface p-6">
-        <p className="font-mono text-sm font-semibold uppercase text-accent">Lesson not found</p>
+        <p className="font-mono text-sm font-semibold uppercase text-accent">Quest not found</p>
         <h1 className="mt-3 text-3xl font-black tracking-[-0.03em] text-ink">
-          This lesson is not available.
+          This quest is not available.
         </h1>
         <p className="mt-3 text-ink-soft">
-          If this is a typo in the link, check the curriculum index and open the lesson from there.
+          If this is a typo in the link, check the curriculum index and open the quest from there.
         </p>
         <Link
           href="/curriculum"

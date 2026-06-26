@@ -1,0 +1,68 @@
+# Portfolio Project: Resume Analyzer
+
+## Objective
+
+By the end of this project, you will build a production-minded resume analysis flow.
+
+## Prerequisites
+
+Before this project, you should complete all Module 06 lessons and mini-project review.
+
+## Plain-English Explanation
+
+This project turns model output into useful actions with strict shape and quality checks.
+
+## Key Terms
+
+### Human-in-the-loop
+
+Simple meaning:
+Human review for risky cases.
+
+Real-world analogy:
+Auto-suggested edits that still need editor approval.
+
+Technical meaning:
+A control mechanism when confidence is low or schema is invalid.
+
+Example:
+Flag low-confidence resume parsing results for analyst review.
+
+Why it matters:
+Prevents silent bad decisions from automation.
+
+## Mental Model
+
+Build: Parse input → call tools → return structured scoring → route to fallback if needed.
+
+## Example
+
+Analyze resumes against a role profile and produce match score with rationale.
+
+## Code Walkthrough
+
+Create schema contracts, tool calls, eval tests, and a manual review path.
+
+## Common Mistakes
+
+- No audit trail.
+- Over-trusting generic prompt outputs.
+- Missing data redaction.
+
+## Exercise
+
+Draft a scorecard with three objective criteria.
+
+## Reflection
+
+How do you make this trustworthy for users and hiring teams?
+
+## Further Reading
+
+- [Structured workflows for LLM apps](https://docs.llamaindex.ai/en/stable/examples/llm_json/)
+
+## Completion Checklist
+
+- [ ] I can run end-to-end parse and route.
+- [ ] I can handle failures transparently.
+- [ ] I can evaluate quality over several sample inputs.

@@ -1,16 +1,22 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, ClipboardList, FileText, Lock, X } from "lucide-react";
+import { CheckCircle2, ClipboardList, FileText, Lock } from "lucide-react";
 import type { LessonMeta, ModuleMeta } from "@/lib/content";
 import type { LessonProgressState } from "@/lib/lesson-progress-core.js";
 import type { ProjectSubmission } from "@/lib/supabase/project-submissions";
 import { getFirstLockedLessonIndex, isLessonCompleted, lessonProgressEventName, readLessonProgress } from "@/lib/lesson-progress";
 import { getLessonAccessState } from "@/lib/lesson-progress-core.js";
+import { ProgressInterruptionModal } from "@/components/curriculum/progress-interruption-modal";
 
 type UseLessonProgressParams = {
   moduleSlug: string;
   initialProgress?: LessonProgressState;
+};
+
+type BossBattleState = {
+  lessonSlug: string;
+  source: "metadata" | "legacy-slug" | "fallback";
 };
 
 const lessonIcons = {
@@ -18,6 +24,11 @@ const lessonIcons = {
   quiz: CheckCircle2,
   project: ClipboardList
 };
+const lessonTypeLabels = {
+  lesson: "Quest",
+  quiz: "Knowledge Trial",
+  project: "Build Mission"
+} as const;
 
 function useLessonProgress({
   moduleSlug,
@@ -58,12 +69,14 @@ export function LessonList({
   module,
   activeLessonSlug,
   initialProgress,
-  projectSubmissions = []
+  projectSubmissions = [],
+  bossBattle
 }: {
   module: ModuleMeta;
   activeLessonSlug?: string;
   initialProgress?: LessonProgressState;
   projectSubmissions?: ProjectSubmission[];
+  bossBattle?: BossBattleState | null;
 }) {
   const progress = useLessonProgress({
     moduleSlug: module.slug,
@@ -71,6 +84,9 @@ export function LessonList({
   });
   const firstLockedIndex = getFirstLockedLessonIndex(module, progress);
   const maxUnlockedIndex = firstLockedIndex === -1 ? module.lessons.length - 1 : Math.max(0, firstLockedIndex);
+  const bossBattleLesson = bossBattle
+    ? module.lessons.find((lesson) => lesson.slug === bossBattle.lessonSlug)
+    : null;
   const [pendingRedirect, setPendingRedirect] = useState<PendingRedirect | null>(null);
   const projectSubmissionByLesson = useMemo(() => {
     return new Map(
@@ -89,6 +105,12 @@ export function LessonList({
           ? projectSubmissionByLesson.get(lessonKey)
           : null;
         const Icon = lessonIcons[lesson.type];
+        const isBossBattle = lesson.slug === bossBattleLesson?.slug;
+        const lessonTypeLabel = isBossBattle
+          ? bossBattle?.source === "fallback"
+            ? "Final Mission"
+            : "Boss Battle"
+          : lessonTypeLabels[lesson.type];
         const index = module.lessons.findIndex((item) => item.slug === lesson.slug);
         const lessonAccess = getLessonAccessState(module, lesson.slug, progress);
         const isLessonUnlocked =
@@ -101,13 +123,15 @@ export function LessonList({
         const isActive = lesson.slug === activeLessonSlug;
         const requiredLesson = lessonAccess?.requiredLesson ?? null;
         const href = isLessonUnlocked
-          ? `/curriculum/${module.slug}/${lesson.slug}`
+          ? isBossBattle
+            ? `/curriculum/${module.slug}/boss-battle`
+            : `/curriculum/${module.slug}/${lesson.slug}`
           : requiredLesson
             ? `/curriculum/${module.slug}/${requiredLesson.slug}`
             : `/curriculum/${module.slug}`;
         const lockedCopy = requiredLesson
-          ? `Continue with "${requiredLesson.title}" first.`
-          : "Complete earlier lessons to unlock.";
+          ? `Finish "${requiredLesson.title}" before continuing this quest.`
+          : "Complete earlier quests to unlock your path.";
 
         return isLessonUnlocked ? (
           <li key={lesson.slug}>
@@ -117,14 +141,19 @@ export function LessonList({
                   ? "border-accent/50 bg-accent-soft text-ink"
                   : "border-rule bg-surface text-ink-soft hover:border-accent/40 hover:text-ink"
               }`}
-              href={`/curriculum/${module.slug}/${lesson.slug}`}
+              href={href}
             >
               <Icon className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
               <span className="min-w-0">
                 <span className="block font-semibold">{lesson.title}</span>
                 <span className="mt-1 block font-mono text-xs text-ink-soft">
-                  {lesson.estimatedMinutes} min / {lesson.type}
+                  {lesson.estimatedMinutes} min / {lessonTypeLabel}
                 </span>
+                {isBossBattle ? (
+                  <span className="mt-1 block font-mono text-xs text-accent">
+                    Boss Battle
+                  </span>
+                ) : null}
                 {projectSubmission ? (
                   <span className="mt-1 block font-semibold text-accent">
                     Submitted
@@ -149,6 +178,14 @@ export function LessonList({
               <Lock className="mt-0.5 size-4 shrink-0 text-ink-soft/75" aria-hidden="true" />
               <span className="min-w-0">
                 <span className="block font-semibold">{lesson.title}</span>
+                <span className="mt-1 block font-mono text-xs text-ink-soft">
+                  {lesson.estimatedMinutes} min / {lessonTypeLabel}
+                </span>
+                {isBossBattle ? (
+                  <span className="mt-1 block font-mono text-xs text-accent">
+                    Boss Battle
+                  </span>
+                ) : null}
                 {projectSubmission ? (
                   <span className="mt-1 block font-mono text-xs text-accent">
                     Submitted
@@ -163,54 +200,16 @@ export function LessonList({
         );
       })}
       {pendingRedirect ? (
-        <div
-          aria-labelledby="locked-lesson-title"
-          aria-modal="true"
-          className="fixed inset-0 z-50 grid place-items-center bg-ink/30 px-4 backdrop-blur-sm"
-          role="dialog"
-        >
-          <div className="w-full max-w-md rounded-lg border border-rule bg-surface p-5 shadow-[var(--shadow-soft)]">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-2 text-sm font-semibold text-accent">
-                <Lock className="size-4" aria-hidden="true" />
-                Lesson locked
-              </div>
-              <button
-                aria-label="Close"
-                className="inline-flex size-9 items-center justify-center rounded-full border border-rule bg-paper text-ink-soft transition hover:border-accent/50 hover:text-ink"
-                onClick={() => setPendingRedirect(null)}
-                type="button"
-              >
-                <X className="size-4" aria-hidden="true" />
-              </button>
-            </div>
-            <h2 id="locked-lesson-title" className="mt-3 text-2xl font-black tracking-[-0.03em] text-ink">
-              Continue in order
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-ink-soft">
-              <span className="font-semibold text-ink">{pendingRedirect.lessonTitle}</span> is not unlocked yet.
-            </p>
-            <p className="mt-3 text-sm leading-6 text-ink-soft">{pendingRedirect.lockedCopy}</p>
-            <div className="mt-6 flex flex-wrap justify-end gap-3">
-              <button
-                className="inline-flex min-h-11 items-center rounded-full border border-rule bg-surface px-4 text-sm font-semibold text-ink transition hover:border-accent/50"
-                onClick={() => setPendingRedirect(null)}
-                type="button"
-              >
-                Cancel
-              </button>
-              <Link
-                className="inline-flex min-h-11 min-w-32 items-center justify-center gap-2 rounded-full px-4 text-sm font-semibold transition"
-                href={pendingRedirect.href}
-                style={{ backgroundColor: "var(--color-ink)", color: "var(--color-surface)" }}
-                onClick={() => setPendingRedirect(null)}
-              >
-                <span>Continue</span>
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
-        </div>
+        <ProgressInterruptionModal
+          continueLabel="Continue current quest"
+          continueHref={pendingRedirect.href}
+          description={`You can’t open "${pendingRedirect.lessonTitle}" yet.`}
+          progressHint="Complete the current module steps in order so quiz and project checkpoints unlock as you go."
+          onClose={() => setPendingRedirect(null)}
+          open={Boolean(pendingRedirect)}
+          supportingText={`Why blocked: ${pendingRedirect.lockedCopy}`}
+          title="Quest locked"
+        />
       ) : null}
     </ol>
   );

@@ -1,0 +1,78 @@
+# Quest: Derivatives and Gradients
+
+## Objective
+
+By the end of this quest, you will be able to explain gradients as direction of improvement.
+
+## Prerequisites
+
+Before this lesson, you should understand that model training tries to reduce mistakes.
+
+## Plain-English Explanation
+
+A derivative tells you how something changes. A gradient tells a model which direction to move to improve.
+
+You do not need to solve calculus problems right now. You need the product intuition: gradients are signals that point toward lower error.
+
+## Key Terms
+
+### Gradient
+
+Simple meaning:
+Direction of improvement.
+
+Real-world analogy:
+Walking downhill in fog by feeling which way the ground slopes.
+
+Technical meaning:
+A collection of partial derivatives that indicates the direction of steepest increase for a function.
+
+Example:
+During training, a gradient tells the model how to adjust weights to reduce loss.
+
+Why it matters:
+Models need directional feedback to improve step by step.
+
+## Mental Model
+
+Picture a valley. The model is standing somewhere on a hill of mistakes. The gradient tells it which way the slope points.
+
+## Example
+
+If changing a model weight makes error go down, the gradient helps the training process keep moving in that useful direction.
+
+## Code Walkthrough
+
+```python
+current_error = 10
+next_error = 7
+
+change = next_error - current_error
+print(change)
+```
+
+A negative change means the error went down. Real gradients calculate this direction more carefully across many weights.
+
+## Common Mistakes
+
+- Thinking gradients are only abstract calculus.
+- Forgetting that gradients are used to update model weights.
+- Confusing direction with the final answer.
+
+## Exercise
+
+Write a short story where a model uses a "direction signal" to reduce mistakes after each attempt.
+
+## Reflection
+
+Why is direction more useful than guessing random changes during model training?
+
+## Further Reading
+
+- [3Blue1Brown: Gradient descent](https://www.3blue1brown.com/lessons/gradient-descent)
+
+## Completion Checklist
+
+- [ ] I can define a gradient as direction of improvement.
+- [ ] I can connect gradients to model training.
+- [ ] I can explain why a model needs directional feedback.

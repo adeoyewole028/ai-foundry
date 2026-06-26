@@ -1,5 +1,5 @@
 import { ProgressNavButton } from "@/components/layout/progress-nav-button";
-import { getModules } from "@/lib/content";
+import { getModules } from "@/lib/content.server";
 import { getCurrentUserLessonProgress } from "@/lib/supabase/progress";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import Link from "next/link";
@@ -39,7 +39,12 @@ export async function SiteFooter() {
         >
           Projects
         </ProgressNavButton>
-        <span>Open curriculum draft</span>
+        <Link
+          className="hover:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          href="/curriculum"
+        >
+          Learning roadmap
+        </Link>
       </nav>
     </footer>
   );

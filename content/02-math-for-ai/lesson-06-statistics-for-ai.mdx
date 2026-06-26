@@ -1,0 +1,76 @@
+# Quest: Statistics for AI
+
+## Objective
+
+By the end of this quest, you will be able to explain statistics as how we summarize data.
+
+## Prerequisites
+
+Before this lesson, you should understand that AI learns from data and that data can be messy.
+
+## Plain-English Explanation
+
+Statistics helps you summarize what is happening in data before you trust it. Instead of reading every row, you look at patterns like average, spread, missing values, and outliers.
+
+## Key Terms
+
+### Statistics
+
+Simple meaning:
+Ways to summarize data.
+
+Real-world analogy:
+Checking a class average, highest score, lowest score, and unusual scores before judging the exam.
+
+Technical meaning:
+Methods for describing, analyzing, and drawing conclusions from data.
+
+Example:
+Finding average delivery time and spotting unusually late deliveries.
+
+Why it matters:
+AI teams use statistics to understand data quality before modeling.
+
+## Mental Model
+
+Statistics is the inspection lamp in the Math Forge. It helps you see cracks in the raw material before building with it.
+
+## Example
+
+If user ages average `34`, but one row says `999`, statistics helps you catch the outlier before a model learns from it.
+
+## Code Walkthrough
+
+```python
+ages = [22, 25, 31, 34, 999]
+
+average = sum(ages) / len(ages)
+print(average)
+print(max(ages))
+```
+
+The high maximum warns you that the average may be misleading.
+
+## Common Mistakes
+
+- Trusting averages without checking outliers.
+- Ignoring missing values.
+- Summarizing the full dataset but not checking important groups separately.
+
+## Exercise
+
+Create a list of numbers and calculate the average, minimum, and maximum.
+
+## Reflection
+
+Why can a single average hide a serious data problem?
+
+## Further Reading
+
+- [Google Machine Learning Crash Course: Data preparation](https://developers.google.com/machine-learning/data-prep)
+
+## Completion Checklist
+
+- [ ] I can explain statistics as data summaries.
+- [ ] I can calculate a simple average and inspect extremes.
+- [ ] I can explain how statistics helps data quality.
